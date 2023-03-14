@@ -496,7 +496,7 @@ public abstract class GameMainActivity extends Activity implements
         // Set myself as the listener for the buttons
         View v = findViewById(R.id.addPlayerButton);
         v.setOnClickListener(this);
-        v = findViewById(R.id.saveConfigButton);
+        v = findViewById(R.id.runTest);
         v.setOnClickListener(this);
         v = findViewById(R.id.playGameButton);
         v.setOnClickListener(this);
@@ -586,7 +586,7 @@ public abstract class GameMainActivity extends Activity implements
         }// else if (delete button)
 
         //Save Config Button
-        else if (button.getId() == R.id.saveConfigButton) {
+        else if (button.getId() == R.id.runTest) {
             GameConfig configTemp = scrapeData();
             if (configTemp.saveConfig(saveFileName(), this)) {
                 MessageBox.popUpMessage(getString(R.string.Saved_Config_Msg), this);
