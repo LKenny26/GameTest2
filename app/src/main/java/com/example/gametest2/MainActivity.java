@@ -1,11 +1,9 @@
 package com.example.gametest2;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.example.GameFramework.GameMainActivity;
@@ -19,7 +17,7 @@ public class MainActivity extends GameMainActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
 
-        Button runTest = findViewById(R.id.runTest);
+        Button runTest = findViewById(R.id.configButton);
         runTest.setOnClickListener();
     }
 
