@@ -10,22 +10,41 @@ public class GameState {
     ArrayList <Integer> numbers;
     //maybe put into a hashable? might be easier to assign a letter to a tile
     //counter
-    int score = 0;
+    int score;
     //state of resources
-    boolean tilePlayed = false;
-    boolean spellCheck = false;
+    boolean tilePlayed;
+    boolean spellCheck;
     //taking turns
-    boolean firstPlayerTurn = true;
-    boolean aiTurn = false;
-    boolean secondPlayerTurn = false;
-    boolean thirdPlayerTurn = false;
-    boolean fourthPlayerTurn = false;
-    boolean playerVisible = true;
+    boolean firstPlayerTurn;
+    boolean aiTurn;
+    boolean secondPlayerTurn;
+    boolean thirdPlayerTurn;
+    boolean fourthPlayerTurn;
+    boolean playerVisible;
     //paint obj for playing board
-    Paint[][] board = new Paint[15][15];
+    Paint[][] board;
     //players cant see another players letter
-    boolean tilesVisible = false;
-    boolean scoreboardVisible = true;
+    boolean tilesVisible;
+    boolean scoreboardVisible;
+    boolean tilePlaced;
+    int tileCountPlaced;
 
     Paint tileToPlay;
+    public GameState(){
+        board = new Paint[15][15];
+        score = 0;
+        tilePlayed = true;
+        spellCheck = false;
+        firstPlayerTurn = true;
+        aiTurn = false;
+        secondPlayerTurn = false;
+        thirdPlayerTurn = false;
+        fourthPlayerTurn = false;
+        playerVisible = true;
+        tilesVisible = true;
+        scoreboardVisible = true;
+        tileToPlay = new Paint();
+        tilePlaced = false;
+        tileCountPlaced = 0;
+    }
 }
