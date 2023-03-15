@@ -41,8 +41,6 @@ public class GameState {
     public static final int ai_stupid_Id = 2;
     public static final int ai_smart_Id = 2;
 
-
-
     //action methods
     public boolean playTile(){
         tilePlaced = true;
@@ -51,4 +49,11 @@ public class GameState {
         return tilePlaced;
     }
 
+    public boolean spelling(){
+        Set<String> dictionary = new HashSet<>();
+        if(dictionary.contains(wordMade)){
+            spellCheck = true;
+        }
+        return spellCheck;
+    }
 }
