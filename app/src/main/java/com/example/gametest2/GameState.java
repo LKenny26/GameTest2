@@ -47,4 +47,22 @@ public class GameState {
         tilePlaced = false;
         tileCountPlaced = 0;
     }
+
+    @Override
+    public String toString() {
+        String gameStateString;
+        gameStateString = "Score: " + score + "\n";
+        gameStateString = gameStateString + "Tile Played? " + Boolean.toString(tilePlayed) + "\n";
+        gameStateString = gameStateString + "Spell Check Worked? " + Boolean.toString(spellCheck) + "\n";
+        gameStateString = gameStateString + "First Player Turn? " + Boolean.toString(firstPlayerTurn) + "\n";
+        gameStateString = gameStateString + "Second Player Turn? " + Boolean.toString(secondPlayerTurn) + "\n";
+        gameStateString = gameStateString + "Third Player Turn? " + Boolean.toString(thirdPlayerTurn) + "\n";
+        gameStateString = gameStateString + "Fourth Player Turn? " + Boolean.toString(fourthPlayerTurn) + "\n";
+        gameStateString = gameStateString + "AI Player Turn? " + Boolean.toString(aiTurn) + "\n";
+        gameStateString = gameStateString + "Correct Player Playing? " + Boolean.toString(playerVisible) + "\n";
+        gameStateString = gameStateString + "Was a tile placed? " + Boolean.toString(tilePlaced) + "\n";
+        gameStateString = gameStateString + "How many tiles placed? " + tileCountPlaced + "\n";
+
+        return gameStateString;
+    }
 }

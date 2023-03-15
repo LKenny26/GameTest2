@@ -25,7 +25,7 @@ public class MainActivity extends GameMainActivity {
         Button runTest = findViewById(R.id.runTestButton);
         runTest.setOnClickListener(gc);
 
-        EditText et = findViewById(R.id.multiLineText);
+        gm.et = findViewById(R.id.multiLineText);
     }
 
     @Override
