@@ -3,6 +3,8 @@ package com.example.gametest2;
 import android.graphics.Paint;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameState {
     ArrayList<Character> tiles;
@@ -12,7 +14,6 @@ public class GameState {
     //counter
     int score;
     //state of resources
-    boolean tilePlayed;
     boolean spellCheck;
     //taking turns
     boolean firstPlayerTurn;
@@ -28,24 +29,32 @@ public class GameState {
     boolean scoreboardVisible;
     boolean tilePlaced;
     int tileCountPlaced;
+    ArrayList<String> wordMade;
 
     Paint tileToPlay;
-    public GameState(){
-        board = new Paint[15][15];
-        score = 0;
-        tilePlayed = true;
-        spellCheck = false;
-        firstPlayerTurn = true;
-        aiTurn = false;
-        secondPlayerTurn = false;
-        thirdPlayerTurn = false;
-        fourthPlayerTurn = false;
-        playerVisible = true;
-        tilesVisible = true;
-        scoreboardVisible = true;
-        tileToPlay = new Paint();
-        tilePlaced = false;
-        tileCountPlaced = 0;
+    //players:
+    public static final int player1Id = 1;
+    public static final int player2Id = 2;
+    public static final int player3Id = 3;
+    public static final int player4Id = 4;
+
+    public static final int ai_stupid_Id = 2;
+    public static final int ai_smart_Id = 2;
+
+    //action methods
+    public boolean playTile(){
+        tilePlaced = true;
+        tileCountPlaced ++;
+        //need to remove tile from the two arrays and attach character to wordMade
+        return tilePlaced;
+    }
+
+    public boolean spelling(){
+        Set<String> dictionary = new HashSet<>();
+        if(dictionary.contains(wordMade)){
+            spellCheck = true;
+        }
+        return spellCheck;
     }
 
     @Override
