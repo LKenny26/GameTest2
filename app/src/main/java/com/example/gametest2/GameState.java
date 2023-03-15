@@ -61,7 +61,6 @@ public class GameState {
     public String toString() {
         String gameStateString;
         gameStateString = "Score: " + score + "\n";
-        gameStateString = gameStateString + "Tile Played? " + Boolean.toString(tilePlayed) + "\n";
         gameStateString = gameStateString + "Spell Check Worked? " + Boolean.toString(spellCheck) + "\n";
         gameStateString = gameStateString + "First Player Turn? " + Boolean.toString(firstPlayerTurn) + "\n";
         gameStateString = gameStateString + "Second Player Turn? " + Boolean.toString(secondPlayerTurn) + "\n";
