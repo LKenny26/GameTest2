@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GameState {
-    ArrayList<Character> tiles;
+    //ArrayList<Character> tiles;
     //points per tile
-    ArrayList <Integer> numbers;
+    //ArrayList <Integer> numbers;
     //maybe put into a hashable? might be easier to assign a letter to a tile
     //counter
     int score;
@@ -50,6 +50,7 @@ public class GameState {
     }
 
     public boolean spelling(){
+        //need to complete
         Set<String> dictionary = new HashSet<>();
         if(dictionary.contains(wordMade)){
             spellCheck = true;
