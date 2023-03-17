@@ -20,4 +20,8 @@ public class Tiles implements TileDataBase{
     public boolean removeTile(String letter, int key) {
         return true;
     }
+
+    public Hashtable getHashtable(){
+        return tile;
+    }
 }
