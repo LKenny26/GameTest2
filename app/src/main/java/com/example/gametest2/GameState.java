@@ -9,7 +9,7 @@ import java.util.Set;
 public class GameState {
     ArrayList<Character> tiles;
     //points per tile
-    ArrayList <Integer> numbers;
+    ArrayList<Integer> numbers;
     //maybe put into a hashable? might be easier to assign a letter to a tile
     //counter
     int score;
@@ -42,13 +42,54 @@ public class GameState {
     public static final int ai_smart_Id = 2;
 
 
-
     //action methods
-    public boolean playTile(){
+    public boolean playTile() {
         tilePlaced = true;
-        tileCountPlaced ++;
+        tileCountPlaced++;
         //need to remove tile from the two arrays and attach character to wordMade
         return tilePlaced;
     }
+
+    //constructor
+    public GameState(int score, boolean spellCheck, boolean tilesVisible, boolean scoreboardVisible, boolean firstPLayerTurn) {
+        this.score = score;
+        this.spellCheck = spellCheck;
+        this.tilesVisible = tilesVisible;
+        this.scoreboardVisible = scoreboardVisible;
+        this.firstPlayerTurn = firstPLayerTurn;
+    }
+
+    public GameState(int score, boolean spellCheck, boolean tilesVisible, boolean firstPlayerTurn, boolean aiTurn, boolean
+            secondPlayerTurn, boolean thirdPlayerTurn, boolean fourthPlayerTurn, boolean scoreboardVisible, GameState game) {
+        this.firstPlayerTurn = firstPlayerTurn;
+        this.score = game.score;
+        this.secondPlayerTurn = secondPlayerTurn;
+        this.thirdPlayerTurn = thirdPlayerTurn;
+        this.firstPlayerTurn = fourthPlayerTurn;
+    }
+
+
+    // getter methods
+    public boolean getFirstPlayerTurn() {
+        return firstPlayerTurn;
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public boolean getSecondPlayerTurn() {
+        return secondPlayerTurn;
+    }
+
+    public boolean getThirdPlayerTurn(){
+        return thirdPlayerTurn;
+    }
+
+    public boolean getFourthPlayerTurn(){
+        return fourthPlayerTurn;
+    }
+
+
 
 }
