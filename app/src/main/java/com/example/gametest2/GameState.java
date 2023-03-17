@@ -2,65 +2,45 @@ package com.example.gametest2;
 
 import android.graphics.Paint;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collections;
+import androidx.annotation.NonNull;
 
 public class GameState {
-    public GameView gameView;
-    public GameModel gameModel;
-    public GameState(GameView gv) {
-        gameView = gv;
-        gameModel = gv.getGameModel();
-    }
     ArrayList<Character> tiles;
     //points per tile
     ArrayList<Character> lettersOfUserWord;
     //word they make
-    ArrayList <Integer> numbers;
-    //ArrayList <Integer> numbers;
+    ArrayList<Integer> numbers;
     //maybe put into a hashable? might be easier to assign a letter to a tile
     //counter
     ArrayList<Character> lettersInHand;
 
-    int score = 0;
-    //state of resources
-
     //instance of tile class
     Tiles tiler = new Tiles();
+    int score;
+    //state of resources
     boolean spellCheck;
     //taking turns
-    boolean firstPlayerTurn = true;
-    boolean aiTurn = false;
-    boolean secondPlayerTurn = false;
-    boolean thirdPlayerTurn = false;
-    boolean fourthPlayerTurn = false;
-    boolean playerVisible = true;
-
-
+    boolean firstPlayerTurn;
+    boolean aiTurn;
+    boolean secondPlayerTurn;
+    boolean thirdPlayerTurn;
+    boolean fourthPlayerTurn;
+    boolean playerVisible;
     //paint obj for playing board
-    Paint[][] board = new Paint[15][15];
+    Paint[][] board;
     //players cant see another players letter
-
-    //holder string for word
-    //need to make this from a scanner
-
-    GameState copy = new GameState();
-// have to make this equal to each character in lettersOfUserWord combined
     boolean tilesVisible;
     boolean scoreboardVisible;
     boolean tilePlaced;
     int tileCountPlaced;
-    //ArrayList<String> wordMade;
+
     String wordMade;
 
     Paint tileToPlay;
-// testing to see if it is a legitimate word
-
-
     //players:
     public static final int player1Id = 1;
     public static final int player2Id = 2;
@@ -70,63 +50,89 @@ public class GameState {
     public static final int ai_stupid_Id = 2;
     public static final int ai_smart_Id = 2;
 
-    public void closeApp(int player) {//closing the app
-        System.exit(0);
-    }
-    //ends turn and goes to next if word is valid
-    public void PlayAWord(ArrayList<String> players,String word,int player){
-        if(isWordInHashtable(word,player)==true){
-            player = (player + 1) % players.size();
-        }
-        else{
-            player = player;
-        }
-    }
 
-    public boolean isTilePlaced(int player) {//checks if its placed
+    public boolean isTilePlaced(int player) {
         tilePlaced = true;
         tileCountPlaced++;
         tiles.remove(tiler);
         return true;
     }
     public boolean isWordInHashtable(String word, int player) {
-        if (tiler.getHashtable().containsKey(word)) {
-            return true;//if its in the hashtable
-        } else {
-            return false;
-        }
-
+        return tiler.getHashtable().containsKey(word);
     }
 
     public ArrayList<Character> ShuffleLettersInHand(ArrayList<Character> replace, int player) {
         Collections.shuffle(replace);
-        return replace;//move around thing-a-majig
+        return replace;
     }
-    //skipppppp
-    public void skipPlayerTurn(ArrayList<String> players, int player) {
-        player = (player + 1) % players.size();
-    }//goes to next turn
 
 
 
-
-
-
-    //action methods
-    public boolean playTile(){
+        //action methods
+    public boolean playTile() {
         tilePlaced = true;
-        tileCountPlaced ++;
-
+        tileCountPlaced++;
         //need to remove tile from the two arrays and attach character to wordMade
         return tilePlaced;
     }
-    //checks if word is in the hashtable
 
     public boolean spelling(){
-        //need to complete
-
         spellCheck = gameModel.spellCheckTable.contains(wordMade);
         return spellCheck;
+    }
+
+    public GameView gameView;
+    public GameModel gameModel;
+    //constructor
+    public GameState(GameView gv) {
+        gameView = gv;
+        gameModel = gv.getGameModel();
+        score = 0;
+        firstPlayerTurn = true;
+        aiTurn = false;
+        secondPlayerTurn = false;
+        thirdPlayerTurn = false;
+        fourthPlayerTurn = false;
+        playerVisible = true;
+        board = new Paint[15][15];
+
+    }
+
+    public GameState(int score, boolean spellCheck, boolean tilesVisible, boolean firstPlayerTurn, boolean aiTurn, boolean
+            secondPlayerTurn, boolean thirdPlayerTurn, boolean fourthPlayerTurn, boolean scoreboardVisible, GameView gv) {
+        this.spellCheck = spellCheck;
+        this.tilesVisible = tilesVisible;
+        this.scoreboardVisible = scoreboardVisible;
+        this.firstPlayerTurn = firstPlayerTurn;
+        this.aiTurn = aiTurn;
+        this.score = score;
+        this.secondPlayerTurn = secondPlayerTurn;
+        this.thirdPlayerTurn = thirdPlayerTurn;
+        this.firstPlayerTurn = fourthPlayerTurn;
+        gameView = gv;
+        gameModel = gv.getGameModel();
+    }
+
+
+    // getter methods
+    public boolean getFirstPlayerTurn() {
+        return firstPlayerTurn;
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public boolean getSecondPlayerTurn() {
+        return secondPlayerTurn;
+    }
+
+    public boolean getThirdPlayerTurn(){
+        return thirdPlayerTurn;
+    }
+
+    public boolean getFourthPlayerTurn(){
+        return fourthPlayerTurn;
     }
 
     @NonNull
@@ -143,7 +149,8 @@ public class GameState {
         gameStateString = gameStateString + "Correct Player Playing? " + Boolean.toString(playerVisible) + "\n";
         gameStateString = gameStateString + "Was a tile placed? " + Boolean.toString(tilePlaced) + "\n";
         gameStateString = gameStateString + "How many tiles placed? " + tileCountPlaced + "\n";
-
         return gameStateString;
     }
 }
+
+
