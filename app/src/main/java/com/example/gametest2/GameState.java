@@ -100,8 +100,6 @@ public class GameState {
     //checks if word is in the hashtable
 
     public boolean spelling(){
-        //need to complete
-
         spellCheck = gameModel.spellCheckTable.contains(wordMade);
         return spellCheck;
     }
