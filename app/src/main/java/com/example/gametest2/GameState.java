@@ -17,6 +17,7 @@ public class GameState {
     //maybe put into a hashable? might be easier to assign a letter to a tile
     //counter
     ArrayList<Character> lettersInHand;
+
     int score = 0;
     //state of resources
 
@@ -63,7 +64,7 @@ public class GameState {
 
     public static final int ai_stupid_Id = 2;
     public static final int ai_smart_Id = 2;
-    public boolean isTilePlaced(int player) {
+    public boolean isTilePlaced(int player) {//checks if its placed
         tilePlaced = true;
         tileCountPlaced++;
         tiles.remove(tiler);
@@ -71,7 +72,7 @@ public class GameState {
     }
     public boolean isWordInHashtable(String word, int player) {
         if (tiler.getHashtable().containsKey(word)) {
-            return true;
+            return true;//if its in the hashtable
         } else {
             return false;
         }
@@ -79,8 +80,12 @@ public class GameState {
 
     public ArrayList<Character> ShuffleLettersInHand(ArrayList<Character> replace, int player) {
         Collections.shuffle(replace);
-        return replace;
+        return replace;//move around thing-a-majig
     }
+    //skipppppp
+    public void skipPlayerTurn(ArrayList<String> players, int player) {
+        player = (player + 1) % players.size();
+    }//goes to next turn
 
 
     //action methods
