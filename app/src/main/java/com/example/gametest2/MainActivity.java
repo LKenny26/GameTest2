@@ -50,6 +50,7 @@ public class MainActivity extends GameMainActivity {
         com.example.gametest2.GameState gs = new com.example.gametest2.GameState(gv);
     }
 
+
     @Override
     public GameConfig createDefaultConfig() {
         return null;
@@ -59,5 +60,6 @@ public class MainActivity extends GameMainActivity {
     public LocalGame createLocalGame(GameState gameState) {
         return null;
     }
+
 
 }
