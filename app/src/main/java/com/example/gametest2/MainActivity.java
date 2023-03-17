@@ -12,6 +12,9 @@ import com.example.GameFramework.LocalGame;
 import com.example.GameFramework.gameConfiguration.GameConfig;
 import com.example.GameFramework.infoMessage.GameState;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class MainActivity extends GameMainActivity {
 
     @Override
@@ -25,7 +28,19 @@ public class MainActivity extends GameMainActivity {
         Button runTest = findViewById(R.id.runTestButton);
         runTest.setOnClickListener(gc);
 
-        EditText et = findViewById(R.id.multiLineText);
+        gm.et = findViewById(R.id.multiLineText);
+
+        try {
+            gm.scan = new Scanner(gm.dictionary);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (gm.scan.hasNextLine()) {
+            gm.spellCheckTable.add(gm.scan.nextLine());
+        }
+
+
+        com.example.gametest2.GameState gs = new com.example.gametest2.GameState(gv);
     }
 
     @Override
