@@ -7,8 +7,9 @@ public class Pieces {
     public char[] letters_for_tiles;
     int key;
     private char letter_selected;
-    public Pieces(Character letter, int key){
+    public Pieces(Character letter, int ikey){
         this.letter_selected = letter;
+        this.key = ikey;
     }
     public void setArray(char[] arr, int initkey){
         letters_for_tiles = new char[100];
