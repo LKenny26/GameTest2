@@ -38,6 +38,9 @@ public class MainActivity extends GameMainActivity {
         while (gm.scan.hasNextLine()) {
             gm.spellCheckTable.add(gm.scan.nextLine());
         }
+
+
+        com.example.gametest2.GameState gs = new com.example.gametest2.GameState(gv);
     }
 
     @Override

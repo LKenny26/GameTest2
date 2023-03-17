@@ -2,6 +2,8 @@ package com.example.gametest2;
 
 import android.graphics.Paint;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -46,7 +48,8 @@ public class GameState {
     boolean scoreboardVisible;
     boolean tilePlaced;
     int tileCountPlaced;
-    ArrayList<String> wordMade;
+    //ArrayList<String> wordMade;
+    String wordMade;
 
     Paint tileToPlay;
 // testing to see if it is a legitimate word
@@ -76,6 +79,7 @@ public class GameState {
         } else {
             return false;
         }
+
     }
 
     public ArrayList<Character> ShuffleLettersInHand(ArrayList<Character> replace, int player) {
@@ -87,6 +91,13 @@ public class GameState {
         player = (player + 1) % players.size();
     }//goes to next turn
 
+
+    public GameView gameView;
+    public GameModel gameModel;
+    public GameState(GameView gv) {
+        gameView = gv;
+        gameModel = gv.getGameModel();
+    }
 
     //action methods
     public boolean playTile(){
@@ -100,13 +111,12 @@ public class GameState {
 
     public boolean spelling(){
         //need to complete
-        Set<String> dictionary = new HashSet<>();
-        if(dictionary.contains(wordMade)){
-            spellCheck = true;
-        }
+
+        spellCheck = gameModel.spellCheckTable.contains(wordMade);
         return spellCheck;
     }
 
+    @NonNull
     @Override
     public String toString() {
         String gameStateString;
