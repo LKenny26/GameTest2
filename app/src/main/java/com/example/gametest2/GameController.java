@@ -7,7 +7,7 @@ import android.widget.EditText;
 public class GameController implements View.OnClickListener{
     private GameView gv;
     private GameModel gm;
-    private GameState gs;
+    private gameState gs;
 
     public GameController(GameView gvo){
         gv = gvo;

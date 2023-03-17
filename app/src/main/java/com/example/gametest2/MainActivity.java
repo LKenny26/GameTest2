@@ -1,6 +1,7 @@
 package com.example.gametest2;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -16,7 +17,7 @@ import com.example.GameFramework.infoMessage.GameState;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class MainActivity extends GameMainActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     //game view, controller and model that all correspond to one another
     //instance for onClick to work
     GameView gv = new GameView();
@@ -52,26 +53,49 @@ public class MainActivity extends GameMainActivity implements View.OnClickListen
         }
 
 
-        com.example.gametest2.GameState gs = new com.example.gametest2.GameState(gv);
+        com.example.gametest2.gameState gs = new com.example.gametest2.gameState(gv);
     }
     public void onClick(View view){
-        GameView gvforclick = new GameView();
+        //GameView gvforclick = new GameView();
         gm.et.getText().clear();
-        GameState firstInstance = new GameState();
-        GameState secondInstance = new GameState(firstInstance);
+        gameState firstInstance = new gameState();
+        gameState secondInstance = new gameState(firstInstance);
+        firstInstance.isTilePlaced();
+        firstInstance.playTile();
+        firstInstance.spelling();
+        firstInstance.getScore();
+        firstInstance.getFirstPlayerTurn();
+        firstInstance.getSecondPlayerTurn();
+        firstInstance.getThirdPlayerTurn();
+        firstInstance.getFourthPlayerTurn();
+        firstInstance.getAiTurn();
 
+        gm.et.setText("Player one has gone: " + firstInstance.getFirstPlayerTurn()
+                        + ". " + "Player two has gone: " + firstInstance.getSecondPlayerTurn()
+                + ". " + "Player three has gone: " + firstInstance.getThirdPlayerTurn()
+                + ". " + "Player four has gone: " + firstInstance.getFourthPlayerTurn()
+                + ". " + "AI has gone: " + firstInstance.getAiTurn() + " . The score is "
+                + firstInstance.getScore() +". A tile is placed: "
+                + firstInstance.isTilePlaced() + ". Word has been spell checked: "
+                + firstInstance.spelling() +". The player has played a tile "
+                + firstInstance.playTile() + ".");
 
+        gameState thirdInstance = new gameState();
+        gameState fourthInstance = new gameState(thirdInstance);
+
+        secondInstance.toString();
+        fourthInstance.toString();
     }
 
-    @Override
-    public GameConfig createDefaultConfig() {
-        return null;
-    }
+    //@Override
+    //public GameConfig createDefaultConfig() {
+      //  return null;
+    //}
 
-    @Override
-    public LocalGame createLocalGame(GameState gameState) {
-        return null;
-    }
+    //@Override
+    //public LocalGame createLocalGame(gameState gameState) {
+      //  return null;
+    //}
 
 
 }

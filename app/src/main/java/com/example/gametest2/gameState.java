@@ -8,7 +8,9 @@ import java.util.Set;
 import java.util.Collections;
 import androidx.annotation.NonNull;
 
-public class GameState {
+public class gameState{
+
+    public gameState(){}
     ArrayList<Character> tiles;
     //points per tile
     ArrayList<Character> lettersOfUserWord;
@@ -51,7 +53,7 @@ public class GameState {
     public static final int ai_smart_Id = 2;
 
 
-    public boolean isTilePlaced(int player) {
+    public boolean isTilePlaced() {
         tilePlaced = true;
         tileCountPlaced++;
         tiles.remove(tiler);
@@ -84,11 +86,9 @@ public class GameState {
     public GameView gameView;
     public GameModel gameModel;
 
-    public GameState(GameState gs){
 
-    }
     //constructor
-    public GameState(GameView gv) {
+    public gameState(GameView gv) {
         gameView = gv;
         gameModel = gv.getGameModel();
         score = 0;
@@ -101,13 +101,25 @@ public class GameState {
         board = new Paint[15][15];
 
     }
+    public gameState(gameState gs){
+        this.spellCheck = gs.spellCheck;
+        this.tilesVisible = gs.tilesVisible;
+        this.scoreboardVisible = gs.scoreboardVisible;
+        this.firstPlayerTurn = gs.firstPlayerTurn;
+        this.aiTurn = gs.aiTurn;
+        this.score = gs.score;
+        this.secondPlayerTurn = gs.secondPlayerTurn;
+        this.thirdPlayerTurn = gs.thirdPlayerTurn;
+        this.firstPlayerTurn = gs.fourthPlayerTurn;
 
-    public GameState(int score, boolean spellCheck, boolean tilesVisible, boolean firstPlayerTurn, boolean aiTurn, boolean
+    }
+
+    /*public GameState(int score, boolean spellCheck, boolean tilesVisible, boolean initfirstPlayerTurn, boolean aiTurn, boolean
             secondPlayerTurn, boolean thirdPlayerTurn, boolean fourthPlayerTurn, boolean scoreboardVisible, GameView gv) {
         this.spellCheck = spellCheck;
         this.tilesVisible = tilesVisible;
         this.scoreboardVisible = scoreboardVisible;
-        this.firstPlayerTurn = firstPlayerTurn;
+        this.firstPlayerTurn = initfirstPlayerTurn;
         this.aiTurn = aiTurn;
         this.score = score;
         this.secondPlayerTurn = secondPlayerTurn;
@@ -116,7 +128,7 @@ public class GameState {
         gameView = gv;
         gameModel = gv.getGameModel();
     }
-
+*/
 
     // getter methods
     public boolean getFirstPlayerTurn() {
@@ -136,6 +148,9 @@ public class GameState {
     }
 
     public boolean getFourthPlayerTurn(){
+        return fourthPlayerTurn;
+    }
+    public boolean getAiTurn(){
         return fourthPlayerTurn;
     }
 

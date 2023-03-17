@@ -4,7 +4,7 @@ import java.util.Hashtable;
 
 public class Tiles implements TileDataBase{
     GameView gmvw = new GameView();
-    GameState gs = new GameState(gmvw);
+    gameState gs = new gameState();
     private Hashtable<String, Integer> tile = new Hashtable<String, Integer>();
 
     @Override
