@@ -1,5 +1,6 @@
 package com.example.gametest2;
 
+import android.view.View;
 import android.widget.EditText;
 
 import java.io.File;

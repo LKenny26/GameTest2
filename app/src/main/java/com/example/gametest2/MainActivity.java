@@ -26,17 +26,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+        setContentView(R.layout.runatest);
         //game view, controller and model that all correspond to one another
         //GameView gv = new GameView();
         //GameController gc = new GameController(gv);
         //GameModel gm = gv.getGameModel();
 
         //make the button an on click listener
-        Button runTest = findViewById(R.id.runTestButton);
-        runTest.setOnClickListener(gc);
 
         //make a multi like editable text
-        gm.et = findViewById(R.id.multiLineText);
+        gm.et = (EditText) findViewById(R.id.multiLineText);
+        Button runTest = findViewById(R.id.runTestButton);
+        runTest.setOnClickListener(gc);
+        onClick(runTest);
 
         //try and catch to make sure the file opened correctly
         try {
