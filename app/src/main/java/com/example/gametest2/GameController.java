@@ -5,16 +5,17 @@ import android.view.View;
 import android.widget.EditText;
 
 public class GameController implements View.OnClickListener{
+    //inital variables
     private GameView gv;
     private GameModel gm;
-    private GameState gs;
 
+    //constructor
     public GameController(GameView gvo){
         gv = gvo;
         gm = gv.getGameModel();
-        gs = gv.getGameState();
     }
 
+    //onclick method
     @Override
     public void onClick(View view) {
         gm.et.setText("");

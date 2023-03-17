@@ -84,6 +84,7 @@ public class GameState {
     public GameView gameView;
     public GameModel gameModel;
     //constructor
+    //initializes
     public GameState(GameView gv) {
         gameView = gv;
         gameModel = gv.getGameModel();
@@ -98,6 +99,7 @@ public class GameState {
 
     }
 
+    //other constructor with inputs
     public GameState(int score, boolean spellCheck, boolean tilesVisible, boolean firstPlayerTurn, boolean aiTurn, boolean
             secondPlayerTurn, boolean thirdPlayerTurn, boolean fourthPlayerTurn, boolean scoreboardVisible, GameView gv) {
         this.spellCheck = spellCheck;
