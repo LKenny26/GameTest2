@@ -10,6 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GameState {
+    public GameView gameView;
+    public GameModel gameModel;
+    public GameState(GameView gv) {
+        gameView = gv;
+        gameModel = gv.getGameModel();
+    }
     ArrayList<Character> tiles;
     //points per tile
     ArrayList<Character> lettersOfUserWord;
@@ -54,10 +60,6 @@ public class GameState {
     Paint tileToPlay;
 // testing to see if it is a legitimate word
 
-    public GameState(){
-
-    }
-
 
     //players:
     public static final int player1Id = 1;
@@ -67,6 +69,20 @@ public class GameState {
 
     public static final int ai_stupid_Id = 2;
     public static final int ai_smart_Id = 2;
+
+    public void closeApp(int player) {//closing the app
+        System.exit(0);
+    }
+    //ends turn and goes to next if word is valid
+    public void PlayAWord(ArrayList<String> players,String word,int player){
+        if(isWordInHashtable(word,player)==true){
+            player = (player + 1) % players.size();
+        }
+        else{
+            player = player;
+        }
+    }
+
     public boolean isTilePlaced(int player) {//checks if its placed
         tilePlaced = true;
         tileCountPlaced++;
@@ -92,12 +108,9 @@ public class GameState {
     }//goes to next turn
 
 
-    public GameView gameView;
-    public GameModel gameModel;
-    public GameState(GameView gv) {
-        gameView = gv;
-        gameModel = gv.getGameModel();
-    }
+
+
+
 
     //action methods
     public boolean playTile(){
