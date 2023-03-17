@@ -41,6 +41,13 @@ public class GameState {
     public static final int ai_stupid_Id = 2;
     public static final int ai_smart_Id = 2;
 
+    public GameView gameView;
+    public GameModel gameModel;
+    public GameState(GameView gv) {
+        gameView = gv;
+        gameModel = gv.getGameModel();
+    }
+
     //action methods
     public boolean playTile(){
         tilePlaced = true;
@@ -51,9 +58,12 @@ public class GameState {
 
     public boolean spelling(){
         //need to complete
-        Set<String> dictionary = new HashSet<>();
-        if(dictionary.contains(wordMade)){
+
+        if(gameModel.spellCheckTable.contains(wordMade)){
             spellCheck = true;
+        }
+        else {
+            spellCheck = false;
         }
         return spellCheck;
     }
