@@ -31,4 +31,8 @@ public class Tiles implements TileDataBase{
     public boolean removeTile(Character letter, int key) {
         return true;
     }
+
+    public Hashtable getHashtable(){
+        return tile;
+    }
 }
