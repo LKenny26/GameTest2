@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class GameState {
     ArrayList<Character> tiles;
     //points per tile
-    ArrayList <Integer> numbers;
+    ArrayList<Integer> numbers;
     //maybe put into a hashable? might be easier to assign a letter to a tile
     //counter
     int score = 0;
@@ -28,17 +28,36 @@ public class GameState {
     boolean scoreboardVisible = true;
 
     Paint tileToPlay;
-
-    public GameState(int Score, boolean playing, boolean spell, boolean userVisible, boolean tiles, boolean scoreBoard){
-        score = Score;
-        tilePlayed = playing;
-        spellCheck = spell;
-        playerVisible = userVisible;
-        tilesVisible = tiles;
-        scoreboardVisible = scoreBoard;
+    //copy class
+    GameState copyGameState = new GameState();
+    //constructor
+    public GameState(int score, boolean tilePlayed, boolean spellCheck, boolean playerVisible, boolean tilesVisible, boolean scoreboardVisible) {
+        this.score = score;
+        this.tilePlayed = tilePlayed;
+        this.spellCheck = spellCheck;
+        this.playerVisible = playerVisible;
+        this.tilesVisible = tilesVisible;
+        this.scoreboardVisible = scoreboardVisible;
     }
 
-    public GameState(){
+    //copy constructor
+    public GameState (GameState game , boolean firstPlayerTurn ){
+        this.firstPlayerTurn = firstPlayerTurn ;
+        this.score =  game.score;
 
     }
+
+    //getter methods
+    public boolean getFirstPlayerTurn(){
+        return firstPlayerTurn;
+    }
+
+    public int  getScore(){
+        return score;
+    }
+
+
+
+    //setter methods
+
 }
