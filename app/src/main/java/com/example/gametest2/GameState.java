@@ -83,6 +83,10 @@ public class GameState {
 
     public GameView gameView;
     public GameModel gameModel;
+
+    public GameState(GameState gs){
+
+    }
     //constructor
     public GameState(GameView gv) {
         gameView = gv;

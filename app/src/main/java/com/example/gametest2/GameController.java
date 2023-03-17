@@ -12,7 +12,7 @@ public class GameController implements View.OnClickListener{
     public GameController(GameView gvo){
         gv = gvo;
         gm = gv.getGameModel();
-        gs = gv.getGameState();
+        //gs = gv.getGameState();
     }
 
     @Override

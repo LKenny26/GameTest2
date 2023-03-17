@@ -3,8 +3,8 @@ package com.example.gametest2;
 import java.util.Hashtable;
 
 public class Tiles implements TileDataBase{
-
-    GameState gs = new GameState();
+    GameView gmvw = new GameView();
+    GameState gs = new GameState(gmvw);
     private Hashtable<String, Integer> tile = new Hashtable<String, Integer>();
 
     @Override
