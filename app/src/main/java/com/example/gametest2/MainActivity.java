@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.runatest);
+        //setContentView(R.layout.runatest);
         //game view, controller and model that all correspond to one another
         //GameView gv = new GameView();
         //GameController gc = new GameController(gv);
@@ -55,6 +55,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         com.example.gametest2.gameState gs = new com.example.gametest2.gameState(gv);
+    }
+    public void setAsGui(GameMainActivity activity){
+        setContentView(R.layout.runatest);
+        //this will work when i figure out what myActivity is, dr. libby helped me
+        //surfaceView = (GameView)myActivity.findViewById(R.id.surfaceview);
+        //Logger.log("set listener", "OnTouch");
+        //surfaceView.setOnTouchListener(this);
     }
     public void onClick(View view){
         //GameView gvforclick = new GameView();
