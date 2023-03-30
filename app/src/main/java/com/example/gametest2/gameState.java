@@ -59,9 +59,27 @@ public class gameState{
         tiles.remove(tiler);
         return true;
     }
+    public void closeApp(int player) {//closing the app
+        System.exit(0);
+    }
+    //ends turn and goes to next if word is valid
+    public void PlayAWord(ArrayList<String> players,String word,int player){
+        if(isWordInHashtable(word,player)==true){
+            player = (player + 1) % players.size();
+        }
+        else{
+            player = player;
+        }
+    }
     public boolean isWordInHashtable(String word, int player) {
         return tiler.getHashtable().containsKey(word);
     }
+
+    //skipppppp
+    public void skipPlayerTurn(ArrayList<String> players, int player) {
+        player = (player + 1) % players.size();
+    }//goes to next turn
+
 
     public ArrayList<Character> ShuffleLettersInHand(ArrayList<Character> replace, int player) {
         Collections.shuffle(replace);
@@ -70,13 +88,12 @@ public class gameState{
 
 
 
-        //action methods
     public boolean playTile() {
         tilePlaced = true;
         tileCountPlaced++;
-        //need to remove tile from the two arrays and attach character to wordMade
         return tilePlaced;
     }
+
 
     public boolean spelling(){
         spellCheck = gameModel.spellCheckTable.contains(wordMade);
@@ -129,6 +146,12 @@ public class gameState{
         gameModel = gv.getGameModel();
     }
 */
+
+
+
+
+
+
 
     // getter methods
     public boolean getFirstPlayerTurn() {
