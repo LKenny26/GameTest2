@@ -1,17 +1,16 @@
 package com.example.gametest2;
 
-import android.content.Context;
-import android.util.AttributeSet;
+import android.graphics.Canvas;
 import android.view.SurfaceView;
 
 import com.example.GameFramework.Game;
 
-public class GameView extends SurfaceView{
+public class GameView extends SurfaceView {
     private GameModel gm;
 
     //constructor
-    public GameView(Context context, AttributeSet attrs) {
-        super(context,attrs);
+    public GameView() {
+        //super();
         gm = new GameModel();
     }
 
@@ -19,6 +18,8 @@ public class GameView extends SurfaceView{
     public GameModel getGameModel(){
         return gm;
     }
+    public void onDraw(Canvas canvas){
 
 
+    }
 }

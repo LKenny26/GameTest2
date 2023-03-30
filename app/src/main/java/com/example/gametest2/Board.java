@@ -1,11 +1,13 @@
 package com.example.gametest2;
 
-import android.content.Context;
-import android.graphics.Paint;
-import android.util.AttributeSet;
+import android.graphics.Color;
 
-public class Board extends GameView{
+public class Board{
     //here is the board class for the basic-basic make of the game
+    //dimensions: 15x15
+    gameState gs = new gameState();
+
+}
     Paint red = new Paint();
     Paint lblue = new Paint();
     Paint black = new Paint();
