@@ -33,7 +33,7 @@ public class gameState{
     boolean fourthPlayerTurn;
     boolean playerVisible;
     //paint obj for playing board
-    Paint[][] board;
+    Paint board;
     //players cant see another players letter
     boolean tilesVisible;
     boolean scoreboardVisible;
