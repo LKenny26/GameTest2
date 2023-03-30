@@ -1,6 +1,9 @@
 package com.example.gametest2;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
 
 public class Board{
     //here is the board class for the basic-basic make of the game
