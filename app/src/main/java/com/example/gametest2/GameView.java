@@ -14,6 +14,7 @@ public class GameView extends SurfaceView {
         gm = new GameModel();
     }
 
+
     //get model
     public GameModel getGameModel(){
         return gm;

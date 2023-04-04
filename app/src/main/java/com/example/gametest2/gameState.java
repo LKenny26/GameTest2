@@ -86,6 +86,10 @@ public class gameState{
         return replace;
     }
 
+    //setter methods
+
+    public int setScore()
+
 
 
     public boolean playTile() {
@@ -127,7 +131,7 @@ public class gameState{
         this.score = gs.score;
         this.secondPlayerTurn = gs.secondPlayerTurn;
         this.thirdPlayerTurn = gs.thirdPlayerTurn;
-        this.firstPlayerTurn = gs.fourthPlayerTurn;
+        this.fourthPlayerTurn = gs.fourthPlayerTurn;
 
     }
 
@@ -141,7 +145,8 @@ public class gameState{
         this.score = score;
         this.secondPlayerTurn = secondPlayerTurn;
         this.thirdPlayerTurn = thirdPlayerTurn;
-        this.firstPlayerTurn = fourthPlayerTurn;
+        this.fourthPlayerTurn = fourthPlayerTurn;
+        this.aiTurn = aiTurn;
         gameView = gv;
         gameModel = gv.getGameModel();
     }

@@ -1,6 +1,8 @@
 package com.example.gametest2;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
+
 //purpose
 public class Pieces {
 
@@ -130,5 +132,21 @@ public class Pieces {
     }
     public char getLet(){
         return letter_selected;
+    }
+
+
+    public int CalculateScore(char[] playedLetters, int [] letterPoint){
+        int score = 0;
+        //find index of current letter
+        for(int i = 0; i < playedLetters.length; i++){
+            int letterIndex = Arrays.binarySearch(letters_for_tiles, playedLetters[i]);
+            //if letter is not found skip it
+            if(letterIndex < 0 ){
+                continue;
+            }
+            //add point value of letter to the score
+            score += letterPoint[letterIndex];
+        }
+        return score ;
     }
 }
