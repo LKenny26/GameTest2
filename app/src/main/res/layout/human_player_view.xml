@@ -25,13 +25,7 @@
                 android:orientation="vertical">
 
                 <SurfaceView
-                    android:id="@+id/scores"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <SurfaceView
-                    android:id="@+id/Players_Tiles"
+                    android:id="@+id/PiecesDrawn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />

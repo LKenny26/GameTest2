@@ -1,15 +1,36 @@
 package com.example.gametest2;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.view.SurfaceView;
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
 //purpose
-public class Pieces {
+public class Pieces{
 
     public char[] letters_for_tiles;
     int key;
     private char letter_selected;
+
+    /*public Pieces(Context context, AttributeSet attributeSet){
+        super(context, attributeSet);
+        setWillNotDraw(false);
+        //this.letter_selected = letter;
+        //this.key = ikey;
+        //drawSquare.setColor(Color.WHITE);
+        //drawSquare.setStyle(Paint.Style.FILL);
+        //numPaint.setTextSize(15);
+
+        setBackgroundColor(Color.WHITE);
+    }*/
+
     public Pieces(Character letter, int ikey){
+        //super();
         this.letter_selected = letter;
         this.key = ikey;
     }
@@ -149,4 +170,5 @@ public class Pieces {
         }
         return score ;
     }
+
 }
