@@ -14,7 +14,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     }
     @Override
     public View getTopView() {
-        return null;
+        return myActivity.findViewById(R.id.human_player_view);
     }
 
     @Override
@@ -24,7 +24,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void setAsGui(GameMainActivity activity) {
-
+        //setting the human's player view
+        myActivity = activity;
+        activity.setContentView(R.layout.human_player_view);
     }
 
     @Override
