@@ -1,45 +1,60 @@
 package com.example.gametest2;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.AttributeSet;
+import android.view.View;
 
-public class Board{
-    //here is the board class for the basic-basic make of the game
-    //dimensions: 15x15
-    gameState gs = new gameState();
+public class Board extends View {
+    // Set the dimensions of the board
+    private static final int NUM_ROWS = 15;
+    private static final int NUM_COLS = 15;
+    private static final int CELL_SIZE = 60;
 
-}
-    Paint red = new Paint();
-    Paint lblue = new Paint();
-    Paint black = new Paint();
-    Paint white = new Paint();
-    Paint dBlue = new Paint();
-    Paint pink = new Paint();
+    // Set the colors for different elements on the board
+    private Paint red = new Paint();
+    private Paint lblue = new Paint();
+    private Paint black = new Paint();
+    private Paint white = new Paint();
+    private Paint dBlue = new Paint();
+    private Paint pink = new Paint();
 
-    gameState gs;
-    GameModel gm;
-    public Board(Context context, AttributeSet attrs){
-        super(context, attrs);
-        gs = new gameState();
-        gm = new GameModel();
+    public Board(Context context) {
+        super(context);
 
-        red.setColor(0xFFFF0000);
-        red.setStyle(Paint.Style.FILL);
-        lblue.setColor(0xFF1FBED6);
-        lblue.setStyle(Paint.Style.FILL);
-        black.setColor(0xFF000000);
-        black.setStyle(Paint.Style.FILL);
-        white.setColor(0xFFFFFFFF);
-        white.setStyle(Paint.Style.FILL);
-        dBlue.setColor(0xFF84B1D0);
-        dBlue.setStyle(Paint.Style.FILL);
-        pink.setColor(0xFFFF1493);
-        pink.setStyle(Paint.Style.FILL);
-
+        // Set the colors for different elements on the board
+        red.setColor(Color.RED);
+        lblue.setColor(Color.BLUE);
+        black.setColor(Color.BLACK);
+        white.setColor(Color.WHITE);
+        dBlue.setColor(Color.DKGRAY);
+        pink.setColor(Color.MAGENTA);
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
+        // Draw the squares on the board
+        for (int row = 0; row < NUM_ROWS; row++) {
+            for (int col = 0; col < NUM_COLS; col++) {
+                int x = col * CELL_SIZE;
+                int y = row * CELL_SIZE;
+                canvas.drawRect(x, y, x + CELL_SIZE, y + CELL_SIZE, white);
+                canvas.drawRect(x + 2, y + 2, x + CELL_SIZE - 2, y + CELL_SIZE - 2, lblue);
+            }
+        }
+
+        // Draw the special squares on the board
+        canvas.drawRect(CELL_SIZE * 0, CELL_SIZE * 0, CELL_SIZE * 3, CELL_SIZE * 3, red);
+        canvas.drawRect(CELL_SIZE * 0, CELL_SIZE * 7, CELL_SIZE * 3, CELL_SIZE * 10, dBlue);
+        canvas.drawRect(CELL_SIZE * 0, CELL_SIZE * 14, CELL_SIZE * 3, CELL_SIZE * 15, red);
+        canvas.drawRect(CELL_SIZE * 7, CELL_SIZE * 0, CELL_SIZE * 8, CELL_SIZE * 3, dBlue);
+        canvas.drawRect(CELL_SIZE * 7, CELL_SIZE * 7, CELL_SIZE * 8, CELL_SIZE * 8, pink);
+        canvas.drawRect(CELL_SIZE * 7, CELL_SIZE * 14, CELL_SIZE * 8, CELL_SIZE * 15, dBlue);
+        canvas.drawRect(CELL_SIZE * 14, CELL_SIZE * 0, CELL_SIZE * 15, CELL_SIZE * 3, red);
+        canvas.drawRect(CELL_SIZE * 14, CELL_SIZE * 7, CELL_SIZE * 15, CELL_SIZE * 10, dBlue);
+        canvas.drawRect(CELL_SIZE * 14, CELL_SIZE * 14, CELL_SIZE * 15, CELL_SIZE * 15, red);
+    }
 }
-
