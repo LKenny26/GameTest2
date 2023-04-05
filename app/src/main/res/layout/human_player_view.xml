@@ -31,35 +31,35 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/playword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="play word" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/shuffle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="shuffle tiles" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/newtiles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="get new tiles" />
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/skip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="skip turn" />
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/spellcheck"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

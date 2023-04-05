@@ -33,7 +33,7 @@ public class gameState{
     boolean fourthPlayerTurn;
     boolean playerVisible;
     //paint obj for playing board
-    Paint board;
+    Paint board[][];
     //players cant see another players letter
     boolean tilesVisible;
     boolean scoreboardVisible;
@@ -41,6 +41,8 @@ public class gameState{
     int tileCountPlaced;
 
     String wordMade;
+
+    int playerId;
 
     Paint tileToPlay;
     //players:
@@ -88,7 +90,9 @@ public class gameState{
 
     //setter methods
 
-    public int setScore()
+    //public int setScore(){
+
+    //}
 
 
 
@@ -180,6 +184,13 @@ public class gameState{
     }
     public boolean getAiTurn(){
         return fourthPlayerTurn;
+    }
+
+    public void setPlayerId(int init){
+        playerId = init;
+    }
+    public int getPlayerId(){
+        return playerId;
     }
 
     @NonNull
