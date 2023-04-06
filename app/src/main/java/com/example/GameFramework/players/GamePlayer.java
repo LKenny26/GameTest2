@@ -1,7 +1,5 @@
 package com.example.GameFramework.players;
 
-import android.view.View;
-
 import com.example.GameFramework.GameMainActivity;
 import com.example.GameFramework.infoMessage.GameInfo;
 
@@ -20,7 +18,7 @@ public interface GamePlayer {
     public abstract void gameSetAsGui(GameMainActivity activity);
 
     // sets this player as the GUI player (overrideable)
-    public abstract View setAsGui(GameMainActivity activity);
+    public abstract void setAsGui(GameMainActivity activity);
 
     // sends a message to the player
     public abstract void sendInfo(GameInfo info);
