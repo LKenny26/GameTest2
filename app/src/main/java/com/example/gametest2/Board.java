@@ -4,14 +4,16 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.SurfaceView;
 import android.view.View;
 
-public class Board extends View {
+public class Board extends SurfaceView {
     // Set the dimensions of the board
     private static final int NUM_ROWS = 15;
     private static final int NUM_COLS = 15;
     private static final int CELL_SIZE = 60;
 
+    Pieces p;
     // Set the colors for different elements on the board
     private Paint red = new Paint();
     private Paint lblue = new Paint();
