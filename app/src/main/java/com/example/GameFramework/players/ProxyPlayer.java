@@ -1,7 +1,5 @@
 package com.example.GameFramework.players;
 
-import android.view.View;
-
 import com.example.GameFramework.Game;
 import com.example.GameFramework.GameMainActivity;
 import com.example.GameFramework.actionMessage.GameAction;
@@ -122,11 +120,8 @@ public class ProxyPlayer implements GamePlayer {
     /**
      * Set this game as a GUI. (Should never be called because the
      * 'supportsGui' method returns false.)
-     *
-     * @return
      */
-    public View setAsGui(GameMainActivity a) {
-        return null;
+    public void setAsGui(GameMainActivity a) {
     }
 
     /**

@@ -8,16 +8,19 @@ import com.example.GameFramework.infoMessage.GameInfo;
 import com.example.GameFramework.players.GameHumanPlayer;
 
 public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
-
     private Button playword = null;
     private Button shuffle = null;
     private Button newtiles = null;
     private Button skip = null;
     private Button spellcheck = null;
-    private GameMainActivity myActivity;
-    public ScrabbleHumanPlayer(String name){
-        super(name);
+
+    public ScrabbleHumanPlayer(String name) {super(name); }
+
+    @Override
+    public void onClick(View view) {
+
     }
+
     @Override
     public View getTopView() {
         return myActivity.findViewById(R.id.human_player_view);
@@ -25,36 +28,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void receiveInfo(GameInfo info) {
-    //i have zero idea what to do here:) -- b
+
     }
 
     @Override
-    public void onClick(View button) {
-        PlayWordAction pwa = new PlayWordAction(this);
-        ShuffleAction sha = new ShuffleAction(this);
-        SkipAction ska = new SkipAction(this);
-        SpellCheckAction sca = new SpellCheckAction(this);
-        GetNewTilesAction gnta = new GetNewTilesAction(this);
-
-        if(button.getId() == R.id.playword){
-            super.game.sendAction(pwa);
-        }
-        else if(button.getId() == R.id.shuffle){
-            super.game.sendAction(sha);
-        }
-        else if(button.getId() == R.id.skip){
-            super.game.sendAction(ska);
-        }
-        else if(button.getId() == R.id.spellcheck){
-            super.game.sendAction(sca);
-        }
-        else if(button.getId() == R.id.newtiles){
-            super.game.sendAction(gnta);
-        }
-
-    }
     public void setAsGui(GameMainActivity activity) {
-        //setting the human's player view
         myActivity = activity;
         activity.setContentView(R.layout.human_player_view);
 

@@ -17,7 +17,6 @@ import com.example.GameFramework.utilities.Tickable;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 
 /**
  * An abstract computerized game player player. This is an abstract class, that
@@ -105,12 +104,11 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
      * current screen to have a new layout, and sets up
      * listeners, animators, etc.
      *
-     * @param activity the activity that is being run
-     * @return
+     * @param activity
+     * 			the activity that is being run
      */
-    public View setAsGui(GameMainActivity activity) {
+    public void setAsGui(GameMainActivity activity) {
         // default behavior is to do nothing
-        return null;
     }
 
     /**
