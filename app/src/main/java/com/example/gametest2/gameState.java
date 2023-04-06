@@ -8,7 +8,9 @@ import java.util.Set;
 import java.util.Collections;
 import androidx.annotation.NonNull;
 
-public class gameState{
+import com.example.GameFramework.infoMessage.GameState;
+
+public class gameState extends GameState {
 
     public gameState(){}
     ArrayList<Character> tiles;

@@ -33,7 +33,9 @@ public class Board extends SurfaceView {
         white.setColor(Color.WHITE);
         dBlue.setColor(Color.DKGRAY);
         pink.setColor(Color.MAGENTA);
+        //p = new Pieces();
     }
+    //public Board(){}
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -61,7 +63,10 @@ public class Board extends SurfaceView {
         canvas.drawRect(CELL_SIZE * 14, CELL_SIZE * 14, CELL_SIZE * 15, CELL_SIZE * 15, red);
     }
 
-    public void tilesDrawn(Canvas canvas, int x, int y){
-
+    protected void PlayerPieces(Canvas canvas, int x, int y) {
+        //players 7 tiles that will be on view Pieces
+    }
+    protected void PiecesPlayed(Canvas canvas, int x, int y){
+        //takes the x, y position of the tile and places on board accordingly
     }
 }

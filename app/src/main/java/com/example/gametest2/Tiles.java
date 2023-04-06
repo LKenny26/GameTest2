@@ -3,7 +3,7 @@ package com.example.gametest2;
 import java.util.Hashtable;
 
 public class Tiles implements TileDataBase{
-    GameView gmvw = new GameView();
+    //Board bd = new Board();
     gameState gs = new gameState();
     private Hashtable<String, Integer> tile = new Hashtable<String, Integer>();
 
@@ -24,6 +24,7 @@ public class Tiles implements TileDataBase{
 
     @Override
     public boolean playTile(Character letter, int key) {
+
         return true;
     }
 
