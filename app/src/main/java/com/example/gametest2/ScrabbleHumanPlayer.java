@@ -34,6 +34,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
         SpellCheckAction sca = new SpellCheckAction(this);
+        GetNewTilesAction gnta = new GetNewTilesAction(this);
 
         if(button.getId() == R.id.playword){
             super.game.sendAction(pwa);
@@ -46,6 +47,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
         else if(button.getId() == R.id.spellcheck){
             super.game.sendAction(sca);
+        }
+        else if(button.getId() == R.id.newtiles){
+            super.game.sendAction(gnta);
         }
 
     }
