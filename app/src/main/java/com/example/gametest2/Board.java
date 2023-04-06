@@ -60,4 +60,8 @@ public class Board extends SurfaceView {
         canvas.drawRect(CELL_SIZE * 14, CELL_SIZE * 7, CELL_SIZE * 15, CELL_SIZE * 10, dBlue);
         canvas.drawRect(CELL_SIZE * 14, CELL_SIZE * 14, CELL_SIZE * 15, CELL_SIZE * 15, red);
     }
+
+    public void tilesDrawn(Canvas canvas, int x, int y){
+
+    }
 }

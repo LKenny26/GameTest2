@@ -18,7 +18,7 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends GameMainActivity implements View.OnClickListener{
     //game view, controller and model that all correspond to one another
     //instance for onClick to work
     GameView gv = new GameView();
@@ -57,13 +57,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         com.example.gametest2.gameState gs = new com.example.gametest2.gameState(gv);
     }
-    public void setAsGui(GameMainActivity activity){
-        setContentView(R.layout.runatest);
-        //this will work when i figure out what myActivity is, dr. libby helped me
-        //surfaceView = (GameView)myActivity.findViewById(R.id.surfaceview);
-        //Logger.log("set listener", "OnTouch");
-        //surfaceView.setOnTouchListener(this);
+
+    @Override
+    public GameConfig createDefaultConfig() {
+        return null;
     }
+
+    @Override
+    public LocalGame createLocalGame(GameState gameState) {
+        return null;
+    }
+
     public void onClick(View view){
         //GameView gvforclick = new GameView();
         gm.et.getText().clear();
