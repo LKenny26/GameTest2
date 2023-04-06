@@ -14,6 +14,7 @@ public class Board extends SurfaceView {
     private static final int CELL_SIZE = 60;
 
     Pieces p;
+
     // Set the colors for different elements on the board
     private Paint red = new Paint();
     private Paint lblue = new Paint();
