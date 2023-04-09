@@ -23,6 +23,8 @@ public class ScrabbleGameState extends GameState {
     File dictionary;
     Scanner scan;
 
+    int TileCounter = 0;
+
     String wordMade;
 
     public static final int player1Id = 1;
