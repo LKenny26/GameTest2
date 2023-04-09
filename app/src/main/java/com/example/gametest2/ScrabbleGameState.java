@@ -23,6 +23,11 @@ public class ScrabbleGameState extends GameState {
     File dictionary;
     Scanner scan;
 
+    int player1TileCount = 7;
+    int player2TileCount = 7;
+    int player3TileCount = 7;
+    int player4TileCount = 7;
+
     int TileCounter = 0;
 
     String wordMade;
@@ -99,4 +104,20 @@ public class ScrabbleGameState extends GameState {
     public void setPlayerThreeScore(int p3score){playerThreeScore = p3score;}
 
     public void setPlayerFourScore(int p4score){playerFourScore = p4score;}
+
+    public int getPlayer1TileCount(){
+        return player1TileCount;
+    }
+
+    public int getPlayer2TileCount(){
+        return player2TileCount;
+    }
+
+    public int getPlayer3TileCount(){
+        return player3TileCount;
+    }
+
+    public int getPlayer4TileCount(){
+        return player4TileCount;
+    }
 }
