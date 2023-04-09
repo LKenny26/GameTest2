@@ -1,11 +1,15 @@
 package com.example.GameFramework;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -35,6 +39,10 @@ import com.example.GameFramework.utilities.Logger;
 import com.example.GameFramework.utilities.MessageBox;
 import com.example.GameFramework.utilities.Saving;
 import com.example.gametest2.R;
+import com.example.gametest2.ScrabbleGameState;
+import com.example.gametest2.ScrabbleHumanPlayer;
+import com.example.gametest2.ScrabbleLocalGame;
+
 
 /**
  * class GameMainActivity
@@ -113,7 +121,37 @@ public abstract class GameMainActivity extends Activity implements
      *         configuration for this game. (The default may be subsequently
      *         modified by the user if this is allowed.)
      */
-    public abstract GameConfig createDefaultConfig();
+    public GameConfig createDefaultConfig(){
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        // Define the allowed player types
+        ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
+
+        // yellow-on-blue GUI
+        //playerTypes.add(new GamePlayerType("Local Human Player") {
+            //public GamePlayer createPlayer(String name) {
+               // return new ScrabbleHumanPlayer(name, R.layout.game_config_main, (gameState) getGameState);
+            //}
+        ;
+
+        // dumb computer player
+
+
+
+        // Create a game configuration class for Chess
+        GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Chess", 5213);
+
+        // Add the default players
+        defaultConfig.addPlayer("Human", 0); // human player GUI
+        defaultConfig.addPlayer("Computer", 1); // dumb computer player
+
+        // Set the initial information for the remote player
+        defaultConfig.setRemoteData("Remote Player", "", 1); // remote player GUI
+
+        //done!
+        return defaultConfig;
+
+    }//createDefaultConfig
+
 
     /**
      * createLocalGame
@@ -129,6 +167,9 @@ public abstract class GameMainActivity extends Activity implements
      *         class.
      */
     public abstract LocalGame createLocalGame(GameState gameState);
+
+
+
 
     /**
      * Creates a "proxy" game that acts as an intermediary between a local
