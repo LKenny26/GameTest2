@@ -22,25 +22,37 @@ public class MainActivity extends GameMainActivity {
     private static final int PORT_NUMBER = 2278;
     @Override
     public GameConfig createDefaultConfig() {
+        //array of the players
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
+        //make the player types
         playerTypes.add(new GamePlayerType("Local Human Player") {
             @Override
             public GamePlayer createPlayer(String name) {
                 return new ScrabbleHumanPlayer(name);
             }
-        });
+        });//human
 
         playerTypes.add(new GamePlayerType("Computer Player") {
             @Override
             public GamePlayer createPlayer(String name) {
                 return new ScrabbleComputerPlayer(name);
             }
+        });//computer
+
+        playerTypes.add(new GamePlayerType("Smart Computer Player") {
+            @Override
+            public GamePlayer createPlayer(String name) {
+                return new ScrabbleSmartComputerPlayer(name);
+            }
         });
 
+        //make the default confid
+        //TODO: change the amount of max players later
         GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Scrabble", PORT_NUMBER);
-        defaultConfig.addPlayer("Human", 0);
-        defaultConfig.addPlayer("Computer", 1);
+        defaultConfig.addPlayer("Human", 0); //add human
+        defaultConfig.addPlayer("Computer", 1); //add computer
+        defaultConfig.addPlayer("Smart Computer", 2); //add smart computer
         defaultConfig.setRemoteData("Remote Human Player", "", 0);
 
         return defaultConfig;
