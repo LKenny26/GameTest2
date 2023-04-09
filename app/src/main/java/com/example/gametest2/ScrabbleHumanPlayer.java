@@ -8,6 +8,7 @@ import com.example.GameFramework.infoMessage.GameInfo;
 import com.example.GameFramework.players.GameHumanPlayer;
 
 public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
+
     private Button playword = null;
     private Button shuffle = null;
     private Button newtiles = null;

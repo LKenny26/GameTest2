@@ -151,6 +151,27 @@ public class Board extends SurfaceView {
                 squares[row][col].draw(canvas);
             }
         }
+        //black lines
+        Paint line = new Paint();
+        line.setColor(Color.BLACK);
+
+        // Draw the horizontal lines
+        for (int i = 0; i < BOARD_SIZE + 1; i++) {
+            int startX = 0;
+            int startY = i * squareSize;
+            int stopX = BOARD_SIZE * squareSize;
+            int stopY = startY;
+            canvas.drawLine(startX, startY, stopX, stopY, line);
+        }
+
+        // Draw the vertical lines
+        for (int i = 0; i < BOARD_SIZE + 1; i++) {
+            int startX = i * squareSize;
+            int startY = 0;
+            int stopX = startX;
+            int stopY = BOARD_SIZE * squareSize;
+            canvas.drawLine(startX, startY, stopX, stopY, line);
+        }
         tile.setColor(Color.rgb(244,248,181));
         canvas.drawRect(0,BOARD_SIZE*squareSize, 100, BOARD_SIZE*squareSize+100,tile);
     }
