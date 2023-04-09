@@ -7,6 +7,8 @@ import com.example.GameFramework.players.GamePlayer;
 public class ScrabbleLocalGame extends LocalGame {
     ScrabbleGameState sgs;
 
+
+
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         sgs = new ScrabbleGameState();
@@ -29,7 +31,8 @@ public class ScrabbleLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         String gameOver;
         gameOver = "game not over";
-        if(sgs.TileCounter == 100){
+        if(sgs.TileCounter == 100 && (sgs.getPlayer1TileCount() == 0 || sgs.getPlayer2TileCount() == 0
+         || sgs.getPlayer3TileCount() == 0 || sgs.getPlayer4TileCount() == 0)){
             gameOver = "game is over, identifying winner...";
             return gameOver;
             //need a checkScore of some sort here
