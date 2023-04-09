@@ -17,7 +17,29 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     public ScrabbleHumanPlayer(String name) {super(name); }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View button) {
+
+        PlayWordAction pwa = new PlayWordAction(this);
+        ShuffleAction sha = new ShuffleAction(this);
+        SkipAction ska = new SkipAction(this);
+        SpellCheckAction sca = new SpellCheckAction(this);
+        GetNewTilesAction gnta = new GetNewTilesAction(this);
+
+        if(button.getId() == R.id.playword){
+            super.game.sendAction(pwa);
+        }
+        else if(button.getId() == R.id.shuffle){
+            super.game.sendAction(sha);
+        }
+        else if(button.getId() == R.id.skip){
+            super.game.sendAction(ska);
+        }
+        else if(button.getId() == R.id.spellcheck){
+            super.game.sendAction(sca);
+        }
+        else if(button.getId() == R.id.newtiles){
+            super.game.sendAction(gnta);
+        }
 
     }
 
