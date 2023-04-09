@@ -32,35 +32,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="play word" />
+                    android:text="play word"
+                    android:textSize="34sp" />
 
                 <Button
                     android:id="@+id/shuffle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="shuffle tiles" />
+                    android:text="shuffle tiles"
+                    android:textSize="34sp" />
 
                 <Button
                     android:id="@+id/newtiles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="get new tiles" />
+                    android:text="get new tiles"
+                    android:textSize="34sp" />
 
                 <Button
                     android:id="@+id/skip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="skip turn" />
+                    android:text="skip turn"
+                    android:textSize="34sp" />
 
                 <Button
                     android:id="@+id/spellcheck"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="spell check" />
+                    android:text="spell check"
+                    android:textSize="34sp" />
 
             </LinearLayout>
 
