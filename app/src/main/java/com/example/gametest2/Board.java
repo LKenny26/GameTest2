@@ -10,6 +10,7 @@ import android.view.View;
 
 public class Board extends SurfaceView {
     // Set the dimensions of the board
+    private static Board instance;
     private static final int BOARD_SIZE = 15;
     private Square[][] squares;
     private int squareSize;
@@ -18,6 +19,7 @@ public class Board extends SurfaceView {
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
+        instance = null;
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
     }
@@ -140,6 +142,50 @@ public class Board extends SurfaceView {
             }
         }
 
+    }
+    public static Board getInstance() {
+        if (instance == null) {
+            instance = new Board();
+        }
+        return instance;
+    }
+    public TilePlacer getTile(int x, int y) {
+        // Get the board size
+
+
+        // Check if x and y are within the board boundaries
+        if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) {
+            return null;
+        }
+
+        // specified position
+        return board[x][y];
+    }
+    private boolean isValidPosition(int x, int y) {
+
+
+        // Check if x and y are within the board boundaries
+        if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) {
+            return false;
+        }
+
+        // Check if the cell at (x,y) is already occupied
+        if (Board.getInstance().getTile(x, y) != null) {
+            return false;
+        }
+
+        // If all checks pass, the position is valid
+        return true;
+    }
+    public void placeTile(TilePlacer tile, int x, int y) {
+        // Check if the position is valid
+        if (isValidPosition(x, y)) {
+            // Add the tile to the board
+            board[x][y] = tile;
+            // Update the position of the tile
+            tile.placeTileOnBoard(x, y);
+            //update the score and the game state
+        }
     }
 
     @Override
