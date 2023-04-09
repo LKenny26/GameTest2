@@ -13,6 +13,7 @@ public class Board extends SurfaceView {
     private static final int BOARD_SIZE = 15;
     private Square[][] squares;
     private int squareSize;
+    private Paint tile = new Paint();
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -150,5 +151,7 @@ public class Board extends SurfaceView {
                 squares[row][col].draw(canvas);
             }
         }
+        tile.setColor(Color.rgb(244,248,181));
+        canvas.drawRect(0,BOARD_SIZE*squareSize, 100, BOARD_SIZE*squareSize+100,tile);
     }
 }
