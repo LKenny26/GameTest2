@@ -45,7 +45,7 @@ public class Square {
             Paint starPaint = new Paint();
             starPaint.setStyle(Paint.Style.STROKE);
             starPaint.setStrokeWidth(4);
-            starPaint.setColor(Color.BLUE);
+            starPaint.setColor(Color.WHITE);
 
             int cx = rect.centerX();
             int cy = rect.centerY();

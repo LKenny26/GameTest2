@@ -14,7 +14,7 @@ public class Board extends SurfaceView {
     private Square[][] squares;
     private int squareSize;
     private Paint tile = new Paint();
-    private int bottomTileSize = 130;
+    private int bottomTileSize = 100;
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -116,22 +116,22 @@ public class Board extends SurfaceView {
                 // Set the square's color based on its type
                 switch (squareType) {
                     case Square.CENTER:
-                        squares[row][col].setColor(Color.rgb(255, 165, 0)); // Orange
+                        squares[row][col].setColor(Color.rgb(245, 203, 166)); // Orange
                         break;
                     case Square.TL:
-                        squares[row][col].setColor(Color.rgb(128, 0, 128)); // Purple
+                        squares[row][col].setColor(Color.rgb(167, 175, 244)); // Lilac
                         break;
                     case Square.DL:
-                        squares[row][col].setColor(Color.rgb(0, 0, 255)); // Blue
+                        squares[row][col].setColor(Color.rgb(167, 244, 224)); // Blue
                         break;
                     case Square.TW:
                         squares[row][col].setColor(Color.rgb(255, 0, 0)); // Red
                         break;
                     case Square.DW:
-                        squares[row][col].setColor(Color.rgb(255, 255, 0)); // Yellow
+                        squares[row][col].setColor(Color.rgb(244, 236, 167)); // Yellow
                         break;
                     case Square.STAR:
-                        squares[row][col].setColor(Color.rgb(255,0,0));
+                        squares[row][col].setColor(Color.rgb(244,167,187)); //Pink
                         break;
                     default:
                         squares[row][col].setColor(Color.rgb(255, 255, 255)); // White
