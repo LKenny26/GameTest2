@@ -11,7 +11,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     private Button playword = null;
     private Button shuffle = null;
-    private Button newtiles = null;
+    private Button removeTiles = null;
     private Button skip = null;
     private Button spellcheck = null;
 
@@ -24,7 +24,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
         SpellCheckAction sca = new SpellCheckAction(this);
-        GetNewTilesAction gnta = new GetNewTilesAction(this);
+        RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){
             super.game.sendAction(pwa);
@@ -38,8 +38,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         else if(button.getId() == R.id.spellcheck){
             super.game.sendAction(sca);
         }
-        else if(button.getId() == R.id.newtiles){
-            super.game.sendAction(gnta);
+        else if(button.getId() == R.id.removeTiles){
+            super.game.sendAction(rta);
         }
 
     }
@@ -61,13 +61,13 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         this.playword = (Button)activity.findViewById(R.id.playword);
         this.shuffle = (Button)activity.findViewById(R.id.shuffle);
-        this.newtiles = (Button)activity.findViewById(R.id.newtiles);
+        this.removeTiles = (Button)activity.findViewById(R.id.removeTiles);
         this.skip = (Button)activity.findViewById(R.id.skip);
         this.spellcheck = (Button)activity.findViewById(R.id.spellcheck);
 
         playword.setOnClickListener(this);
         shuffle.setOnClickListener(this);
-        newtiles.setOnClickListener(this);
+        removeTiles.setOnClickListener(this);
         skip.setOnClickListener(this);
         spellcheck.setOnClickListener(this);
     }

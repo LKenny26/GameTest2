@@ -48,7 +48,7 @@ public class ScrabbleLocalGame extends LocalGame {
             return true;
         }
 
-        else if(action instanceof GetNewTilesAction){
+        else if(action instanceof RemoveTilesAction){
             return true;
         }
 

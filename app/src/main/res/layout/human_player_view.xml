@@ -44,11 +44,11 @@
                     android:textSize="34sp" />
 
                 <Button
-                    android:id="@+id/newtiles"
+                    android:id="@+id/removeTiles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="get new tiles"
+                    android:text="Remove Tiles"
                     android:textSize="34sp" />
 
                 <Button
