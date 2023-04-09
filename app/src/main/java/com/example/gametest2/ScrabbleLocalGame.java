@@ -7,11 +7,9 @@ import com.example.GameFramework.players.GamePlayer;
 public class ScrabbleLocalGame extends LocalGame {
     ScrabbleGameState sgs;
 
-    public ScrabbleLocalGame(){
-        sgs = new ScrabbleGameState();
-    }
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
+        sgs = new ScrabbleGameState();
         ScrabbleGameState cp = new ScrabbleGameState(sgs);
         p.sendInfo(cp);
     }
