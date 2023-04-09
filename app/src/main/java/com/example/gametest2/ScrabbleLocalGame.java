@@ -8,6 +8,7 @@ public class ScrabbleLocalGame extends LocalGame {
     ScrabbleGameState sgs;
 
 
+
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         sgs = new ScrabbleGameState();
