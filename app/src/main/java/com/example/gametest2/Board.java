@@ -14,6 +14,7 @@ public class Board extends SurfaceView {
     private Square[][] squares;
     private int squareSize;
     private Paint tile = new Paint();
+    private int bottomTileSize = 130;
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -172,7 +173,11 @@ public class Board extends SurfaceView {
             int stopY = BOARD_SIZE * squareSize;
             canvas.drawLine(startX, startY, stopX, stopY, line);
         }
-        tile.setColor(Color.rgb(244,248,181));
-        canvas.drawRect(0,BOARD_SIZE*squareSize, 100, BOARD_SIZE*squareSize+100,tile);
+
+        for(int i = 0; i < 7; i++) {
+            tile.setColor(Color.rgb(244, 248, 181));
+            //canvas.drawRect(0,BOARD_SIZE*squareSize, , );
+            canvas.drawRect(0 + bottomTileSize*i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize*i, BOARD_SIZE * squareSize + bottomTileSize, tile);
+        }
     }
 }
