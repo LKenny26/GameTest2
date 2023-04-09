@@ -176,8 +176,8 @@ public class Board extends SurfaceView {
 
         for(int i = 0; i < 7; i++) {
             tile.setColor(Color.rgb(244, 248, 181));
-            //canvas.drawRect(0,BOARD_SIZE*squareSize, , );
-            canvas.drawRect(0 + bottomTileSize*i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize*i, BOARD_SIZE * squareSize + bottomTileSize, tile);
+            canvas.drawRect(bottomTileSize*i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize*i, BOARD_SIZE * squareSize + bottomTileSize, tile);
+            canvas.drawLine(i*bottomTileSize,BOARD_SIZE*squareSize, i*bottomTileSize, BOARD_SIZE*squareSize + bottomTileSize, line);
         }
     }
 }
