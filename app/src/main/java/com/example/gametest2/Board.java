@@ -155,7 +155,7 @@ public class Board extends SurfaceView {
         //black lines
         Paint line = new Paint();
         line.setColor(Color.BLACK);
-
+        line.setStrokeWidth(4);
         // Draw the horizontal lines
         for (int i = 0; i < BOARD_SIZE + 1; i++) {
             int startX = 0;
