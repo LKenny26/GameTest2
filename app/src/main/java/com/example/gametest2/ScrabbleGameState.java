@@ -14,6 +14,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class ScrabbleGameState extends GameState {
+    //instance variables
     private int playerID;
     private int playerOneScore;
     private int playerTwoScore;
