@@ -24,6 +24,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
         SpellCheckAction sca = new SpellCheckAction(this);
+
         RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){

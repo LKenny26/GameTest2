@@ -17,12 +17,19 @@ public class Board extends SurfaceView {
     private Paint tile = new Paint();
     private int bottomTileSize = 100;
 
+    private TilePlacer [][] board;
+
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
-        instance = null;
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
     }
+
+
+
+    //public Board(Context c, AttributeSet a) {
+    //    super(c, a);
+
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -143,9 +150,9 @@ public class Board extends SurfaceView {
         }
 
     }
-    public static Board getInstance() {
+    public static Board getInstance(Context context, AttributeSet attrs) {
         if (instance == null) {
-            instance = new Board();
+            instance = new Board(context, attrs);
         }
         return instance;
     }
@@ -159,9 +166,10 @@ public class Board extends SurfaceView {
         }
 
         // specified position
+
         return board[x][y];
     }
-    private boolean isValidPosition(int x, int y) {
+    private boolean isValidPosition(int x, int y, Context context, AttributeSet attrs) {
 
 
         // Check if x and y are within the board boundaries
@@ -170,16 +178,16 @@ public class Board extends SurfaceView {
         }
 
         // Check if the cell at (x,y) is already occupied
-        if (Board.getInstance().getTile(x, y) != null) {
+        if (Board.getInstance(context, attrs).getTile(x, y) != null) {
             return false;
         }
 
         // If all checks pass, the position is valid
         return true;
     }
-    public void placeTile(TilePlacer tile, int x, int y) {
+    public void placeTile(TilePlacer tile, int x, int y, Context context, AttributeSet attrs) {
         // Check if the position is valid
-        if (isValidPosition(x, y)) {
+        if (isValidPosition(x, y, context, attrs)) {
             // Add the tile to the board
             board[x][y] = tile;
             // Update the position of the tile
