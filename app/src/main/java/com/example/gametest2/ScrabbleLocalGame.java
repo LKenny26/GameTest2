@@ -3,6 +3,8 @@ package com.example.gametest2;
 import com.example.GameFramework.LocalGame;
 import com.example.GameFramework.actionMessage.GameAction;
 import com.example.GameFramework.players.GamePlayer;
+import com.example.gametest2.actions.PlayWordAction;
+import com.example.gametest2.actions.*;
 
 public class ScrabbleLocalGame extends LocalGame {
     ScrabbleGameState sgs;
