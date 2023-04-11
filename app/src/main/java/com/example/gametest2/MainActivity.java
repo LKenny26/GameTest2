@@ -15,6 +15,7 @@ import com.example.GameFramework.gameConfiguration.GameConfig;
 import com.example.GameFramework.gameConfiguration.GamePlayerType;
 import com.example.GameFramework.infoMessage.GameState;
 import com.example.GameFramework.players.GamePlayer;
+import com.example.gametest2.players.*;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,6 @@
 package com.example.gametest2;
 
+import com.example.gametest2.views.Board;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
