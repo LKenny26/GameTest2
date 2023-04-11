@@ -31,8 +31,7 @@ public class ScrabbleLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         String gameOver;
         gameOver = "game not over";
-        if(sgs.TileCounter == 100 && (sgs.getPlayer1TileCount() == 0 || sgs.getPlayer2TileCount() == 0
-         || sgs.getPlayer3TileCount() == 0 || sgs.getPlayer4TileCount() == 0)){
+        if(sgs.TileCounter == 100){
             gameOver = "game is over, identifying winner...";
             return gameOver;
             //need a checkScore of some sort here
@@ -57,6 +56,29 @@ public class ScrabbleLocalGame extends LocalGame {
         }
 
         else if(action instanceof SkipAction){
+            if(sgs.getPlayerID() == 1){
+                sgs.setPlayerID(2);
+            }
+            else if (sgs.getPlayerID() == 2) {
+                if(players > 2) {
+                    sgs.setPlayerID(3);
+                }
+                else {
+                    sgs.setPlayerID(1);
+                }
+            }
+            else if (sgs.getPlayerID() == 3) {
+                if(players > 3) {
+                    sgs.setPlayerID(4);
+                }
+                else {
+                    sgs.setPlayerID(1);
+                }
+            }
+            else if (sgs.getPlayerID() == 4) {
+                sgs.setPlayerID(1);
+            }
+            else {return false;}
             return true;
         }
 

@@ -1,12 +1,10 @@
 package com.example.gametest2;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
@@ -145,7 +143,7 @@ public class Board extends SurfaceView {
                         squares[row][col].setColor(Color.rgb(244, 236, 167)); // Yellow
                         break;
                     case Square.STAR:
-                        squares[row][col].setColor(Color.rgb(244, 167, 187)); //Pink
+                        squares[row][col].setColor(Color.rgb(244,167,187)); //Pink
                         break;
                     default:
                         squares[row][col].setColor(Color.rgb(255, 255, 255)); // White
