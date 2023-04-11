@@ -48,7 +48,7 @@ public class MainActivity extends GameMainActivity {
         });
 
         //make the default config
-        GameConfig defaultConfig = new GameConfig(playerTypes, 1, 4, "Scrabble", PORT_NUMBER);
+        GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Scrabble", PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); //add human
         defaultConfig.addPlayer("Computer", 1); //add computer
         defaultConfig.addPlayer("Smart Computer", 2); //add smart computer

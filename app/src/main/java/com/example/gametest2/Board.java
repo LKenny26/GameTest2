@@ -12,14 +12,15 @@ import android.view.View;
 
 import org.w3c.dom.Attr;
 
-public class Board extends SurfaceView {
+public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
     private static Board instance;
     private static final int BOARD_SIZE = 15;
     private Square[][] squares;
+    private Tile[] playerTiles = new Tile[7];
     private int squareSize;
     private Paint tile = new Paint();
-    private int bottomTileSize = 100;
+    private int bottomTileSize = 150;
     private TilePlacer[][] board;
 
     public Board(Context context, AttributeSet attrs) {
@@ -27,12 +28,14 @@ public class Board extends SurfaceView {
         instance = null;
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
+        /*
         board = new TilePlacer[BOARD_SIZE][BOARD_SIZE];
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 board[row][col] = new TilePlacer(row, col, context, attrs);
             }
         }
+        */
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -153,6 +156,7 @@ public class Board extends SurfaceView {
                 }
             }
         }
+        /*
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 final int finalRow = row;
@@ -169,7 +173,8 @@ public class Board extends SurfaceView {
             }
         }
         // Add click listeners to squares
-
+        */
+        
 
     }
     public static Board getInstance(Context context, AttributeSet attrs) {
@@ -250,10 +255,22 @@ public class Board extends SurfaceView {
             canvas.drawLine(startX, startY, stopX, stopY, line);
         }
 
+
         for(int i = 0; i < 7; i++) {
-            tile.setColor(Color.rgb(244, 248, 181));
-            canvas.drawRect(bottomTileSize*i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize*i, BOARD_SIZE * squareSize + bottomTileSize, tile);
-            canvas.drawLine(i*bottomTileSize,BOARD_SIZE*squareSize, i*bottomTileSize, BOARD_SIZE*squareSize + bottomTileSize, line);
+            playerTiles[i] = new Tile(bottomTileSize*i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize*i, BOARD_SIZE * squareSize + bottomTileSize, 'a', 1);
+            playerTiles[i].onDraw(canvas);
+            //canvas.drawRect(bottomTileSize*i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize*i, BOARD_SIZE * squareSize + bottomTileSize, tile);
+            //canvas.drawLine(i*bottomTileSize,BOARD_SIZE*squareSize, i*bottomTileSize, BOARD_SIZE*squareSize + bottomTileSize, line);
         }
+
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        float x = getX();
+        float y = getY();
+
+        
+        return false;
     }
 }

@@ -14,12 +14,12 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class ScrabbleGameState extends GameState {
+    //instance variables
     private int playerID;
     private int playerOneScore;
     private int playerTwoScore;
     private int playerThreeScore;
     private int playerFourScore;
-    private int totalPlayers;
     Set<String> spellCheckTable;
     File dictionary;
     Scanner scan;
