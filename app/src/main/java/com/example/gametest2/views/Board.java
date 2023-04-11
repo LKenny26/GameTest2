@@ -158,13 +158,13 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                         squares[row][col].setColor(Color.rgb(167, 175, 244)); // Lilac
                         break;
                     case Square.DL:
-                        squares[row][col].setColor(Color.rgb(167, 244, 224)); // Blue
+                        squares[row][col].setColor(Color.rgb(166, 245, 244)); // Blue
                         break;
                     case Square.TW:
                         squares[row][col].setColor(Color.rgb(255, 0, 0)); // Red
                         break;
                     case Square.DW:
-                        squares[row][col].setColor(Color.rgb(244, 236, 167)); // Yellow
+                        squares[row][col].setColor(Color.rgb(166, 245, 187)); // Green
                         break;
                     case Square.STAR:
                         squares[row][col].setColor(Color.rgb(244,167,187)); //Pink
