@@ -9,7 +9,6 @@ import android.view.View;
 
 import java.util.Random;
 
-public class Tile {
 public class Tile implements View.OnTouchListener{
     private Rect rect;
     private Paint paint;
