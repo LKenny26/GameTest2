@@ -33,7 +33,7 @@ public class ScrabbleLocalGame extends LocalGame {
         gameOver = "game not over";
         if(sgs.TileCounter == 100){
             gameOver = "game is over, identifying winner...";
-            return gameOver;
+           // return gameOver;
             //need a checkScore of some sort here
         }
         return gameOver;
