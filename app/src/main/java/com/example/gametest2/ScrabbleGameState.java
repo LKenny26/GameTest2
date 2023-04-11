@@ -19,6 +19,7 @@ public class ScrabbleGameState extends GameState {
     private int playerTwoScore;
     private int playerThreeScore;
     private int playerFourScore;
+    private int totalPlayers;
     Set<String> spellCheckTable;
     File dictionary;
     Scanner scan;
