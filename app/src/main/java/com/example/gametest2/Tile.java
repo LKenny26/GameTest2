@@ -15,6 +15,7 @@ public class Tile{
     private Paint outline;
     boolean selected;
     boolean empty;
+    boolean confirmed;
     private Paint let;
     char letter;
     int points;
@@ -44,6 +45,7 @@ public class Tile{
         let.setColor(Color.BLACK);
         let.setTextSize(115);
         empty = emp;
+        confirmed = false;
         this.setLetters();
     }
 

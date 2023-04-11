@@ -2,7 +2,7 @@ package com.example.gametest2.views;
 
 import com.example.gametest2.Square;
 import com.example.gametest2.Tile;
-import com.example.gametest2.TilePlacer;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,8 +13,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-import org.w3c.dom.Attr;
-
 public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
     private static Board instance;
@@ -23,9 +21,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     private Tile[] playerTiles = new Tile[7];
     private Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
-    private Paint tile = new Paint();
     private int bottomTileSize = 150;
-    private TilePlacer[][] board;
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -33,34 +29,21 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
 
+        //make the board an ontouchlistener
         this.setOnTouchListener(this);
-        /*
-        board = new TilePlacer[BOARD_SIZE][BOARD_SIZE];
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                board[row][col] = new TilePlacer(row, col, context, attrs);
-            }
-        }
-        */
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        //make the size of the bottom row tiles
+        bottomTileSize = w/7;
         squareSize = Math.min(w, h) / BOARD_SIZE;
+        //make the tiles
         for(int i = 0; i < 7; i++) {
             playerTiles[i] = new Tile(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize, false);
         }
-        /*
-        this.setOnTouchListener(playerTiles[0]);
-        this.setOnTouchListener(playerTiles[1]);
-        this.setOnTouchListener(playerTiles[2]);
-        this.setOnTouchListener(playerTiles[3]);
-        this.setOnTouchListener(playerTiles[4]);
-        this.setOnTouchListener(playerTiles[5]);
-        this.setOnTouchListener(playerTiles[6]);
-        */
 
 
         // Define special squares
@@ -175,71 +158,8 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                 }
             }
         }
-        /*
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                final int finalRow = row;
-                final int finalCol = col;
-
-                board[row][col].setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        // Set the board variable to the location of the clicked square
-                        board = new TilePlacer[finalRow][finalCol];
-                        return true;
-                    }
-                });
-            }
-        }
-        // Add click listeners to squares
-        */
         
 
-    }
-    public static Board getInstance(Context context, AttributeSet attrs) {
-        if (instance == null) {
-            instance = new Board(context, attrs);
-        }
-        return instance;
-    }
-    public TilePlacer getTile(int x, int y) {
-        // Get the board size
-
-
-        // Check if x and y are within the board boundaries
-        if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) {
-            return null;
-        }
-
-        // specified position
-        return board[x][y];
-    }
-    private boolean isValidPosition(int x, int y, Context context, AttributeSet attrs) {
-
-
-        // Check if x and y are within the board boundaries
-        if (x < 0 || y < 0 || x >= BOARD_SIZE || y >= BOARD_SIZE) {
-            return false;
-        }
-
-        // Check if the cell at (x,y) is already occupied\
-        if (Board.getInstance(context,attrs).getTile(x, y) != null) {
-            return false;
-        }
-
-        // If all checks pass, the position is valid
-        return true;
-    }
-    public void placeTile(TilePlacer tile, int x, int y,Context context, AttributeSet attrs) {
-        // Check if the position is valid
-        if (isValidPosition(x, y,context,attrs)) {
-            // Add the tile to the board
-
-            board[x][y] = tile;
-            // Update the position of the tile
-            tile.placeTileOnBoard(x, y);
-            //update the score and the game state
-        }
     }
 
     @Override
@@ -249,8 +169,8 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         // Draw the squares
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
-                squares[row][col].draw(canvas);
-                boardTiles[row][col].onDraw(canvas);
+                squares[row][col].draw(canvas); //squares
+                boardTiles[row][col].onDraw(canvas); //tiles on the board
             }
         }
         //black lines
@@ -275,11 +195,9 @@ public class Board extends SurfaceView implements View.OnTouchListener{
             canvas.drawLine(startX, startY, stopX, stopY, line);
         }
 
-
+        //draw the players
         for(int i = 0; i < 7; i++) {
             playerTiles[i].onDraw(canvas);
-            //canvas.drawRect(bottomTileSize*i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize*i, BOARD_SIZE * squareSize + bottomTileSize, tile);
-            //canvas.drawLine(i*bottomTileSize,BOARD_SIZE*squareSize, i*bottomTileSize, BOARD_SIZE*squareSize + bottomTileSize, line);
         }
 
     }

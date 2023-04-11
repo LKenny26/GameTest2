@@ -23,7 +23,11 @@ public class ScrabbleGameState extends GameState {
     Set<String> spellCheckTable;
     File dictionary;
     Scanner scan;
-
+    public Tile[] player1Tiles;
+    public Tile[] player2Tiles;
+    public Tile[] player3Tiles;
+    public Tile[] player4Tiles;
+    public Tile[][] boardTiles;
     int player1TileCount = 7;
     int player2TileCount = 7;
     int player3TileCount = 7;
