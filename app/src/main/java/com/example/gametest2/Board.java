@@ -1,12 +1,16 @@
 package com.example.gametest2;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+
+import org.w3c.dom.Attr;
 
 public class Board extends SurfaceView {
     // Set the dimensions of the board
@@ -16,14 +20,22 @@ public class Board extends SurfaceView {
     private int squareSize;
     private Paint tile = new Paint();
     private int bottomTileSize = 100;
+    private TilePlacer[][] board;
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
         instance = null;
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
+        board = new TilePlacer[BOARD_SIZE][BOARD_SIZE];
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                board[row][col] = new TilePlacer(row, col, context, attrs);
+            }
+        }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -133,7 +145,7 @@ public class Board extends SurfaceView {
                         squares[row][col].setColor(Color.rgb(244, 236, 167)); // Yellow
                         break;
                     case Square.STAR:
-                        squares[row][col].setColor(Color.rgb(244,167,187)); //Pink
+                        squares[row][col].setColor(Color.rgb(244, 167, 187)); //Pink
                         break;
                     default:
                         squares[row][col].setColor(Color.rgb(255, 255, 255)); // White
@@ -141,11 +153,28 @@ public class Board extends SurfaceView {
                 }
             }
         }
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                final int finalRow = row;
+                final int finalCol = col;
+
+                board[row][col].setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        // Set the board variable to the location of the clicked square
+                        board = new TilePlacer[finalRow][finalCol];
+                        return true;
+                    }
+                });
+            }
+        }
+        // Add click listeners to squares
+
 
     }
-    public static Board getInstance() {
+    public static Board getInstance(Context context, AttributeSet attrs) {
         if (instance == null) {
-            instance = new Board();
+            instance = new Board(context, attrs);
         }
         return instance;
     }
@@ -161,7 +190,7 @@ public class Board extends SurfaceView {
         // specified position
         return board[x][y];
     }
-    private boolean isValidPosition(int x, int y) {
+    private boolean isValidPosition(int x, int y, Context context, AttributeSet attrs) {
 
 
         // Check if x and y are within the board boundaries
@@ -169,18 +198,19 @@ public class Board extends SurfaceView {
             return false;
         }
 
-        // Check if the cell at (x,y) is already occupied
-        if (Board.getInstance().getTile(x, y) != null) {
+        // Check if the cell at (x,y) is already occupied\
+        if (Board.getInstance(context,attrs).getTile(x, y) != null) {
             return false;
         }
 
         // If all checks pass, the position is valid
         return true;
     }
-    public void placeTile(TilePlacer tile, int x, int y) {
+    public void placeTile(TilePlacer tile, int x, int y,Context context, AttributeSet attrs) {
         // Check if the position is valid
-        if (isValidPosition(x, y)) {
+        if (isValidPosition(x, y,context,attrs)) {
             // Add the tile to the board
+
             board[x][y] = tile;
             // Update the position of the tile
             tile.placeTileOnBoard(x, y);

@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class Square {
 
@@ -57,4 +59,5 @@ public class Square {
             canvas.drawLine(cx - r, cy + r, cx + r, cy - r, starPaint);
         }
     }
+
 }
