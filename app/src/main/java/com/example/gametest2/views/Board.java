@@ -250,6 +250,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 squares[row][col].draw(canvas);
+                boardTiles[row][col].onDraw(canvas);
             }
         }
         //black lines
@@ -288,24 +289,21 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         float x = event.getX();
         float y = event.getY();
 
-        int index = 0;
         for(int i = 0; i < 7; i++) {
             if (x < playerTiles[i].getR() && x > playerTiles[i].getL() && y > playerTiles[i].getT() && y < playerTiles[i].getB()) {
-                index = i;
+                for(int j = 0; j < 7;j++) {
+                    playerTiles[j].setSelected(false);
+                }
+                playerTiles[i].setSelected(true);
                 break;
             }
         }
-        for(int i = 0; i < 7;i++) {
-            playerTiles[i].setSelected(false);
-        }
-        playerTiles[index].setSelected(true);
-        int theRow;
-        int theCol;
+
         for(int row = 0; row < BOARD_SIZE; row++){
             for(int col = 0; col < BOARD_SIZE; col++) {
                 if (x < boardTiles[row][col].getR() && x > boardTiles[row][col].getL() && y > boardTiles[row][col].getT() && y < boardTiles[row][col].getB()) {
                     for (int i = 0; i < 7; i++){
-                        if (playerTiles[i].isSelected()) {
+                        if (playerTiles[i].isSelected() && boardTiles[row][col].getEmpty()) {
                             Tile.swap(boardTiles[row][col], playerTiles[i]);
                         }
                     }
