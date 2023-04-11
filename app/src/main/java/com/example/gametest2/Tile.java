@@ -14,6 +14,7 @@ public class Tile implements View.OnTouchListener{
     private Paint paint;
     private Paint outline;
     boolean selected;
+    boolean empty;
     private Paint let;
     char letter;
     int points;
@@ -22,10 +23,11 @@ public class Tile implements View.OnTouchListener{
     int t;
     int b;
 
+
     Random rand = new Random();
     //int tileNumber = rand.nextInt(98);
 
-    public Tile(int left, int top, int right, int bottom, char initLetter, int initPoints) {
+    public Tile(int left, int top, int right, int bottom, char initLetter, int initPoints, boolean emp) {
         rect = new Rect(left, top, right, bottom);
 
         points = initPoints;
@@ -43,6 +45,7 @@ public class Tile implements View.OnTouchListener{
         selected = false;
         let.setColor(Color.BLACK);
         let.setTextSize(115);
+        empty = emp;
     }
 
     public void setLetters(char letter, int point){
@@ -164,6 +167,9 @@ public class Tile implements View.OnTouchListener{
     }
 
     public void onDraw(Canvas canvas){
+        if (empty){
+            return;
+        }
         paint.setColor(Color.rgb(244, 248, 181));
         if (selected){
             paint.setColor(Color.rgb(255,255,0));

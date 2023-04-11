@@ -47,7 +47,7 @@ public class Board extends SurfaceView{
 
         squareSize = Math.min(w, h) / BOARD_SIZE;
         for(int i = 0; i < 7; i++) {
-            playerTiles[i] = new Tile(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize, 'a', 1);
+            playerTiles[i] = new Tile(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize, 'a', 1, false);
         }
         this.setOnTouchListener(playerTiles[0]);
         this.setOnTouchListener(playerTiles[1]);
@@ -141,6 +141,7 @@ public class Board extends SurfaceView{
                 int right = (col + 1) * squareSize;
                 int bottom = (row + 1) * squareSize;
                 squares[row][col] = new Square(left, top, right, bottom, squareType);
+                boardTiles[row][col] = new Tile(left,top,right,bottom,'a', 1, true);
 
                 // Set the square's color based on its type
                 switch (squareType) {
