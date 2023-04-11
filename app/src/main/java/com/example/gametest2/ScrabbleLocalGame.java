@@ -61,10 +61,20 @@ public class ScrabbleLocalGame extends LocalGame {
                 sgs.setPlayerID(2);
             }
             else if (sgs.getPlayerID() == 2) {
-                sgs.setPlayerID(3);
+                if(players > 2) {
+                    sgs.setPlayerID(3);
+                }
+                else {
+                    sgs.setPlayerID(1);
+                }
             }
             else if (sgs.getPlayerID() == 3) {
-                sgs.setPlayerID(4);
+                if(players > 3) {
+                    sgs.setPlayerID(4);
+                }
+                else {
+                    sgs.setPlayerID(1);
+                }
             }
             else if (sgs.getPlayerID() == 4) {
                 sgs.setPlayerID(1);
