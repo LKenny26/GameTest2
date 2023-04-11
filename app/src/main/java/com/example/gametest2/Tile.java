@@ -46,11 +46,13 @@ public class Tile implements View.OnTouchListener{
         let.setColor(Color.BLACK);
         let.setTextSize(115);
         empty = emp;
+        this.setLetters();
     }
 
-    public void setLetters(char letter, int point){
-        //this.letter = letter;
+    public void setLetters(){
         int tileNumber;
+        char letter = 'A';
+        int point = 1;
         //leaves out blank tiles
         for(int i = 0; i <= 100; i++){
             tileNumber = rand.nextInt(98);
@@ -178,8 +180,6 @@ public class Tile implements View.OnTouchListener{
         }
         canvas.drawRect(rect, paint);
         canvas.drawText(this.getLetter(), l+20, b - (b - t)/4, let);
-        //issue: draws the same value on every letter, even though it iterates through the entire
-        //for-loop, need to find a way to put different letters on the tiles
         canvas.drawLine(l,t,l,b,outline);
         canvas.drawLine(l,t,r,t,outline);
         canvas.drawLine(r,t,r,b,outline);
