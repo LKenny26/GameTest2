@@ -15,7 +15,7 @@ import android.view.View;
 
 import org.w3c.dom.Attr;
 
-public class Board extends SurfaceView{
+public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
     private static Board instance;
     private static final int BOARD_SIZE = 15;
@@ -33,6 +33,7 @@ public class Board extends SurfaceView{
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
 
+        this.setOnTouchListener(this);
         /*
         board = new TilePlacer[BOARD_SIZE][BOARD_SIZE];
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -49,8 +50,9 @@ public class Board extends SurfaceView{
         super.onSizeChanged(w, h, oldw, oldh);
         squareSize = Math.min(w, h) / BOARD_SIZE;
         for(int i = 0; i < 7; i++) {
-            playerTiles[i] = new Tile(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize, 'a', 1, false);
+            playerTiles[i] = new Tile(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize, false);
         }
+        /*
         this.setOnTouchListener(playerTiles[0]);
         this.setOnTouchListener(playerTiles[1]);
         this.setOnTouchListener(playerTiles[2]);
@@ -58,6 +60,8 @@ public class Board extends SurfaceView{
         this.setOnTouchListener(playerTiles[4]);
         this.setOnTouchListener(playerTiles[5]);
         this.setOnTouchListener(playerTiles[6]);
+        */
+
 
         // Define special squares
         int[][] specialSquares = {
@@ -143,7 +147,7 @@ public class Board extends SurfaceView{
                 int right = (col + 1) * squareSize;
                 int bottom = (row + 1) * squareSize;
                 squares[row][col] = new Square(left, top, right, bottom, squareType);
-                boardTiles[row][col] = new Tile(left,top,right,bottom,'a', 1, true);
+                boardTiles[row][col] = new Tile(left,top,right,bottom, true);
 
                 // Set the square's color based on its type
                 switch (squareType) {
@@ -279,5 +283,38 @@ public class Board extends SurfaceView{
 
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
 
+        int index = 0;
+        for(int i = 0; i < 7; i++) {
+            if (x < playerTiles[i].getR() && x > playerTiles[i].getL() && y > playerTiles[i].getT() && y < playerTiles[i].getB()) {
+                index = i;
+                break;
+            }
+        }
+        for(int i = 0; i < 7;i++) {
+            playerTiles[i].setSelected(false);
+        }
+        playerTiles[index].setSelected(true);
+        int theRow;
+        int theCol;
+        for(int row = 0; row < BOARD_SIZE; row++){
+            for(int col = 0; col < BOARD_SIZE; col++) {
+                if (x < boardTiles[row][col].getR() && x > boardTiles[row][col].getL() && y > boardTiles[row][col].getT() && y < boardTiles[row][col].getB()) {
+                    for (int i = 0; i < 7; i++){
+                        if (playerTiles[i].isSelected()) {
+                            Tile.swap(boardTiles[row][col], playerTiles[i]);
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        this.invalidate();
+        return true;
+    }
 }

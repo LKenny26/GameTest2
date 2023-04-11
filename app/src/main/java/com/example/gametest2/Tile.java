@@ -9,7 +9,7 @@ import android.view.View;
 
 import java.util.Random;
 
-public class Tile implements View.OnTouchListener{
+public class Tile{
     private Rect rect;
     private Paint paint;
     private Paint outline;
@@ -27,11 +27,9 @@ public class Tile implements View.OnTouchListener{
     Random rand = new Random();
     //int tileNumber = rand.nextInt(98);
 
-    public Tile(int left, int top, int right, int bottom, char initLetter, int initPoints, boolean emp) {
+    public Tile(int left, int top, int right, int bottom, boolean emp) {
         rect = new Rect(left, top, right, bottom);
 
-        points = initPoints;
-        letter = initLetter;
         paint = new Paint();
         let = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -170,6 +168,10 @@ public class Tile implements View.OnTouchListener{
         return lett.toUpperCase();
     }
 
+    public char getChar() {
+        return letter;
+    }
+
     public void onDraw(Canvas canvas){
         if (empty){
             return;
@@ -195,6 +197,10 @@ public class Tile implements View.OnTouchListener{
         selected = bool;
     }
 
+    public void setLet(char l) {
+        letter = l;
+    }
+
     public int getL(){
         return l;
     }
@@ -215,11 +221,34 @@ public class Tile implements View.OnTouchListener{
         return points;
     }
 
-    public void swap(Tile tile1, Tile tile2) {
-        char tempLet = tile1.letter;
+    public void setPoints(int p) {
+        points = p;
+    }
+
+    public boolean getEmpty(){
+        return empty;
+    }
+    public void setEmpty(boolean bool){
+        empty = bool;
+    }
+
+    public static void swap(Tile tile1, Tile tile2) {
+        char tempLetter = tile1.getChar();
+        tile1.setLet(tile2.getChar());
+        tile2.setLet(tempLetter);
+
+        int tempPoints = tile1.getPoints();
+        tile1.setPoints(tile2.getPoints());
+        tile2.setPoints(tempPoints);
+
+        boolean tempEmpty = tile1.getEmpty();
+        tile1.setEmpty(tile2.getEmpty());
+        tile2.setEmpty(tempEmpty);
+
 
     }
 
+    /*
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         float x = event.getX();
@@ -231,5 +260,7 @@ public class Tile implements View.OnTouchListener{
         v.invalidate();
         return true;
     }
+
+     */
 }
 

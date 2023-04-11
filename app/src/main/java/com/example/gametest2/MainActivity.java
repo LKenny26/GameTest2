@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends GameMainActivity {
     private static final int PORT_NUMBER = 2278;
+
+
     @Override
     public GameConfig createDefaultConfig() {
         //array of the players

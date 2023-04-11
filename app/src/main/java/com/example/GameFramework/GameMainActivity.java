@@ -1,7 +1,5 @@
 package com.example.GameFramework;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 
 import java.util.ArrayList;
 
@@ -39,9 +37,6 @@ import com.example.GameFramework.utilities.Logger;
 import com.example.GameFramework.utilities.MessageBox;
 import com.example.GameFramework.utilities.Saving;
 import com.example.gametest2.R;
-import com.example.gametest2.ScrabbleGameState;
-import com.example.gametest2.ScrabbleHumanPlayer;
-import com.example.gametest2.ScrabbleLocalGame;
 
 
 /**
@@ -195,7 +190,6 @@ public abstract class GameMainActivity extends Activity implements
      *
      * "main" for the game framework
      */
-    @Override
     public final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
