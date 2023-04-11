@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <com.example.gametest2.Board
+            <com.example.gametest2.views.Board
                 android:id="@+id/Board"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <com.example.gametest2.ScoreBoard
+                <com.example.gametest2.views.ScoreBoard
                     android:id="@+id/ScoreBoard"
                     android:layout_width="match_parent"
                     android:layout_height="118dp"

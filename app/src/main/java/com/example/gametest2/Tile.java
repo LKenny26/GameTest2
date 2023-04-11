@@ -49,7 +49,7 @@ public class Tile implements View.OnTouchListener{
     }
 
     public void setLetters(char letter, int point){
-        this.letter = letter;
+        //this.letter = letter;
         int tileNumber;
         //leaves out blank tiles
         for(int i = 0; i <= 100; i++){
@@ -159,6 +159,8 @@ public class Tile implements View.OnTouchListener{
                 point = 10;
             }
         }
+        this.letter = letter;
+        this.points = point;
         //return letter;
     }
     public String getLetter(){
@@ -211,6 +213,11 @@ public class Tile implements View.OnTouchListener{
 
     public int getPoints(){
         return points;
+    }
+
+    public void swap(Tile tile1, Tile tile2) {
+        char tempLet = tile1.letter;
+
     }
 
     @Override

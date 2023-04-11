@@ -47,7 +47,6 @@ public class Board extends SurfaceView{
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
         squareSize = Math.min(w, h) / BOARD_SIZE;
         for(int i = 0; i < 7; i++) {
             playerTiles[i] = new Tile(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize, 'a', 1, false);
