@@ -27,6 +27,12 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <com.example.gametest2.ScoreBoard
+                    android:id="@+id/ScoreBoard"
+                    android:layout_width="match_parent"
+                    android:layout_height="118dp"
+                    android:layout_weight="1" />
+
                 <Button
                     android:id="@+id/playword"
                     android:layout_width="match_parent"

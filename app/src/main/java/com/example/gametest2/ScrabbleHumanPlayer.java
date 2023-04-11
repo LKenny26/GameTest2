@@ -71,4 +71,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         skip.setOnClickListener(this);
         spellcheck.setOnClickListener(this);
     }
+
+    public String getName(){
+        return name;
+    }
 }
