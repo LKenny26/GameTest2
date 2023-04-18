@@ -21,7 +21,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void onClick(View button) {
-
+        int x = button.getId();
         PlayWordAction pwa = new PlayWordAction(this);
         ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
@@ -63,10 +63,15 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         activity.setContentView(R.layout.human_player_view);
 
         this.playword = (Button)activity.findViewById(R.id.playword);
+        System.out.println("play word" + playword.getId() + " " + R.id.playword);
         this.shuffle = (Button)activity.findViewById(R.id.shuffle);
+        System.out.println("play word" + shuffle.getId() + " " + R.id.shuffle);
         this.removeTiles = (Button)activity.findViewById(R.id.removeTiles);
+        System.out.println("play word" + removeTiles.getId() + " " + R.id.removeTiles);
         this.skip = (Button)activity.findViewById(R.id.skip);
+        System.out.println("play word" + skip.getId() + " " + R.id.skip);
         this.spellcheck = (Button)activity.findViewById(R.id.spellcheck);
+        System.out.println("play word" + spellcheck.getId() + " " + R.id.spellcheck);
 
         playword.setOnClickListener(this);
         shuffle.setOnClickListener(this);

@@ -1,13 +1,15 @@
 package com.example.gametest2;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class Square {
+public class Square implements View.OnTouchListener {
 
     // Constants for square types
     public static final int REGULAR = 0;
@@ -58,6 +60,12 @@ public class Square {
             canvas.drawLine(cx - r, cy - r, cx + r, cy + r, starPaint);
             canvas.drawLine(cx - r, cy + r, cx + r, cy - r, starPaint);
         }
+    }
+
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
     }
 
 }

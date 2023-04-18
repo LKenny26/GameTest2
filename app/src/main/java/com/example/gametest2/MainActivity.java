@@ -17,6 +17,8 @@ import com.example.GameFramework.infoMessage.GameState;
 import com.example.GameFramework.players.GamePlayer;
 import com.example.gametest2.players.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends GameMainActivity {
@@ -62,6 +64,24 @@ public class MainActivity extends GameMainActivity {
 
     //@Override
     public LocalGame createLocalGame(GameState gs) {
+
+        BufferedReader reader =
+                new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.words_alpha)));
+        try {
+            String line = reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                //while loop checking for null, if not null add word
+                //use readLine in while loop
+
+                if (line.length() > 1 && line.length() < 16) {
+                    //spellCheckTable.add(line);
+                    reader.close();
+                }
+            }
+        }
+        catch(Exception e){
+        }
+
         return new ScrabbleLocalGame();
     }
 }

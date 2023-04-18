@@ -49,7 +49,7 @@ public class ScrabbleGameState extends GameState {
         playerFourScore = 0;
         playerID = 1;
 
-        dictionary = new File("words_alpha.txt");
+        /*dictionary = new File("words_alpha.txt");
         try {
             scan = new Scanner(dictionary);
         }
@@ -63,7 +63,7 @@ public class ScrabbleGameState extends GameState {
             if(word.length() > 1 && word.length() < 16) {
                 spellCheckTable.add(word);
             }
-        }
+        }*/
     }
 
     public ScrabbleGameState(ScrabbleGameState orig) {

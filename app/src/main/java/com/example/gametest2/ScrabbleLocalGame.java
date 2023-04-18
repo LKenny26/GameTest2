@@ -5,11 +5,20 @@ import com.example.GameFramework.actionMessage.GameAction;
 import com.example.GameFramework.players.GamePlayer;
 import com.example.gametest2.actions.PlayWordAction;
 import com.example.gametest2.actions.*;
+import com.example.gametest2.players.ScrabbleHumanPlayer;
 
 public class ScrabbleLocalGame extends LocalGame {
     ScrabbleGameState sgs;
 
+public ScrabbleLocalGame(){
+    super();
+    super.state = new ScrabbleGameState();
+}
 
+public ScrabbleLocalGame(ScrabbleGameState scrstate){
+    super();
+    super.state= new ScrabbleGameState(scrstate);
+}
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -28,6 +37,10 @@ public class ScrabbleLocalGame extends LocalGame {
         }
 
     }
+    @Override
+    public void start(GamePlayer[]players){
+        super.start(players);
+    }
 
     @Override
     protected String checkIfGameOver() {
@@ -45,6 +58,7 @@ public class ScrabbleLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
         int players = super.players.length;
+        System.out.println("goes into make move");
         if(action instanceof PlayWordAction){
             return true;
         }
