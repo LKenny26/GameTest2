@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import androidx.annotation.NonNull;
 
 import com.example.GameFramework.infoMessage.GameState;
+import com.example.gametest2.views.Board;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +24,8 @@ public class ScrabbleGameState extends GameState {
     Set<String> spellCheckTable;
     File dictionary;
     Scanner scan;
-    public Tile[] player1Tiles;
+     //TODO: These in theory should have tiles rather than the board class, this way we can have access to them
+    public Tile[] player1Tiles = new Tile[7];
     public Tile[] player2Tiles;
     public Tile[] player3Tiles;
     public Tile[] player4Tiles;
@@ -73,6 +75,7 @@ public class ScrabbleGameState extends GameState {
         playerThreeScore = orig.playerThreeScore;
         playerFourScore = orig.playerFourScore;
 
+        /*
         dictionary = new File("words_alpha.txt");
         try {
             scan = new Scanner(dictionary);
@@ -87,6 +90,13 @@ public class ScrabbleGameState extends GameState {
             if(word.length() > 1 && word.length() < 16) {
                 spellCheckTable.add(word);
             }
+        }
+        */
+
+        for (int i = 0; i < 7; i++) {
+            Tile tile = new Tile(0,0,0,0,false);
+            tile.setLetters();
+            player1Tiles[i] = tile;
         }
     }
 
@@ -125,4 +135,5 @@ public class ScrabbleGameState extends GameState {
     public int getPlayer4TileCount(){
         return player4TileCount;
     }
+
 }

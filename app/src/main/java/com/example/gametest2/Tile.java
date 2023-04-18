@@ -191,6 +191,12 @@ public class Tile{
 
     }
 
+    public void setCoords(int left, int top, int right, int bottom) {
+        l = left;
+        t = top;
+        r = right;
+        b = bottom;
+    }
     public boolean isSelected(){
         return selected;
     }

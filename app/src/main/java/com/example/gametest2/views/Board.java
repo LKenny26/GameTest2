@@ -41,9 +41,13 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         bottomTileSize = w/7;
         squareSize = Math.min(w, h) / BOARD_SIZE;
         //make the tiles
+
         for(int i = 0; i < 7; i++) {
             playerTiles[i] = new Tile(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize, false);
+            playerTiles[i].setCoords(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize);
         }
+
+
 
 
         // Define special squares
@@ -236,5 +240,11 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         //redraw
         this.invalidate();
         return true;
+    }
+
+    public void setPlayerTiles(Tile[] playerTiles) {
+        for (int i = 0; i < 7; i++){
+            this.playerTiles[i] = playerTiles[i];
+        }
     }
 }

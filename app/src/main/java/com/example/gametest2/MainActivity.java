@@ -82,6 +82,9 @@ public class MainActivity extends GameMainActivity {
         catch(Exception e){
         }
 
-        return new ScrabbleLocalGame();
+        if (gs == null) {
+            return new ScrabbleLocalGame();
+        }
+        return new ScrabbleLocalGame((ScrabbleGameState) gs);
     }
 }
