@@ -28,6 +28,10 @@ public class Tile{
     Random rand = new Random();
     //int tileNumber = rand.nextInt(98);
 
+    public Tile(){
+
+    }
+
     public Tile(int left, int top, int right, int bottom, boolean emp) {
         rect = new Rect(left, top, right, bottom);
 
@@ -43,7 +47,7 @@ public class Tile{
         outline.setStrokeWidth(4);
         selected = false;
         let.setColor(Color.BLACK);
-        let.setTextSize(115);
+        let.setTextSize(75);
         empty = emp;
         confirmed = false;
         this.setLetters();
@@ -174,20 +178,20 @@ public class Tile{
         return letter;
     }
 
-    public void onDraw(Canvas canvas){
-        if (empty){
+    public void onDraw(Canvas canvas) {
+        if (empty) {
             return;
         }
         paint.setColor(Color.rgb(244, 248, 181));
-        if (selected){
-            paint.setColor(Color.rgb(255,255,0));
+        if (selected) {
+            paint.setColor(Color.rgb(255, 255, 0));
         }
         canvas.drawRect(rect, paint);
-        canvas.drawText(this.getLetter(), l+20, b - (b - t)/4, let);
-        canvas.drawLine(l,t,l,b,outline);
-        canvas.drawLine(l,t,r,t,outline);
-        canvas.drawLine(r,t,r,b,outline);
-        canvas.drawLine(l,b,r,b,outline);
+        canvas.drawText(this.getLetter(), l + 20, b - (b - t) / 4, let);
+        canvas.drawLine(l, t, l, b, outline);
+        canvas.drawLine(l, t, r, t, outline);
+        canvas.drawLine(r, t, r, b, outline);
+        canvas.drawLine(l, b, r, b, outline);
 
     }
 

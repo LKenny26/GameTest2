@@ -16,11 +16,13 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     private Button removeTiles = null;
     private Button skip = null;
     private Button spellcheck = null;
+    //Tile t;
 
     public ScrabbleHumanPlayer(String name) {super(name); }
 
     @Override
     public void onClick(View button) {
+        //t = new Tile();
         int x = button.getId();
         PlayWordAction pwa = new PlayWordAction(this);
         ShuffleAction sha = new ShuffleAction(this);
@@ -33,16 +35,17 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             super.game.sendAction(pwa);
         }
         else if(button.getId() == R.id.shuffle){
-            super.game.sendAction(sha);
+            //super.game.sendAction(sha);
+            //call shuffle method in tile
         }
-        else if(button.getId() == R.id.skip){
+       else if(button.getId() == R.id.skip){
             super.game.sendAction(ska);
         }
         else if(button.getId() == R.id.spellcheck){
-            super.game.sendAction(sca);
+          //  super.game.sendAction(sca);
         }
         else if(button.getId() == R.id.removeTiles){
-            super.game.sendAction(rta);
+            //super.game.sendAction(rta);
         }
 
     }

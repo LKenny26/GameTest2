@@ -59,7 +59,16 @@ public ScrabbleLocalGame(ScrabbleGameState scrstate){
     protected boolean makeMove(GameAction action) {
         int players = super.players.length;
         System.out.println("goes into make move");
+        Tile t = new Tile();
         if(action instanceof PlayWordAction){
+            if(sgs.getPlayerID() == 1) {
+                sgs.setPlayerID(2);
+                sgs.setPlayerOneScore(t.getPoints());
+            }
+            else if (sgs.getPlayerID() == 2){
+                sgs.setPlayerID(1);
+                sgs.setPlayerTwoScore(t.getPoints());
+            }
             return true;
         }
 
