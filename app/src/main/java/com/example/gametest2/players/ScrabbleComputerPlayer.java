@@ -13,15 +13,10 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
         super(name);
     }
 
-
     @Override
     protected void receiveInfo(GameInfo info) {
-        double x = Math.random()*1000;
-        double y = Math.random()*1000;
-
-        int ax = (int)x;
-        int ay = (int)y;
-
+        int x = (int)(10*Math.random());
+        int y = (int)(10*Math.random());
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -36,7 +31,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             //needs to place a tile
             Logger.log("computer player", "sending move");
             for(int i = 1; i <= 3; i++) {
-                game.sendAction(new CompMoveAction(this, ax*i, ay*i));
+                game.sendAction(new CompMoveAction(this, x*i, y*i));
             }
             game.sendAction(new PlayWordAction(this));
         }

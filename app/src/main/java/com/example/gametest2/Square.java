@@ -11,6 +11,7 @@ import android.view.View;
 
 public class Square implements View.OnTouchListener {
 
+
     // Constants for square types
     public static final int REGULAR = 0;
     public static final int CENTER = 1;

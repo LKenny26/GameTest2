@@ -98,7 +98,15 @@ public class ScrabbleGameState extends GameState {
             tile.setLetters();
             player1Tiles[i] = tile;
         }
+
+        for (int i = 0; i < 7; i++) {
+            Tile tile = new Tile(0,0,0,0,false);
+            tile.setLetters();
+            player2Tiles[i] = tile;
+        }
     }
+
+    //the set functions need to be in a set method, and also need to have a getter
 
     public int getPlayerID(){return playerID;}
 

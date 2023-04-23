@@ -1,21 +1,31 @@
 package com.example.gametest2.players;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.GameFramework.GameMainActivity;
 import com.example.GameFramework.infoMessage.GameInfo;
+import com.example.GameFramework.infoMessage.IllegalMoveInfo;
+import com.example.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.GameFramework.players.GameHumanPlayer;
+import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.R;
+import com.example.gametest2.ScrabbleGameState;
+import com.example.gametest2.Square;
 import com.example.gametest2.actions.*;
+import com.example.gametest2.views.Board;
 
 public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
 
+    private static final String TAG = "ScrabbleHumanPlayer1";
     private Button playword = null;
     private Button shuffle = null;
     private Button removeTiles = null;
     private Button skip = null;
     private Button spellcheck = null;
+
+    private Board bd;
     //Tile t;
 
     public ScrabbleHumanPlayer(String name) {super(name); }
@@ -24,7 +34,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     public void onClick(View button) {
         //t = new Tile();
         int x = button.getId();
-        PlayWordAction pwa = new PlayWordAction(this);
+        //PlayWordAction pwa = new PlayWordAction(this);
         ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
         SpellCheckAction sca = new SpellCheckAction(this);
@@ -32,14 +42,17 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){
-            super.game.sendAction(pwa);
+            PlayWordAction pwa = new PlayWordAction(this);
+            game.sendAction(pwa);
+            bd.invalidate();
         }
         else if(button.getId() == R.id.shuffle){
             //super.game.sendAction(sha);
             //call shuffle method in tile
         }
        else if(button.getId() == R.id.skip){
-            super.game.sendAction(ska);
+            game.sendAction(ska);
+            bd.invalidate();
         }
         else if(button.getId() == R.id.spellcheck){
           //  super.game.sendAction(sca);
@@ -57,7 +70,18 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void receiveInfo(GameInfo info) {
-
+        if(info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo){
+            //bd.flash(Color.RED, 50);
+            Logger.log(TAG, "wrong move");
+        }
+        else if(!(info instanceof ScrabbleGameState)){
+            return;
+        }
+        else {
+            bd.setState((ScrabbleGameState) info);
+            bd.invalidate();
+            Logger.log(TAG, "receiving");
+        }
     }
 
     @Override
@@ -81,6 +105,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         removeTiles.setOnClickListener(this);
         skip.setOnClickListener(this);
         spellcheck.setOnClickListener(this);
+
+        bd = (Board)myActivity.findViewById(R.id.Board);
+        Logger.log("setting listeners", "onClick");
     }
 
     public String getName(){

@@ -10,15 +10,15 @@ import com.example.gametest2.players.ScrabbleHumanPlayer;
 public class ScrabbleLocalGame extends LocalGame {
     ScrabbleGameState sgs;
 
-public ScrabbleLocalGame(){
-    super();
-    super.state = new ScrabbleGameState();
-}
+    public ScrabbleLocalGame(){
+        super();
+        super.state = new ScrabbleGameState();
+    }
 
-public ScrabbleLocalGame(ScrabbleGameState scrstate){
-    super();
-    super.state= new ScrabbleGameState(scrstate);
-}
+    public ScrabbleLocalGame(ScrabbleGameState scrstate){
+        super();
+        super.state= new ScrabbleGameState(scrstate);
+    }
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -72,14 +72,6 @@ public ScrabbleLocalGame(ScrabbleGameState scrstate){
             return true;
         }
 
-        else if(action instanceof RemoveTilesAction){
-            return true;
-        }
-
-        else if(action instanceof ShuffleAction){
-            return true;
-        }
-
         else if(action instanceof SkipAction){
             if(sgs.getPlayerID() == 1){
                 sgs.setPlayerID(2);
@@ -107,9 +99,7 @@ public ScrabbleLocalGame(ScrabbleGameState scrstate){
             return true;
         }
 
-        else if(action instanceof SpellCheckAction){
-            return true;
-        }
+
 
         //return true;
         else {

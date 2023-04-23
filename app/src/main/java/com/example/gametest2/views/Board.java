@@ -1,5 +1,6 @@
 package com.example.gametest2.views;
 
+import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.Square;
 import com.example.gametest2.Tile;
 
@@ -15,6 +16,8 @@ import android.view.View;
 
 public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
+
+    protected ScrabbleGameState state;
     private static Board instance;
     private static final int BOARD_SIZE = 15;
     private Square[][] squares;
@@ -246,5 +249,9 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         for (int i = 0; i < 7; i++){
             this.playerTiles[i] = playerTiles[i];
         }
+    }
+
+    public void setState(ScrabbleGameState state){
+        this.state = state;
     }
 }
