@@ -34,6 +34,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     public void onClick(View button) {
         //t = new Tile();
         int x = button.getId();
+        ScrabbleGameState sgs = new ScrabbleGameState();
         //PlayWordAction pwa = new PlayWordAction(this);
         ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
@@ -42,7 +43,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){
-            PlayWordAction pwa = new PlayWordAction(this);
+            PlayWordAction pwa = new PlayWordAction(this, sgs.getPlayerID());
             game.sendAction(pwa);
             bd.invalidate();
         }

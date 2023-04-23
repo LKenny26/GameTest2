@@ -10,11 +10,17 @@ public class PlayWordAction extends GameAction {
 
     Hashtable <Character, Integer> hable = new Hashtable<Character, Integer>();
     Tile t;
+    private int id;
 
-    public PlayWordAction(GamePlayer player){
+    public PlayWordAction(GamePlayer player, int idx){
         super(player);
         t = new Tile();
         hable.put(t.getChar(), t.getPoints());
+        this.id = idx;
 
+    }
+
+    public int getID(){
+        return id;
     }
 }
