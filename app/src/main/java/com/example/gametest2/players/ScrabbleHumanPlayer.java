@@ -36,11 +36,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         ScrabbleGameState sgs = new ScrabbleGameState();
         //PlayWordAction pwa = new PlayWordAction(this);
-        ShuffleAction sha = new ShuffleAction(this);
+        //ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
-        SpellCheckAction sca = new SpellCheckAction(this);
+        //SpellCheckAction sca = new SpellCheckAction(this);
 
-        RemoveTilesAction rta = new RemoveTilesAction(this);
+        //RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){
             pwa = new PlayWordAction(this, sgs.getPlayerID());
