@@ -1,6 +1,7 @@
 package com.example.gametest2.players;
 
 import com.example.GameFramework.infoMessage.GameInfo;
+import com.example.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.GameFramework.players.GameComputerPlayer;
 import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.ScrabbleGameState;
@@ -15,13 +16,11 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
+        if(info instanceof NotYourTurnInfo) return;
         int x = (int)(10*Math.random());
         int y = (int)(10*Math.random());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        //dont need a try catch theres a sleep method
+        sleep(1);
         ScrabbleGameState sgs = new ScrabbleGameState((ScrabbleGameState)info);
         if(sgs.getPlayerID() != this.playerNum){
             return;

@@ -54,7 +54,7 @@ public class ScrabbleLocalGame extends LocalGame {
         int players = super.players.length;
         System.out.println("goes into make move");
         Tile t = new Tile();
-        if(action instanceof PlayWordAction && !canMove(((PlayWordAction) action).getID())) {
+        if(action instanceof PlayWordAction && canMove(((PlayWordAction) action).getID())) {
             if (sgs.getPlayerID() == 1) {
                 sgs.setPlayerID(2);
                 sgs.setPlayerOneScore(t.getPoints());
