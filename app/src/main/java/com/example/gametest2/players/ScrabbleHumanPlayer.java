@@ -1,6 +1,5 @@
 package com.example.gametest2.players;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,7 +11,6 @@ import com.example.GameFramework.players.GameHumanPlayer;
 import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleGameState;
-import com.example.gametest2.Square;
 import com.example.gametest2.actions.*;
 import com.example.gametest2.views.Board;
 
@@ -32,8 +30,10 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void onClick(View button) {
+         int x = button.getId();
+        PlayWordAction pwa = new PlayWordAction(this);
         //t = new Tile();
-        int x = button.getId();
+
         ScrabbleGameState sgs = new ScrabbleGameState();
         //PlayWordAction pwa = new PlayWordAction(this);
         ShuffleAction sha = new ShuffleAction(this);
@@ -43,7 +43,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){
-            PlayWordAction pwa = new PlayWordAction(this, sgs.getPlayerID());
+            pwa = new PlayWordAction(this, sgs.getPlayerID());
             game.sendAction(pwa);
             bd.invalidate();
         }

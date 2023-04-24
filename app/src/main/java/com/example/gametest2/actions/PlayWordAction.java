@@ -3,6 +3,7 @@ package com.example.gametest2.actions;
 import com.example.GameFramework.actionMessage.GameAction;
 import com.example.GameFramework.players.GamePlayer;
 import com.example.gametest2.Tile;
+import com.example.gametest2.players.ScrabbleHumanPlayer;
 
 import java.util.Hashtable;
 
@@ -18,6 +19,10 @@ public class PlayWordAction extends GameAction {
         hable.put(t.getChar(), t.getPoints());
         this.id = idx;
 
+    }
+
+    public PlayWordAction(ScrabbleHumanPlayer player) {
+        super(player);
     }
 
     public int getID(){
