@@ -29,7 +29,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             //needs to place a tile
             Logger.log("computer player", "sending move");
             for(int i = 1; i <= 3; i++) {
-                game.sendAction(new CompMoveAction(this, x*i, y*i));
+                //game.sendAction(new CompMoveAction(this, x*i, y*i));
             }
             game.sendAction(new PlayWordAction(this, sgs.getPlayerID()));
         }

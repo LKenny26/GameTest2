@@ -63,6 +63,17 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
 
     }
+   /* shuffleButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // Shuffle the list of Tile objects
+            Collections.shuffle(tiles);
+
+            // Update the display of the tiles in the RecyclerView
+            tileAdapter.notifyDataSetChanged();
+        }
+    });
+}*/
 
     @Override
     public View getTopView() {

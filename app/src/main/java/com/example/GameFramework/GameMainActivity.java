@@ -11,6 +11,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,6 +39,7 @@ import com.example.GameFramework.utilities.Logger;
 import com.example.GameFramework.utilities.MessageBox;
 import com.example.GameFramework.utilities.Saving;
 import com.example.gametest2.R;
+import com.example.gametest2.views.Board;
 
 
 /**
@@ -53,6 +56,8 @@ import com.example.gametest2.R;
 public abstract class GameMainActivity extends Activity implements
         View.OnClickListener {
     //Tag for Logging
+
+    private Board b;
     private static final String TAG = "GameMainActivity";
     /*
      * ====================================================================
@@ -198,10 +203,10 @@ public abstract class GameMainActivity extends Activity implements
 
         // Initialize the layout
         setContentView(R.layout.game_config_main);
+        //b = findViewById(R.id.Board);
 
         // create the default configuration for this game
         this.config = createDefaultConfig();
-
         // if there is a saved configuration, modify the default configuration accordingly
         if (!this.config.restoreSavedConfig(saveFileName(), this)) {
             MessageBox.popUpMessage(Resources.getSystem().getString(R.string.Config_Error_Msg),
