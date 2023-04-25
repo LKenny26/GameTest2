@@ -27,7 +27,7 @@ public class ScrabbleGameState extends GameState {
     Scanner scan;
      //TODO: These in theory should have tiles rather than the board class, this way we can have access to them
     public Tile[] player1Tiles = new Tile[7];
-    public Tile[] player2Tiles;
+    public Tile[] player2Tiles = new Tile[7];
     public Tile[] player3Tiles;
     public Tile[] player4Tiles;
     public Tile[][] boardTiles;

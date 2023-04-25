@@ -50,8 +50,11 @@ public class ScrabbleLocalGame extends LocalGame {
 
     }
 
+
+
     @Override
     protected boolean makeMove(GameAction action) {
+        sgs = (ScrabbleGameState) super.state;
         int players = super.players.length;
         System.out.println("goes into make move");
         Tile t = new Tile();
