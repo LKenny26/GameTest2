@@ -11,8 +11,14 @@ import com.example.GameFramework.players.GameHumanPlayer;
 import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleGameState;
+import com.example.gametest2.Tile;
 import com.example.gametest2.actions.*;
 import com.example.gametest2.views.Board;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
 
@@ -46,35 +52,53 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         if(button.getId() == R.id.playword){
             pwa = new PlayWordAction(this, sgs.getPlayerID());
             game.sendAction(pwa);
-            bd.invalidate();
+            bd.invalidate(); //also not necessary ?
         }
         else if(button.getId() == R.id.shuffle){
-            //super.game.sendAction(sha);
-            //call shuffle method in tile
+            //make random to shuffle tiles
+            Random rand = new Random();
+
+            //iterate through the player tiles and swap
+            for (int i = 0; i < 7; i++){
+                Tile.swap(bd.playerTiles[i], bd.playerTiles[rand.nextInt(7)]);
+            }
+            //redraw
+            bd.invalidate();
+
         }
        else if(button.getId() == R.id.skip){
             game.sendAction(ska);
-            bd.invalidate();
+            bd.invalidate(); //not necessary??
         }
         else if(button.getId() == R.id.spellcheck){
           //  super.game.sendAction(sca);
         }
         else if(button.getId() == R.id.removeTiles){
-            //super.game.sendAction(rta);
+            //remove tiles from the board and puts them back into player's tiles
+            for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                    //iterate through the rows and cols
+                    if (!bd.boardTiles[i][j].getConfirmed()) {
+                        //check if a tile is confirmed or not
+                        Tile temp = null;
+                        for (int k = 0; k < 7; k++) {
+                            //find the tile that is empty in a player's hand
+                            if (bd.playerTiles[k].getEmpty()) {
+                                temp = bd.playerTiles[k];
+                            }
+                        }
+                        //if a tile that is empty is found swap it with an unconfirmed tile
+                        if (temp != null) {
+                            Tile.swap(bd.boardTiles[i][j], temp);
+                        }
+                    }
+                }
+            }
+            //redraw
+            bd.invalidate();
         }
 
     }
-   /* shuffleButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // Shuffle the list of Tile objects
-            Collections.shuffle(tiles);
-
-            // Update the display of the tiles in the RecyclerView
-            tileAdapter.notifyDataSetChanged();
-        }
-    });
-}*/
 
     @Override
     public View getTopView() {
@@ -106,8 +130,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         System.out.println("play word" + playword.getId() + " " + R.id.playword);
         this.shuffle = (Button)activity.findViewById(R.id.shuffle);
         System.out.println("play word" + shuffle.getId() + " " + R.id.shuffle);
-        //this.removeTiles = (Button)activity.findViewById(R.id.removeTiles);
-        //System.out.println("play word" + removeTiles.getId() + " " + R.id.removeTiles);
+        this.removeTiles = (Button)activity.findViewById(R.id.removeTiles);
+        System.out.println("play word" + removeTiles.getId() + " " + R.id.removeTiles);
         this.skip = (Button)activity.findViewById(R.id.skip);
         System.out.println("play word" + skip.getId() + " " + R.id.skip);
         this.spellcheck = (Button)activity.findViewById(R.id.spellcheck);
@@ -115,7 +139,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         playword.setOnClickListener(this);
         shuffle.setOnClickListener(this);
-        //removeTiles.setOnClickListener(this);
+        removeTiles.setOnClickListener(this);
         skip.setOnClickListener(this);
         spellcheck.setOnClickListener(this);
 

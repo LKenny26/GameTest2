@@ -210,7 +210,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
             canvas.drawLine(startX, startY, stopX, stopY, line);
         }
 
-        //draw the players
+        //draw the player's tiles
         for(int i = 0; i < 7; i++) {
             playerTiles[i].onDraw(canvas);
         }
@@ -261,23 +261,5 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
     public void setState(ScrabbleGameState state){
         this.state = state;
-    }
-    public void revertChanges() {
-        // Loop through all playerTiles and set isSelected to false
-        for (int i = 0; i < 7; i++) {
-            playerTiles[i].setSelected(false);
-        }
-
-        // Loop through the boardTiles and swap back the tiles to their original state
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                if (!boardTiles[row][col].getEmpty()) {
-                    Tile.swap(boardTiles[row][col], boardTiles[row][col].getOgTile());
-                }
-            }
-        }
-
-        // Redraw the view or perform any additional actions as needed
-        this.invalidate();
-    }
+    }//state never gets used is this necessary
 }

@@ -238,11 +238,24 @@ public class Tile{
         tile1.setEmpty(tile2.getEmpty());
         tile2.setEmpty(tempEmpty);
 
+        if (tile1.getEmpty() || tile2.getEmpty()) {
+
+        }
+        else {
+            boolean tempSelected = tile1.getSelected();
+            tile1.setSelected(tile2.getSelected());
+            tile2.setSelected(tempSelected);
+        }
+
 
     }
     public Tile getOgTile(){
         return og;
     }
+
+    public boolean getConfirmed() {return confirmed;}
+    public boolean getSelected() {return selected;}
+
     public void setOriginalTile(Tile ogr){
         this.og = ogr;
     }
