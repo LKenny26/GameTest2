@@ -1,5 +1,7 @@
 package com.example.gametest2.views;
 
+import com.example.gametest2.R;
+import com.example.gametest2.ScrabbleController;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.Square;
 import com.example.gametest2.Tile;
@@ -13,6 +15,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,12 +25,14 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
     protected ScrabbleGameState state;
     private static Board instance;
-    private static final int BOARD_SIZE = 15;
+    public static final int BOARD_SIZE = 15;
     private Square[][] squares;
-    private Tile[] playerTiles = new Tile[7];
-    private Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
+    public Tile[] playerTiles = new Tile[7];
+    public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
     private int bottomTileSize = 150;
+    Button b;
+    ScrabbleController sc;
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,6 +42,9 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
         //make the board an ontouchlistener
         this.setOnTouchListener(this);
+        sc = new ScrabbleController(this);
+        b = findViewById(R.id.removeTiles);
+        //b.setOnClickListener(sc);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -205,7 +213,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
             canvas.drawLine(startX, startY, stopX, stopY, line);
         }
 
-        //draw the players
+        //draw the player's tiles
         for(int i = 0; i < 7; i++) {
             playerTiles[i].onDraw(canvas);
         }
@@ -264,5 +272,5 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
     public void setState(ScrabbleGameState state){
         this.state = state;
-    }
+    }//state never gets used is this necessary
 }

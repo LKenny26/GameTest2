@@ -5,7 +5,6 @@ import com.example.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.GameFramework.players.GameComputerPlayer;
 import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.ScrabbleGameState;
-import com.example.gametest2.actions.CompMoveAction;
 import com.example.gametest2.actions.PlayWordAction;
 
 public class ScrabbleComputerPlayer extends GameComputerPlayer {
@@ -22,6 +21,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
         //dont need a try catch theres a sleep method
         sleep(1);
         ScrabbleGameState sgs = new ScrabbleGameState((ScrabbleGameState)info);
+
         if(sgs.getPlayerID() != this.playerNum){
             return;
         }
@@ -30,7 +30,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             //needs to place a tile
             Logger.log("computer player", "sending move");
             for(int i = 1; i <= 3; i++) {
-                game.sendAction(new CompMoveAction(this, x*i, y*i));
+                //game.sendAction(new CompMoveAction(this, x*i, y*i));
             }
             game.sendAction(new PlayWordAction(this, sgs.getPlayerID()));
         }

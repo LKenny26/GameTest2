@@ -22,14 +22,20 @@ public class ScrabbleLocalGame extends LocalGame {
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        sgs = new ScrabbleGameState();
-        ScrabbleGameState cp = new ScrabbleGameState(sgs);
-        p.sendInfo(cp);
+        //ScrabbleGameState cp = new ScrabbleGameState(sgs);
+        //p.sendInfo(cp);
+        p.sendInfo(new ScrabbleGameState((ScrabbleGameState) state));
     }
 
     @Override
     protected boolean canMove(int playerIdx) {
-        return playerIdx == ((ScrabbleGameState)state).getPlayerID();
+        if (playerIdx == sgs.getPlayerID()){
+            return true;
+        }
+        else {
+            return false;
+        }
+        //return playerIdx == ((ScrabbleGameState)state).getPlayerID();
     }
     @Override
     public void start(GamePlayer[]players){
@@ -54,12 +60,12 @@ public class ScrabbleLocalGame extends LocalGame {
         int players = super.players.length;
         System.out.println("goes into make move");
         Tile t = new Tile();
-        if(action instanceof PlayWordAction && canMove(((PlayWordAction) action).getID())) {
-            if (sgs.getPlayerID() == 1) {
-                sgs.setPlayerID(2);
-                sgs.setPlayerOneScore(t.getPoints());
-            } else if (sgs.getPlayerID() == 2) {
+        if(action instanceof PlayWordAction /*&& canMove(((PlayWordAction) action).getID())*/) {
+            if (sgs.getPlayerID() == 0) {
                 sgs.setPlayerID(1);
+                sgs.setPlayerOneScore(t.getPoints());
+            } else if (sgs.getPlayerID() == 1) {
+                sgs.setPlayerID(0);
                 sgs.setPlayerTwoScore(t.getPoints());
             }
             return true;
@@ -67,27 +73,27 @@ public class ScrabbleLocalGame extends LocalGame {
         }
 
         else if(action instanceof SkipAction){
-            if(sgs.getPlayerID() == 1){
-                sgs.setPlayerID(2);
+            if(sgs.getPlayerID() == 0){
+                sgs.setPlayerID(1);
+            }
+            else if (sgs.getPlayerID() == 1) {
+                if(players > 2) {
+                    sgs.setPlayerID(2);
+                }
+                else {
+                    sgs.setPlayerID(0);
+                }
             }
             else if (sgs.getPlayerID() == 2) {
-                if(players > 2) {
+                if(players > 3) {
                     sgs.setPlayerID(3);
                 }
                 else {
-                    sgs.setPlayerID(1);
+                    sgs.setPlayerID(0);
                 }
             }
             else if (sgs.getPlayerID() == 3) {
-                if(players > 3) {
-                    sgs.setPlayerID(4);
-                }
-                else {
-                    sgs.setPlayerID(1);
-                }
-            }
-            else if (sgs.getPlayerID() == 4) {
-                sgs.setPlayerID(1);
+                sgs.setPlayerID(0);
             }
             else {return false;}
             return true;
