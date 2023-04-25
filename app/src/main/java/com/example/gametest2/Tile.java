@@ -24,8 +24,7 @@ public class Tile{
     int r;
     int t;
     int b;
-
-
+    private Tile og;
     Random rand = new Random();
     //int tileNumber = rand.nextInt(98);
 
@@ -240,6 +239,12 @@ public class Tile{
         tile2.setEmpty(tempEmpty);
 
 
+    }
+    public Tile getOgTile(){
+        return og;
+    }
+    public void setOriginalTile(Tile ogr){
+        this.og = ogr;
     }
 
     /*
