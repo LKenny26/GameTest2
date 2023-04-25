@@ -5,7 +5,6 @@ import com.example.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.GameFramework.players.GameComputerPlayer;
 import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.ScrabbleGameState;
-import com.example.gametest2.actions.CompMoveAction;
 import com.example.gametest2.actions.PlayWordAction;
 
 public class ScrabbleComputerPlayer extends GameComputerPlayer {
