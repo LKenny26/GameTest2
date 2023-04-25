@@ -63,8 +63,8 @@ public class ScoreBoard extends SurfaceView {
         canvas.drawLine(threeQuartersX, startY, threeQuartersX, endY+(6*50), lines);
 
         //player names:
-        canvas.drawText("YOU", (50)+startX, startY+80, lines);
-        canvas.drawText("OPPONENT", (100)+startX, startY+80, lines);
+        canvas.drawText("YOU", (25)+startX, startY+85, text);
+        canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
 
     }
 }
