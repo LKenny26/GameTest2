@@ -22,10 +22,10 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
     protected ScrabbleGameState state;
     private static Board instance;
-    private static final int BOARD_SIZE = 15;
+    public static final int BOARD_SIZE = 15;
     private Square[][] squares;
-    private Tile[] playerTiles = new Tile[7];
-    private Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
+    public Tile[] playerTiles = new Tile[7];
+    public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
     private int bottomTileSize = 150;
     Button b;
@@ -39,9 +39,9 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
         //make the board an ontouchlistener
         this.setOnTouchListener(this);
-        sc = new ScrabbleController();
+        sc = new ScrabbleController(this);
         b = findViewById(R.id.removeTiles);
-        b.setOnClickListener(sc);
+        //b.setOnClickListener(sc);
     }
 
     @SuppressLint("ClickableViewAccessibility")

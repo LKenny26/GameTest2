@@ -25,7 +25,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     private Board bd;
     //Tile t;
-    private GameMainActivity myActivity;
+    //private GameMainActivity myActivity;
 
     public ScrabbleHumanPlayer(String name) {super(name); }
 
@@ -106,8 +106,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         System.out.println("play word" + playword.getId() + " " + R.id.playword);
         this.shuffle = (Button)activity.findViewById(R.id.shuffle);
         System.out.println("play word" + shuffle.getId() + " " + R.id.shuffle);
-        this.removeTiles = (Button)activity.findViewById(R.id.removeTiles);
-        System.out.println("play word" + removeTiles.getId() + " " + R.id.removeTiles);
+        //this.removeTiles = (Button)activity.findViewById(R.id.removeTiles);
+        //System.out.println("play word" + removeTiles.getId() + " " + R.id.removeTiles);
         this.skip = (Button)activity.findViewById(R.id.skip);
         System.out.println("play word" + skip.getId() + " " + R.id.skip);
         this.spellcheck = (Button)activity.findViewById(R.id.spellcheck);
@@ -115,7 +115,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         playword.setOnClickListener(this);
         shuffle.setOnClickListener(this);
-        removeTiles.setOnClickListener(this);
+        //removeTiles.setOnClickListener(this);
         skip.setOnClickListener(this);
         spellcheck.setOnClickListener(this);
 
