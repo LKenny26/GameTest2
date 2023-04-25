@@ -27,6 +27,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     private Board bd;
     //Tile t;
+    private GameMainActivity myActivity;
 
     public ScrabbleHumanPlayer(String name) {super(name); }
 

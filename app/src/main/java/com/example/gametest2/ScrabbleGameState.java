@@ -39,17 +39,17 @@ public class ScrabbleGameState extends GameState {
 
     String wordMade;
 
-    public static final int player1Id = 1;
-    public static final int player2Id = 2;
-    public static final int player3Id = 3;
-    public static final int player4Id = 4;
+    public static final int player1Id = 0;
+    public static final int player2Id = 1;
+    public static final int player3Id = 2;
+    public static final int player4Id = 3;
 
     public ScrabbleGameState() {
         playerOneScore = 0;
         playerTwoScore = 0;
         playerThreeScore = 0;
         playerFourScore = 0;
-        playerID = 1;
+        playerID = 0;
 
         /*dictionary = new File("words_alpha.txt");
         try {

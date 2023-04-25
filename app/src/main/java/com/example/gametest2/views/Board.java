@@ -1,5 +1,7 @@
 package com.example.gametest2.views;
 
+import com.example.gametest2.R;
+import com.example.gametest2.ScrabbleController;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.Square;
 import com.example.gametest2.Tile;
@@ -13,6 +15,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 
 public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
@@ -25,6 +28,8 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     private Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
     private int bottomTileSize = 150;
+    Button b;
+    ScrabbleController sc;
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,6 +39,9 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
         //make the board an ontouchlistener
         this.setOnTouchListener(this);
+        sc = new ScrabbleController();
+        b = findViewById(R.id.removeTiles);
+        b.setOnClickListener(sc);
     }
 
     @SuppressLint("ClickableViewAccessibility")
