@@ -14,6 +14,8 @@ import com.example.GameFramework.players.GameHumanPlayer;
 public class ScoreBoard extends SurfaceView {
 
     Paint lines = new Paint();
+
+    //ScrabbleHumanPlayer sgp;
     Paint text = new Paint();
     private int startX;
     private int endX;
@@ -59,5 +61,10 @@ public class ScoreBoard extends SurfaceView {
         canvas.drawLine(startX, startY, startX, endY+(6*50), lines);
         canvas.drawLine(endX, startY, endX, endY+(6*50), lines);
         canvas.drawLine(threeQuartersX, startY, threeQuartersX, endY+(6*50), lines);
+
+        //player names:
+        canvas.drawText("YOU", (50)+startX, startY+80, lines);
+        canvas.drawText("OPPONENT", (100)+startX, startY+80, lines);
+
     }
 }

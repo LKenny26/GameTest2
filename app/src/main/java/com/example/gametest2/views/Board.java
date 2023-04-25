@@ -14,6 +14,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
 
@@ -250,6 +253,14 @@ public class Board extends SurfaceView implements View.OnTouchListener{
             this.playerTiles[i] = playerTiles[i];
         }
     }
+
+    public Tile[] getPlayerTiles(){
+        return playerTiles;
+    }
+
+    //public void shuffle(Tile[] playerTiles) {
+      //  Collections.shuffle(Arrays.asList(getPlayerTiles()));
+    //}
 
     public void setState(ScrabbleGameState state){
         this.state = state;

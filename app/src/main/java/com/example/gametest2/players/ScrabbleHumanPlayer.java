@@ -13,6 +13,7 @@ import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.Square;
+import com.example.gametest2.Tile;
 import com.example.gametest2.actions.*;
 import com.example.gametest2.views.Board;
 
@@ -26,21 +27,25 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     private Button spellcheck = null;
 
     private Board bd;
-    //Tile t;
 
+    //Tile t[]; //bd.getPlayerTiles();
     public ScrabbleHumanPlayer(String name) {super(name); }
 
+    public String[] getAllNames(){
+       return allPlayerNames;
+    }
     @Override
     public void onClick(View button) {
         //t = new Tile();
         int x = button.getId();
         ScrabbleGameState sgs = new ScrabbleGameState();
         //PlayWordAction pwa = new PlayWordAction(this);
-        ShuffleAction sha = new ShuffleAction(this);
+        //ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
-        SpellCheckAction sca = new SpellCheckAction(this);
+        //t =
+        //SpellCheckAction sca = new SpellCheckAction(this);
 
-        RemoveTilesAction rta = new RemoveTilesAction(this);
+        //RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){
             PlayWordAction pwa = new PlayWordAction(this, sgs.getPlayerID());
@@ -50,6 +55,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         else if(button.getId() == R.id.shuffle){
             //super.game.sendAction(sha);
             //call shuffle method in tile
+            //sgs.shuffle(t);
         }
        else if(button.getId() == R.id.skip){
             game.sendAction(ska);
@@ -60,6 +66,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
         else if(button.getId() == R.id.removeTiles){
             //super.game.sendAction(rta);
+
         }
 
     }

@@ -10,6 +10,7 @@ import com.example.gametest2.views.Board;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Set;
@@ -74,7 +75,8 @@ public class ScrabbleGameState extends GameState {
         playerTwoScore = orig.playerTwoScore;
         playerThreeScore = orig.playerThreeScore;
         playerFourScore = orig.playerFourScore;
-
+        this.setPlayer1Tile();
+        this.setPlayer2Tile();
         /*
         dictionary = new File("words_alpha.txt");
         try {
@@ -92,19 +94,29 @@ public class ScrabbleGameState extends GameState {
             }
         }
         */
+    }
 
+    public void setPlayer1Tile() {
         for (int i = 0; i < 7; i++) {
-            Tile tile = new Tile(0,0,0,0,false);
+            Tile tile = new Tile(0, 0, 0, 0, false);
             tile.setLetters();
             player1Tiles[i] = tile;
         }
 
+    }
+    public void setPlayer2Tile() {
         for (int i = 0; i < 7; i++) {
-            Tile tile = new Tile(0,0,0,0,false);
+            Tile tile = new Tile(0, 0, 0, 0, false);
             tile.setLetters();
             player2Tiles[i] = tile;
         }
     }
+
+    //public void shuffle(Tile[] playerTiles) {
+      //  playerTiles = player1Tiles;
+        //Collections.shuffle(Arrays.asList(playerTiles));
+    //}
+
 
     //the set functions need to be in a set method, and also need to have a getter
 
