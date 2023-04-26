@@ -26,11 +26,12 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             return;
         }
         else{
-
             //needs to place a tile
             Logger.log("computer player", "sending move");
             for(int i = 1; i <= 3; i++) {
-                //game.sendAction(new CompMoveAction(this, x*i, y*i));
+                //place tiles
+
+                //spell-check:
             }
             game.sendAction(new PlayWordAction(this, sgs.getPlayerID()));
         }

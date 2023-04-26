@@ -20,10 +20,12 @@ import com.example.gametest2.players.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class MainActivity extends GameMainActivity {
     private static final int PORT_NUMBER = 2278;
 
+    HashSet<String> table = new HashSet<String>();
 
     @Override
     public GameConfig createDefaultConfig() {
@@ -74,10 +76,11 @@ public class MainActivity extends GameMainActivity {
                 //use readLine in while loop
 
                 if (line.length() > 1 && line.length() < 16) {
-                    //spellCheckTable.add(line);
-                    reader.close();
+                    table.add(line);
+                    //reader.close();
                 }
             }
+            reader.close();
         }
         catch(Exception e){
         }
@@ -86,5 +89,9 @@ public class MainActivity extends GameMainActivity {
             return new ScrabbleLocalGame();
         }
         return new ScrabbleLocalGame((ScrabbleGameState) gs);
+    }
+
+    public HashSet<String> getHashSet(){
+        return table;
     }
 }

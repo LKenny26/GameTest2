@@ -10,10 +10,6 @@ public class ScrabbleSmartComputerPlayer extends GameComputerPlayer {
     }
     @Override
     protected void receiveInfo(GameInfo info) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(2);
     }
 }
