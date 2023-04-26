@@ -9,6 +9,7 @@ import com.example.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.GameFramework.players.GameHumanPlayer;
 import com.example.GameFramework.utilities.Logger;
+import com.example.gametest2.MainActivity;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.Tile;
@@ -18,6 +19,7 @@ import com.example.gametest2.views.Board;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Random;
 
 public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
@@ -31,14 +33,14 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     private Board bd;
     //Tile t;
-    //private GameMainActivity myActivity;
+    private MainActivity myA = new MainActivity();
 
     public ScrabbleHumanPlayer(String name) {super(name); }
 
     @Override
     public void onClick(View button) {
          int x = button.getId();
-        PlayWordAction pwa = new PlayWordAction(this);
+        PlayWordAction pwa; //new PlayWordAction(this);
         //t = new Tile();
 
         ScrabbleGameState sgs = new ScrabbleGameState();
@@ -47,12 +49,15 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         SkipAction ska = new SkipAction(this);
         //SpellCheckAction sca = new SpellCheckAction(this);
 
+
         //RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){
             pwa = new PlayWordAction(this, sgs.getPlayerID());
+            bd.getAR().clear();
+            bd.getSB().setLength(0);
             game.sendAction(pwa);
-            bd.invalidate(); //also not necessary ?
+            //bd.invalidate();
         }
         else if(button.getId() == R.id.shuffle){
             //make random to shuffle tiles
@@ -71,6 +76,16 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             bd.invalidate(); //not necessary??
         }
         else if(button.getId() == R.id.spellcheck){
+           HashSet<String> saver = myA.getHashSet();
+           if(saver.isEmpty()){
+               Logger.log("TAG", "hashset is empty");
+           }
+           else if(saver.contains(bd.getSB())){
+               Logger.log("TAG", "valid word");
+           }
+           else{
+               Logger.log("TAG", "not a valid word");
+           }
           //  super.game.sendAction(sca);
         }
         else if(button.getId() == R.id.removeTiles){

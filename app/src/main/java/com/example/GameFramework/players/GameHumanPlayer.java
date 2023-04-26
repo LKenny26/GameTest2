@@ -275,7 +275,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
                     initAfterReady();
 
                     // tell the game we're ready to play the game
-                    //game.sendAction(new ReadyAction(GameHumanPlayer.this));
+                    game.sendAction(new ReadyAction(GameHumanPlayer.this));
                 }
             }
             else if (myInfo instanceof GameOverInfo) {

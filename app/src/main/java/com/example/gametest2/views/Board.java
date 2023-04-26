@@ -1,10 +1,12 @@
 package com.example.gametest2.views;
 
+import com.example.GameFramework.actionMessage.GameAction;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleController;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.Square;
 import com.example.gametest2.Tile;
+import com.example.gametest2.actions.PlayWordAction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,6 +19,11 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Arrays;
+import java.util.Collections;
+
+import java.util.ArrayList;
+
 public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
 
@@ -28,15 +35,19 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
     private int bottomTileSize = 150;
+
     Button b;
     ScrabbleController sc;
-
+    ArrayList<Character> onesPlaced;
+    StringBuilder sb;
+    String concatenatedString;
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
         instance = null;
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
-
+        onesPlaced = new ArrayList<>();
+        sb =  new StringBuilder();
         //make the board an ontouchlistener
         this.setOnTouchListener(this);
         sc = new ScrabbleController(this);
@@ -219,6 +230,8 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+
+
         //get the coords of the touch
         float x = event.getX();
         float y = event.getY();
@@ -241,6 +254,13 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                     for (int i = 0; i < 7; i++){
                         if (playerTiles[i].isSelected() && boardTiles[row][col].getEmpty()) {
                             Tile.swap(boardTiles[row][col], playerTiles[i]);
+                            onesPlaced.add(playerTiles[i].getChar());
+                            sb.append(playerTiles[i].getChar());
+                            concatenatedString = sb.toString();
+
+
+
+
                         }
                     }
                     break;
@@ -252,6 +272,12 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         this.invalidate();
         return true;
     }
+    public ArrayList<Character> getAR(){
+        return onesPlaced;
+    }
+    public StringBuilder getSB(){
+        return sb;
+    }
 
     public void setPlayerTiles(Tile[] playerTiles) {
         for (int i = 0; i < 7; i++){
@@ -259,7 +285,16 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         }
     }
 
-    public void setState(ScrabbleGameState state){
+    public Tile[] getPlayerTiles(){
+        return playerTiles;
+    }
+
+    //public void shuffle(Tile[] playerTiles) {
+      //  Collections.shuffle(Arrays.asList(getPlayerTiles()));
+    //}
+
+   public void setState(ScrabbleGameState state){
         this.state = state;
     }//state never gets used is this necessary
+    //needed in human player for recieveInfo
 }
