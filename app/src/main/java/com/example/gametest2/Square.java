@@ -61,6 +61,21 @@ public class Square implements View.OnTouchListener {
             canvas.drawLine(cx - r, cy - r, cx + r, cy + r, starPaint);
             canvas.drawLine(cx - r, cy + r, cx + r, cy - r, starPaint);
         }
+        if(type == TW){
+            Paint black = new Paint();
+            black.setStyle(Paint.Style.STROKE);
+            black.setStrokeWidth(4);
+            black.setColor(Color.BLACK);
+
+            int cx = rect.centerX();
+            int cy = rect.centerY();
+
+
+            canvas.drawText("TW", cx,cy,black);
+        }
+    }
+    public void setText(String word){
+
     }
 
 

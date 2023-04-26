@@ -52,7 +52,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         if(button.getId() == R.id.playword){
             pwa = new PlayWordAction(this, sgs.getPlayerID());
             game.sendAction(pwa);
-            bd.invalidate(); //also not necessary ?
+            bd.getAR().clear();
+            bd.getSB().setLength(0);
+            //bd.invalidate(); //also not necessary ?
         }
         else if(button.getId() == R.id.shuffle){
             //make random to shuffle tiles
