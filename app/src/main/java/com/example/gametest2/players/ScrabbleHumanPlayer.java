@@ -9,6 +9,7 @@ import com.example.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.GameFramework.players.GameHumanPlayer;
 import com.example.GameFramework.utilities.Logger;
+import com.example.gametest2.MainActivity;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.Tile;
