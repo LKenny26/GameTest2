@@ -29,13 +29,8 @@ public class ScrabbleLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        if (playerIdx == sgs.getPlayerID()){
-            return true;
-        }
-        else {
-            return false;
-        }
-        //return playerIdx == ((ScrabbleGameState)state).getPlayerID();
+        //it needs to be this way
+        return playerIdx == ((ScrabbleGameState)state).getPlayerID();
     }
     @Override
     public void start(GamePlayer[]players){
@@ -55,8 +50,11 @@ public class ScrabbleLocalGame extends LocalGame {
 
     }
 
+
+
     @Override
     protected boolean makeMove(GameAction action) {
+        sgs = (ScrabbleGameState) super.state;
         int players = super.players.length;
         System.out.println("goes into make move");
         Tile t = new Tile();

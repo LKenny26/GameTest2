@@ -19,6 +19,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import java.util.ArrayList;
 
 public class Board extends SurfaceView implements View.OnTouchListener{
@@ -32,7 +35,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
     private int bottomTileSize = 150;
-    GameAction action;
+
     Button b;
     ScrabbleController sc;
     ArrayList<Character> onesPlaced;
@@ -281,6 +284,14 @@ public class Board extends SurfaceView implements View.OnTouchListener{
             this.playerTiles[i] = playerTiles[i];
         }
     }
+
+    public Tile[] getPlayerTiles(){
+        return playerTiles;
+    }
+
+    //public void shuffle(Tile[] playerTiles) {
+      //  Collections.shuffle(Arrays.asList(getPlayerTiles()));
+    //}
 
     public void setState(ScrabbleGameState state){
         this.state = state;
