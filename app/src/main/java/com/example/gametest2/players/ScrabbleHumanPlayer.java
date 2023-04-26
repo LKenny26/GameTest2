@@ -33,7 +33,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     private Board bd;
     //Tile t;
-    private MainActivity myA;
+    private MainActivity myA = new MainActivity();
 
     public ScrabbleHumanPlayer(String name) {super(name); }
 
@@ -53,6 +53,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         if(button.getId() == R.id.playword){
             pwa = new PlayWordAction(this, sgs.getPlayerID());
+            bd.getAR().clear();
+            bd.getSB().setLength(0);
             game.sendAction(pwa);
             //bd.invalidate();
         }
@@ -77,7 +79,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
            if(saver.isEmpty()){
                Logger.log("TAG", "hashset is empty");
            }
-           //incomplete
+           else if(saver.contains(bd.getSB())){
+               Logger.log("TAG", "valid word");
+           }
            else{
                Logger.log("TAG", "not a valid word");
            }
