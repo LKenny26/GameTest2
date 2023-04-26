@@ -49,6 +49,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         SkipAction ska = new SkipAction(this);
         //SpellCheckAction sca = new SpellCheckAction(this);
 
+
         //RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if(button.getId() == R.id.playword){
