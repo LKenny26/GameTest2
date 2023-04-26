@@ -293,7 +293,8 @@ public class Board extends SurfaceView implements View.OnTouchListener{
       //  Collections.shuffle(Arrays.asList(getPlayerTiles()));
     //}
 
-    public void setState(ScrabbleGameState state){
+   public void setState(ScrabbleGameState state){
         this.state = state;
     }//state never gets used is this necessary
+    //needed in human player for recieveInfo
 }
