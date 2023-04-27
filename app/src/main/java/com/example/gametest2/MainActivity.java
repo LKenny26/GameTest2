@@ -70,7 +70,8 @@ public class MainActivity extends GameMainActivity {
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.words_alpha)));
         try {
-            String line = reader.readLine();
+            String line;
+            //= reader.readLine();
             while ((line = reader.readLine()) != null) {
                 //while loop checking for null, if not null add word
                 //use readLine in while loop
@@ -86,9 +87,9 @@ public class MainActivity extends GameMainActivity {
         }
 
         if (gs == null) {
-            return new ScrabbleLocalGame();
+            return new ScrabbleLocalGame(table);
         }
-        return new ScrabbleLocalGame((ScrabbleGameState) gs);
+        return new ScrabbleLocalGame((ScrabbleGameState) gs, table);
     }
 
     public HashSet<String> getHashSet(){

@@ -255,8 +255,8 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                         if (playerTiles[i].isSelected() && boardTiles[row][col].getEmpty()) {
                             Tile.swap(boardTiles[row][col], playerTiles[i]);
                             onesPlaced.add(playerTiles[i].getChar());
-                            sb.append(playerTiles[i].getChar());
-                            concatenatedString = sb.toString();
+                            sb.append(boardTiles[row][col].getChar());
+
 
 
 

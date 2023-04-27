@@ -7,6 +7,8 @@ import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.actions.PlayWordAction;
 
+import java.util.ArrayList;
+
 public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
     public ScrabbleComputerPlayer(String name) {
@@ -15,6 +17,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
+        //ArrayList<Tile> placeT = new ArrayList<Tile>();
         if(info instanceof NotYourTurnInfo) return;
         int x = (int)(10*Math.random());
         int y = (int)(10*Math.random());
