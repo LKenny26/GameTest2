@@ -47,6 +47,7 @@ public class MainActivity extends GameMainActivity {
             }
         });//computer
 
+        /*
         playerTypes.add(new GamePlayerType("Smart Computer Player") {
             @Override
             public GamePlayer createPlayer(String name) {
@@ -54,11 +55,13 @@ public class MainActivity extends GameMainActivity {
             }
         });
 
+         */
+
         //make the default config
         GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Scrabble", PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); //add human
         defaultConfig.addPlayer("Computer", 1); //add computer
-        defaultConfig.addPlayer("Smart Computer", 2); //add smart computer
+        //defaultConfig.addPlayer("Smart Computer", 2); //add smart computer
         defaultConfig.setRemoteData("Remote Human Player", "", 0);
 
         return defaultConfig;
@@ -82,8 +85,7 @@ public class MainActivity extends GameMainActivity {
                 }
             }
             reader.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
         }
 
         if (gs == null) {
@@ -95,4 +97,5 @@ public class MainActivity extends GameMainActivity {
     public HashSet<String> getHashSet(){
         return table;
     }
+
 }

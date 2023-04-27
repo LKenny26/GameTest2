@@ -125,6 +125,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             } else {
                 System.out.println("it doesnt work");
             }
+            bd.getSB().setLength(0);
             //if (saver.contains(word)) {
                 //Logger.log("TAG", "valid word!");
             //} else {
@@ -268,4 +269,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     public String getName(){
         return name;
     }
+
+
+
 }

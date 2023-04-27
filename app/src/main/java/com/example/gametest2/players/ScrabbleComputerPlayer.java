@@ -39,4 +39,5 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             game.sendAction(new PlayWordAction(this, sgs.getPlayerID()));
         }
     }
+
 }

@@ -228,7 +228,7 @@ public abstract class LocalGame implements Game, Tickable {
                 // if all players are ready, set the game stage to "during game", and
                 // send each player the initial state
                 if (playerReadyCount >= playerNames.length) {
-                    //We initially set the stage to setup, however we are smart enough to know
+                    //We initiall   `y set the stage to setup, however we are smart enough to know
                     //If we have to actually perform a setup phase, so check for that and send out
                     //info accordingly.
                     gameStage = GameStage.SETUP_PHASE;
