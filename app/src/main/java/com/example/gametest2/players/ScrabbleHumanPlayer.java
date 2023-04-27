@@ -55,7 +55,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         //RemoveTilesAction rta = new RemoveTilesAction(this);
 
-        if(button.getId() == R.id.playword){
+        if (button.getId() == R.id.playword) {
             //pwa = new PlayWordAction(this, sgs.getPlayerID());
             //bd.getAR().clear();
             //bd.getSB().setLength(0);
@@ -63,68 +63,75 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             int col = -1;
             int direction = -1; //1 left, 2 right, 3 down, 4 up, -1 error
             String word = "";
-            for(int i = 0; i < Board.BOARD_SIZE; i++){
-                for(int j = 0; j < Board.BOARD_SIZE; j++){
+            for (int i = 0; i < Board.BOARD_SIZE; i++) {
+                for (int j = 0; j < Board.BOARD_SIZE; j++) {
                     if (bd.boardTiles[i][j].getConfirmed() == false) {
                         row = i;
                         col = j;
-                        if (i > 0 && !bd.boardTiles[i-1][j].getEmpty()){
+                        if (i > 0 && !bd.boardTiles[i - 1][j].getEmpty()) {
                             direction = 1;
-                        } else if (i < Board.BOARD_SIZE && !bd.boardTiles[i+1][j].getEmpty()) {
+                        } else if (i < Board.BOARD_SIZE && !bd.boardTiles[i + 1][j].getEmpty()) {
                             direction = 2;
-                        }
-                        else if(j > 0 && !bd.boardTiles[i][j-1].getEmpty()){
+                        } else if (j > 0 && !bd.boardTiles[i][j - 1].getEmpty()) {
                             direction = 3;
-                        } else if (j < Board.BOARD_SIZE && !bd.boardTiles[i][j+1].getEmpty()) {
+                        } else if (j < Board.BOARD_SIZE && !bd.boardTiles[i][j + 1].getEmpty()) {
                             direction = 4;
-                        }
-                        else {
+                        } else {
                             return;
                         }
                     }
                 }
             }
             if (direction == 1 || direction == 2) {
-                while(!bd.boardTiles[row - 1][col].getEmpty()){
+                while (!bd.boardTiles[row - 1][col].getEmpty()) {
                     row = row - 1;
                 }
 
-                while(!bd.boardTiles[row][col].getEmpty()){
+                while (!bd.boardTiles[row][col].getEmpty()) {
                     word = word + bd.boardTiles[row][col].getChar();
                     row = row + 1;
                 }
 
             }
-            HashSet<String> saver = ((ScrabbleLocalGame)game).getHash();
-            if(saver.contains(word)){
+            HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
+            if (saver.contains(word)) {
                 Logger.log("TAG", "valid word!");
-            }
-            else {
+            } else {
                 Logger.log("TAG", "invalid word");
             }
             //game.sendAction(pwa);
             //bd.invalidate();
-        }
-        else if(button.getId() == R.id.shuffle){
+        } else if (button.getId() == R.id.shuffle) {
             //make random to shuffle tiles
             Random rand = new Random();
 
             //iterate through the player tiles and swap
-            for (int i = 0; i < 7; i++){
+            for (int i = 0; i < 7; i++) {
                 Tile.swap(bd.playerTiles[i], bd.playerTiles[rand.nextInt(7)]);
             }
             //redraw
             bd.invalidate();
 
-        }
-       else if(button.getId() == R.id.skip){
+        } else if (button.getId() == R.id.skip) {
             game.sendAction(ska);
             bd.invalidate(); //not necessary??
-       }
-       else if(button.getId() == R.id.spellcheck){
-           HashSet<String> saver = ((ScrabbleLocalGame)game).getHash();
+        } else if (button.getId() == R.id.spellcheck) {
+            HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
+            System.out.println(bd.getSB().toString());
+            System.out.println(saver);
+            if (((ScrabbleLocalGame) game).valid(bd.getSB().toString().toLowerCase())) {
+                System.out.println("it works");
 
-            int row = -1;
+            } else {
+                System.out.println("it doesnt work");
+            }
+            //if (saver.contains(word)) {
+                //Logger.log("TAG", "valid word!");
+            //} else {
+                //Logger.log("TAG", "invalid word");
+            //}
+        }
+           /* int row = -1;
             int col = -1;
             int direction = -1; //1 left, 2 right, 3 down, 4 up, -1 error
             String word = "";
@@ -148,8 +155,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                         }
                     }
                 }
-            }
-            if (direction == 1 || direction == 2) {
+            }*/
+            /*if (direction == 1 || direction == 2) {
                 while(!bd.boardTiles[row - 1][col].getEmpty()){
                     row = row - 1;
                 }
@@ -157,16 +164,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 while(!bd.boardTiles[row][col].getEmpty()){
                     word = word + bd.boardTiles[row][col].getChar();
                     row = row + 1;
-                }
+                }*/
 
-            }
-            //HashSet<String> saver = ((ScrabbleLocalGame)game).getHash();
-            if(saver.contains(word)){
-                Logger.log("TAG", "valid word!");
-            }
-            else {
-                Logger.log("TAG", "invalid word");
-            }
+
+        //HashSet<String> saver = ((ScrabbleLocalGame)game).getHash();
+
            /*
            System.out.println(bd.getSB().toString());
            if(((ScrabbleLocalGame)game).valid(bd.getSB().toString())){
@@ -186,8 +188,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                Logger.log("TAG", "not a valid word");
            }
            */
-          //  super.game.sendAction(sca);
-        }
+        //  super.game.sendAction(sca);
+
+
         else if(button.getId() == R.id.removeTiles){
             //remove tiles from the board and puts them back into player's tiles
             for(int i = 0; i < Board.BOARD_SIZE; i++) {
