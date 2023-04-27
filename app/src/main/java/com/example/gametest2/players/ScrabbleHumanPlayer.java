@@ -59,13 +59,16 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             //pwa = new PlayWordAction(this, sgs.getPlayerID());
             //bd.getAR().clear();
             //bd.getSB().setLength(0);
+            System.out.println("Made it to play word");
             int row = -1;
             int col = -1;
-            int direction = -1; //1 left, 2 right, 3 down, 4 up, -1 error
+            int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
             String word = "";
             for (int i = 0; i < Board.BOARD_SIZE; i++) {
                 for (int j = 0; j < Board.BOARD_SIZE; j++) {
-                    if (bd.boardTiles[i][j].getConfirmed() == false) {
+                    //System.out.println(i + ", " + j);
+                    if (bd.boardTiles[i][j].getConfirmed() == false && !bd.boardTiles[i][j].getEmpty()) {
+                        //System.out.println(i + ", " + j + " is not confirmed aka just placed");
                         row = i;
                         col = j;
                         if (i > 0 && !bd.boardTiles[i - 1][j].getEmpty()) {
@@ -77,24 +80,36 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                         } else if (j < Board.BOARD_SIZE && !bd.boardTiles[i][j + 1].getEmpty()) {
                             direction = 4;
                         } else {
-                            return;
+                            //return;
                         }
+                        break;
                     }
                 }
             }
+            System.out.println(row + ", " + col + ", " + direction);
             if (direction == 1 || direction == 2) {
-                while (!bd.boardTiles[row - 1][col].getEmpty()) {
+                while (!bd.boardTiles[row - 1][col].getEmpty() || row < 0) {
                     row = row - 1;
                 }
 
-                while (!bd.boardTiles[row][col].getEmpty()) {
+                while (!bd.boardTiles[row][col].getEmpty() || row > Board.BOARD_SIZE) {
                     word = word + bd.boardTiles[row][col].getChar();
                     row = row + 1;
                 }
 
             }
+            if (direction == 3 || direction == 4) {
+                while(!bd.boardTiles[row][col -1].getEmpty() || col < 0){
+                    col = col - 1;
+                }
+                while (!bd.boardTiles[row][col].getEmpty() || col > Board.BOARD_SIZE){
+                    word = word + bd.boardTiles[row][col].getChar();
+                    col = col + 1;
+                }
+            }
+            System.out.println(word + " is the word found");
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
-            if (saver.contains(word)) {
+            if (saver.contains(word.toLowerCase())) {
                 Logger.log("TAG", "valid word!");
             } else {
                 Logger.log("TAG", "invalid word");
@@ -116,6 +131,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             game.sendAction(ska);
             bd.invalidate(); //not necessary??
         } else if (button.getId() == R.id.spellcheck) {
+            /*
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
             System.out.println(bd.getAR());
             System.out.println(saver);
@@ -127,73 +143,63 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 System.out.println("it doesnt work");
             }
             bd.getAR().clear();
-        }
-            //if (saver.contains(word)) {
-                //Logger.log("TAG", "valid word!");
-            //} else {
-                //Logger.log("TAG", "invalid word");
-            //}
-
-           /* int row = -1;
+            */
+            System.out.println("Made it to play word");
+            int row = -1;
             int col = -1;
-            int direction = -1; //1 left, 2 right, 3 down, 4 up, -1 error
+            int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
             String word = "";
-            for(int i = 0; i < Board.BOARD_SIZE; i++){
-                for(int j = 0; j < Board.BOARD_SIZE; j++){
-                    if (bd.boardTiles[i][j].getConfirmed() == false) {
+            for (int i = 0; i < Board.BOARD_SIZE; i++) {
+                for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                    //System.out.println(i + ", " + j);
+                    if (bd.boardTiles[i][j].getConfirmed() == false && !bd.boardTiles[i][j].getEmpty()) {
+                        //System.out.println(i + ", " + j + " is not confirmed aka just placed");
                         row = i;
                         col = j;
-                        if (i > 0 && !bd.boardTiles[i-1][j].getEmpty()){
+                        if (i > 0 && !bd.boardTiles[i - 1][j].getEmpty()) {
                             direction = 1;
-                        } else if (i < Board.BOARD_SIZE && !bd.boardTiles[i+1][j].getEmpty()) {
+                        } else if (i < Board.BOARD_SIZE && !bd.boardTiles[i + 1][j].getEmpty()) {
                             direction = 2;
-                        }
-                        else if(j > 0 && !bd.boardTiles[i][j-1].getEmpty()){
+                        } else if (j > 0 && !bd.boardTiles[i][j - 1].getEmpty()) {
                             direction = 3;
-                        } else if (j < Board.BOARD_SIZE && !bd.boardTiles[i][j+1].getEmpty()) {
+                        } else if (j < Board.BOARD_SIZE && !bd.boardTiles[i][j + 1].getEmpty()) {
                             direction = 4;
+                        } else {
+                            //return;
                         }
-                        else {
-                            return;
-                        }
+                        break;
                     }
                 }
-            }*/
-            /*if (direction == 1 || direction == 2) {
-                while(!bd.boardTiles[row - 1][col].getEmpty()){
+            }
+            System.out.println(row + ", " + col + ", " + direction);
+            if (direction == 1 || direction == 2) {
+                while (!bd.boardTiles[row - 1][col].getEmpty() || row < 0) {
                     row = row - 1;
                 }
 
-                while(!bd.boardTiles[row][col].getEmpty()){
+                while (!bd.boardTiles[row][col].getEmpty() || row > Board.BOARD_SIZE) {
                     word = word + bd.boardTiles[row][col].getChar();
                     row = row + 1;
-                }*/
+                }
 
-
-        //HashSet<String> saver = ((ScrabbleLocalGame)game).getHash();
-
-           /*
-           System.out.println(bd.getSB().toString());
-           if(((ScrabbleLocalGame)game).valid(bd.getSB().toString())){
-               System.out.println("it works");
-
-           }
-           else{
-               System.out.println("it doesnt work");
-           }
-           if(saver.isEmpty()){
-               Logger.log("TAG", "hashset is empty");
-           }
-           else if(saver.contains(bd.getSB())){
-               Logger.log("TAG", "valid word");
-           }
-           else{
-               Logger.log("TAG", "not a valid word");
-           }
-           */
-        //  super.game.sendAction(sca);
-
-
+            }
+            if (direction == 3 || direction == 4) {
+                while(!bd.boardTiles[row][col -1].getEmpty() || col < 0){
+                    col = col - 1;
+                }
+                while (!bd.boardTiles[row][col].getEmpty() || col > Board.BOARD_SIZE){
+                    word = word + bd.boardTiles[row][col].getChar();
+                    col = col + 1;
+                }
+            }
+            System.out.println(word + " is the word found");
+            HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
+            if (saver.contains(word.toLowerCase())) {
+                Logger.log("TAG", "valid word!");
+            } else {
+                Logger.log("TAG", "invalid word");
+            }
+        }
         else if(button.getId() == R.id.removeTiles){
             //remove tiles from the board and puts them back into player's tiles
             for(int i = 0; i < Board.BOARD_SIZE; i++) {
