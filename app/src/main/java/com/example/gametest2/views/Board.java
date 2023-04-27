@@ -160,6 +160,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                 int right = (col + 1) * squareSize;
                 int bottom = (row + 1) * squareSize;
                 squares[row][col] = new Square(left, top, right, bottom, squareType);
+                //create the tiles empty starts as true
                 boardTiles[row][col] = new Tile(left,top,right,bottom, true);
 
                 // Set the square's color based on its type
