@@ -1,6 +1,7 @@
 package com.example.gametest2.views;
 
 import com.example.GameFramework.actionMessage.GameAction;
+import com.example.gametest2.Letter;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleController;
 import com.example.gametest2.ScrabbleGameState;
@@ -23,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
@@ -38,15 +40,17 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
     Button b;
     ScrabbleController sc;
-    ArrayList<Character> onesPlaced;
-    StringBuilder sb;
+    ArrayList<Letter> letters;
+    Letter let;
+    private StringBuilder sb;
     String concatenatedString;
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
         instance = null;
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
-        onesPlaced = new ArrayList<>();
+        letters = new ArrayList<>();
+
         sb =  new StringBuilder();
         //make the board an ontouchlistener
         this.setOnTouchListener(this);
@@ -74,67 +78,67 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
         // Define special squares
         int[][] specialSquares = {
-                {0, 0, Square.STAR},
+                {0, 0, Square.TW},
                 {0, 3, Square.DL},
-                {0, 7, Square.STAR},
+                {0, 7, Square.TW},
                 {0, 11, Square.DL},
-                {0, 14, Square.STAR},
-                {1, 1, Square.TL},
-                {1, 5, Square.DW},
-                {1, 9, Square.DW},
-                {1, 13, Square.TL},
-                {2, 2, Square.TL},
+                {0, 14, Square.TW},
+                {1, 1, Square.DW},
+                {1, 5, Square.TL},
+                {1, 9, Square.TL},
+                {1, 13, Square.DW},
+                {2, 2, Square.DW},
                 {2, 6, Square.DL},
                 {2, 8, Square.DL},
-                {2, 12, Square.TL},
+                {2, 12, Square.DW},
                 {3, 0, Square.DL},
-                {3, 3, Square.TL},
+                {3, 3, Square.DW},
                 {3, 7, Square.DL},
-                {3, 11, Square.TL},
+                {3, 11, Square.DW},
                 {3, 14, Square.DL},
                 {4, 4, Square.DW},
                 {4, 10, Square.DW},
-                {5, 1, Square.DW},
+                {5, 1, Square.TL},
                 {5, 5, Square.TL},
                 {5, 9, Square.TL},
-                {5, 13, Square.DW},
+                {5, 13, Square.TL},
                 {6, 2, Square.DL},
                 {6, 6, Square.DL},
                 {6, 8, Square.DL},
                 {6, 12, Square.DL},
-                {7, 0, Square.STAR},
+                {7, 0, Square.TW},
                 {7, 3, Square.DL},
-                {7, 7, Square.CENTER},
+                {7, 7, Square.STAR},
                 {7, 11, Square.DL},
-                {7, 14, Square.STAR},
+                {7, 14, Square.TW},
                 {8, 2, Square.DL},
                 {8, 6, Square.DL},
                 {8, 8, Square.DL},
                 {8, 12, Square.DL},
-                {9, 1, Square.DW},
+                {9, 1, Square.TL},
                 {9, 5, Square.TL},
                 {9, 9, Square.TL},
-                {9, 13, Square.DW},
+                {9, 13, Square.TL},
                 {10, 4, Square.DW},
                 {10, 10, Square.DW},
                 {11, 0, Square.DL},
-                {11, 3, Square.TL},
+                {11, 3, Square.DW},
                 {11, 7, Square.DL},
-                {11, 11, Square.TL},
+                {11, 11, Square.DW},
                 {11, 14, Square.DL},
-                {12, 2, Square.TL},
+                {12, 2, Square.DW},
                 {12, 6, Square.DL},
                 {12, 8, Square.DL},
-                {12, 12, Square.TL},
-                {13, 1, Square.TL},
-                {13, 5, Square.DW},
-                {13, 9, Square.DW},
-                {13, 13, Square.TL},
-                {14, 0, Square.STAR},
+                {12, 12, Square.DW},
+                {13, 1, Square.DW},
+                {13, 5, Square.TL},
+                {13, 9, Square.TL},
+                {13, 13, Square.DW},
+                {14, 0, Square.TW},
                 {14, 3, Square.DL},
-                {14, 7, Square.STAR},
+                {14, 7, Square.TW},
                 {14, 11, Square.DL},
-                {14, 14, Square.STAR},
+                {14, 14, Square.TW},
         };
 
         // Create squares and set their colors
@@ -254,9 +258,9 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                     for (int i = 0; i < 7; i++){
                         if (playerTiles[i].isSelected() && boardTiles[row][col].getEmpty()) {
                             Tile.swap(boardTiles[row][col], playerTiles[i]);
-                            onesPlaced.add(playerTiles[i].getChar());
-                            sb.append(playerTiles[i].getChar());
-                            concatenatedString = sb.toString();
+                            let = new Letter(row,col, playerTiles[i].getChar());
+                            letters.add(let);
+
 
 
 
@@ -272,18 +276,49 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         this.invalidate();
         return true;
     }
-    public ArrayList<Character> getAR(){
-        return onesPlaced;
+    public ArrayList<Letter> getAR(){
+        return letters;
     }
     public StringBuilder getSB(){
+        Collections.sort(letters);
+        for (Letter l : letters) {
+            sb.append(l.getLetter());
+        }
         return sb;
     }
+
 
     public void setPlayerTiles(Tile[] playerTiles) {
         for (int i = 0; i < 7; i++){
             this.playerTiles[i] = playerTiles[i];
         }
     }
+    /*public static void organizeSB(StringBuilder sb) {
+        // Split the StringBuilder into an array of characters
+        char[] chars = sb.toString().toCharArray();
+
+        // Create an array of integer pairs to hold the [row][col] values for each character
+        int[][] positions = new int[chars.length][2];
+
+        // Fill in the positions array with the [row][col] values for each character
+        for (int i = 0; i < chars.length; i++) {
+            positions[i][0] = chars[i] / BOARD_SIZE; // row value
+            positions[i][1] = chars[i] % BOARD_SIZE; // col value
+        }
+
+        // Sort the positions array by row value, then by column value
+        Arrays.sort(positions, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                if (a[0] == b[0]) {
+                    return Integer.compare(a[1], b[1]);
+                }
+                return Integer.compare(a[0], b[0]);
+            }
+        });*/
+
+        // Rebuild the StringBuilder in the sorted order
+
+
 
     public Tile[] getPlayerTiles(){
         return playerTiles;

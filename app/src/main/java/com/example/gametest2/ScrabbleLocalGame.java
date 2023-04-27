@@ -7,17 +7,22 @@ import com.example.gametest2.actions.PlayWordAction;
 import com.example.gametest2.actions.*;
 import com.example.gametest2.players.ScrabbleHumanPlayer;
 
+import java.util.HashSet;
+
 public class ScrabbleLocalGame extends LocalGame {
     ScrabbleGameState sgs;
+    HashSet<String> hashet;
 
-    public ScrabbleLocalGame(){
+    public ScrabbleLocalGame(HashSet<String> hash){
         super();
         super.state = new ScrabbleGameState();
+        hashet = hash;
     }
 
-    public ScrabbleLocalGame(ScrabbleGameState scrstate){
+    public ScrabbleLocalGame(ScrabbleGameState scrstate, HashSet<String> hash){
         super();
         super.state= new ScrabbleGameState(scrstate);
+        hashet = hash;
     }
 
     @Override
@@ -49,7 +54,12 @@ public class ScrabbleLocalGame extends LocalGame {
         return gameOver;
 
     }
-
+    public boolean valid(String string){
+        return hashet.contains(string);
+    }
+    public HashSet<String> getHash(){
+        return hashet;
+    }
 
 
     @Override

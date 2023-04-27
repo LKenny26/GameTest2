@@ -47,6 +47,7 @@ public class MainActivity extends GameMainActivity {
             }
         });//computer
 
+        /*
         playerTypes.add(new GamePlayerType("Smart Computer Player") {
             @Override
             public GamePlayer createPlayer(String name) {
@@ -54,11 +55,13 @@ public class MainActivity extends GameMainActivity {
             }
         });
 
+         */
+
         //make the default config
         GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Scrabble", PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); //add human
         defaultConfig.addPlayer("Computer", 1); //add computer
-        defaultConfig.addPlayer("Smart Computer", 2); //add smart computer
+        //defaultConfig.addPlayer("Smart Computer", 2); //add smart computer
         defaultConfig.setRemoteData("Remote Human Player", "", 0);
 
         return defaultConfig;
@@ -70,7 +73,8 @@ public class MainActivity extends GameMainActivity {
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.words_alpha)));
         try {
-            String line = reader.readLine();
+            String line;
+            //= reader.readLine();
             while ((line = reader.readLine()) != null) {
                 //while loop checking for null, if not null add word
                 //use readLine in while loop
@@ -81,17 +85,17 @@ public class MainActivity extends GameMainActivity {
                 }
             }
             reader.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
         }
 
         if (gs == null) {
-            return new ScrabbleLocalGame();
+            return new ScrabbleLocalGame(table);
         }
-        return new ScrabbleLocalGame((ScrabbleGameState) gs);
+        return new ScrabbleLocalGame((ScrabbleGameState) gs, table);
     }
 
     public HashSet<String> getHashSet(){
         return table;
     }
+
 }
