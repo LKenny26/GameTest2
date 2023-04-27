@@ -1,6 +1,7 @@
 package com.example.gametest2.views;
 
 import com.example.GameFramework.actionMessage.GameAction;
+import com.example.gametest2.Letter;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleController;
 import com.example.gametest2.ScrabbleGameState;
@@ -23,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Board extends SurfaceView implements View.OnTouchListener{
     // Set the dimensions of the board
@@ -38,15 +40,17 @@ public class Board extends SurfaceView implements View.OnTouchListener{
 
     Button b;
     ScrabbleController sc;
-    ArrayList<Character> onesPlaced;
-    StringBuilder sb;
+    ArrayList<Letter> letters;
+    Letter let;
+    private StringBuilder sb;
     String concatenatedString;
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
         instance = null;
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
-        onesPlaced = new ArrayList<>();
+        letters = new ArrayList<>();
+
         sb =  new StringBuilder();
         //make the board an ontouchlistener
         this.setOnTouchListener(this);
@@ -254,8 +258,8 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                     for (int i = 0; i < 7; i++){
                         if (playerTiles[i].isSelected() && boardTiles[row][col].getEmpty()) {
                             Tile.swap(boardTiles[row][col], playerTiles[i]);
-                            onesPlaced.add(playerTiles[i].getChar());
-                            sb.append(boardTiles[row][col].getChar());
+                            let = new Letter(row,col, playerTiles[i].getChar());
+                            letters.add(let);
 
 
 
@@ -272,18 +276,49 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         this.invalidate();
         return true;
     }
-    public ArrayList<Character> getAR(){
-        return onesPlaced;
+    public ArrayList<Letter> getAR(){
+        return letters;
     }
     public StringBuilder getSB(){
+        Collections.sort(letters);
+        for (Letter l : letters) {
+            sb.append(l.getLetter());
+        }
         return sb;
     }
+
 
     public void setPlayerTiles(Tile[] playerTiles) {
         for (int i = 0; i < 7; i++){
             this.playerTiles[i] = playerTiles[i];
         }
     }
+    /*public static void organizeSB(StringBuilder sb) {
+        // Split the StringBuilder into an array of characters
+        char[] chars = sb.toString().toCharArray();
+
+        // Create an array of integer pairs to hold the [row][col] values for each character
+        int[][] positions = new int[chars.length][2];
+
+        // Fill in the positions array with the [row][col] values for each character
+        for (int i = 0; i < chars.length; i++) {
+            positions[i][0] = chars[i] / BOARD_SIZE; // row value
+            positions[i][1] = chars[i] % BOARD_SIZE; // col value
+        }
+
+        // Sort the positions array by row value, then by column value
+        Arrays.sort(positions, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                if (a[0] == b[0]) {
+                    return Integer.compare(a[1], b[1]);
+                }
+                return Integer.compare(a[0], b[0]);
+            }
+        });*/
+
+        // Rebuild the StringBuilder in the sorted order
+
+
 
     public Tile[] getPlayerTiles(){
         return playerTiles;

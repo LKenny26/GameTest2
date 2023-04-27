@@ -117,20 +117,23 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             bd.invalidate(); //not necessary??
         } else if (button.getId() == R.id.spellcheck) {
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
-            System.out.println(bd.getSB().toString());
+            System.out.println(bd.getAR());
             System.out.println(saver);
+            System.out.println(bd.getSB());
             if (((ScrabbleLocalGame) game).valid(bd.getSB().toString().toLowerCase())) {
                 System.out.println("it works");
 
             } else {
                 System.out.println("it doesnt work");
             }
+            bd.getAR().clear();
+        }
             //if (saver.contains(word)) {
                 //Logger.log("TAG", "valid word!");
             //} else {
                 //Logger.log("TAG", "invalid word");
             //}
-        }
+
            /* int row = -1;
             int col = -1;
             int direction = -1; //1 left, 2 right, 3 down, 4 up, -1 error
