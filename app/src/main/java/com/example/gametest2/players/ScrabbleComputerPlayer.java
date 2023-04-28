@@ -1,9 +1,10 @@
 package com.example.gametest2.players;
 
-import android.graphics.Point;
 
+import android.content.Context;
+import android.graphics.Point;
+import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.Button;
 
 import com.example.GameFramework.GameMainActivity;
 import com.example.GameFramework.infoMessage.GameInfo;
@@ -16,13 +17,10 @@ import com.example.gametest2.Tile;
 import com.example.gametest2.actions.PlayWordAction;
 import com.example.gametest2.actions.ScrabbleComputerAction;
 import com.example.gametest2.actions.SkipAction;
-import com.example.gametest2.actions.SkipAction;
 import com.example.gametest2.views.Board;
 import com.example.gametest2.views.ScoreBoard;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ScrabbleComputerPlayer extends GameComputerPlayer {
     ScrabbleGameState sgs;
@@ -33,16 +31,18 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
     public ScrabbleComputerPlayer(String name) {
 
         super(name);
-        sgs = null;
+
+        sgs = new ScrabbleGameState();
     }
 
     @Override
     protected void receiveInfo(GameInfo info) {
-        //ArrayList<Tile> placeT = new ArrayList<Tile>();
+
         if (info instanceof NotYourTurnInfo) {
             Log.i("debug", "not my turn");
             return;
         }
+        sgs = (ScrabbleGameState)info;
         Log.i("debug", "computer is gonna take a turn");
         ArrayList<Tile> placeT = new ArrayList<Tile>();
         try {
@@ -52,14 +52,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
         }
 
         if (sgs.getPlayerID() == playerNum) {
-            Tile[] myTiles;
-            /*
-            if (playerNum == 0) {
-                myTiles = sgs.player1Tiles;
-            } else {
-                myTiles = sgs.player2Tiles;
-            }
-            */
+
 
             for (int i = 0; i < 15; i++) {
                 for (int j = 0; j < 15; j++) {
@@ -67,14 +60,14 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                         Tile place = null;
                         if (!(j + 1 > 14 || i + 1 > 14)) {
                             if (bd.boardTiles[i + 1][j].getChar() == ' ' && bd.boardTiles[i - 1][j].getChar() == ' ') {
-                                //place = getLettersOnBoard(bd.boardTiles[i][j], i + 1, j, myTiles);
+
                                 if (place != null) {
                                     placeT.add(place);
                                     tilePoints.add(new Point(i + 1, j));
                                     game.sendAction(new ScrabbleComputerAction(this, placeT, tilePoints));
                                     return;
                                 }
-                                //place = getLettersOnBoard(bd.boardTiles[i][j], i - 1, j, myTiles);
+
                                 if (place != null) {
                                     placeT.add(place);
                                     tilePoints.add(new Point(i - 1, j));
@@ -83,14 +76,13 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                 } else if (bd.boardTiles[i][j + 1].getChar() == ' ' && bd.boardTiles[i][j - 1].getChar() == ' ') {
 
 
-                                    //place = getLettersOnBoard(bd.boardTiles, i, j + 1, myTiles);
                                     if (place != null) {
                                         placeT.add(place);
                                         tilePoints.add(new Point(i, j - 1));
                                         game.sendAction(new ScrabbleComputerAction(this, placeT, tilePoints));
                                         return;
                                     }
-                                    //place = getLettersOnBoard(bd.boardTiles, i, j - 1, myTiles);
+
                                     if (place != null) {
                                         placeT.add(place);
                                         tilePoints.add(new Point(i, j - 1));
@@ -98,6 +90,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                         return;
 
                                     }
+                                    game.sendAction(new PlayWordAction(this,false, sgs.getPlayerTwoScore()));
                                 }
                             }
 
@@ -107,7 +100,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
                     }
                 }
-                game.sendAction(new SkipAction(this));
+                //game.sendAction(new SkipAction(this));
             }
 
         }

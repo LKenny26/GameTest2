@@ -347,6 +347,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
             //redraw
             bd.invalidate();
+            sgs.setPlayerID(1);
+
         }
 
     }

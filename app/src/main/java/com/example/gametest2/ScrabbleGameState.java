@@ -54,6 +54,12 @@ public class ScrabbleGameState extends GameState {
         playerThreeScore = 0;
         playerFourScore = 0;
         playerID = 0;
+        for( int i = 0; i < 15; i++){
+            for(int j = 0; j< 15;j++){
+                boardTiles = new Tile[15][15];
+            }
+        }
+
 
         /*dictionary = new File("words_alpha.txt");
         try {
