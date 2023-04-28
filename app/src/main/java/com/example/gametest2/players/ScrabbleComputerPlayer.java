@@ -6,6 +6,7 @@ import com.example.GameFramework.players.GameComputerPlayer;
 import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.actions.PlayWordAction;
+import com.example.gametest2.actions.SkipAction;
 
 import java.util.ArrayList;
 
@@ -35,8 +36,8 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                 //place tiles
 
                 //spell-check:
+                super.game.sendAction(new SkipAction(this));
             }
-            game.sendAction(new PlayWordAction(this, sgs.getPlayerID()));
         }
     }
 
