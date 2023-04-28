@@ -51,8 +51,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         //ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
         //SpellCheckAction sca = new SpellCheckAction(this);
-
-
+        //we need an onject has a row collumn and a letter , get the letter and implementcomparable  compareTO ,
+       // Compare to method ,
+               // when tile is placed
         //RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if (button.getId() == R.id.playword) {
@@ -95,7 +96,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 while (!bd.boardTiles[row][col].getEmpty() || row > Board.BOARD_SIZE) {
                     word = word + bd.boardTiles[row][col].getChar();
                     row = row + 1;
-                }
+            }
 
             }
             if (direction == 3 || direction == 4) {
