@@ -27,14 +27,11 @@ public class ScrabbleLocalGame extends LocalGame {
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        //ScrabbleGameState cp = new ScrabbleGameState(sgs);
-        //p.sendInfo(cp);
         p.sendInfo(new ScrabbleGameState((ScrabbleGameState) state));
     }
 
     @Override
     protected boolean canMove(int playerIdx) {
-        //it needs to be this way
         return playerIdx == ((ScrabbleGameState)state).getPlayerID();
     }
     @Override
@@ -44,6 +41,7 @@ public class ScrabbleLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
+        //TODO: something is wrong null should be pushed if game is not over
         String gameOver;
         gameOver = "game not over";
         if(sgs.TileCounter == 100){
@@ -67,27 +65,31 @@ public class ScrabbleLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
         sgs = (ScrabbleGameState) super.state;
         int players = super.players.length;
-        System.out.println("goes into make move");
+
         if(action instanceof PlayWordAction) {
-            System.out.println("goes into play word");
             if (sgs.getPlayerID() == 0) {
+                //current player is 0
                 if(((PlayWordAction) action).getSpellCheck()){
+                    //only change players and set score if the word is valid
+                    sgs.setPlayerOneScore(((PlayWordAction) action).getScore());
                     sgs.setPlayerID(1);
                 }
-                //sgs.setPlayerOneScore(t.getPoints());
             } else if (sgs.getPlayerID() == 1) {
+                //current player is 1
                 if(((PlayWordAction) action).getSpellCheck()) {
+                    //only change players and set score if the word is valid
+                    sgs.setPlayerTwoScore(((PlayWordAction) action).getScore());
                     sgs.setPlayerID(0);
                 }
-                //sgs.setPlayerTwoScore(t.getPoints());
             }
-            System.out.println(sgs.getPlayerID());
             return true;
 
         }
 
         else if(action instanceof SkipAction){
-            System.out.println("goes into skip action");
+            //TODO: technically only have two players working rn
+
+            //changes the player id based on who is the current player and how many there are
             if(sgs.getPlayerID() == 0){
                 sgs.setPlayerID(1);
             }
@@ -110,13 +112,12 @@ public class ScrabbleLocalGame extends LocalGame {
             else if (sgs.getPlayerID() == 3) {
                 sgs.setPlayerID(0);
             }
-            else {return false;}
+            else {
+                //player id is wrong
+                return false;
+            }
             return true;
         }
-
-
-
-        //return true;
         else {
             return false;
         }

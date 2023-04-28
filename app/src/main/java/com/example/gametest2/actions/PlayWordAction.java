@@ -9,21 +9,23 @@ import java.util.Hashtable;
 
 public class PlayWordAction extends GameAction {
 
-    //Hashtable <Character, Integer> hable = new Hashtable<Character, Integer>();
-    //Tile t;
-    //private int id;
+    private int score;
     private boolean spellCheck;
 
-    public PlayWordAction(GamePlayer player, boolean bool){
+    public PlayWordAction(GamePlayer player, boolean bool, int currScore){
         super(player);
         //t = new Tile();
         //hable.put(t.getChar(), t.getPoints());
         //this.id = idx;
         spellCheck = bool;
-
+        score = currScore;
     }
 
     public boolean getSpellCheck(){
         return spellCheck;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

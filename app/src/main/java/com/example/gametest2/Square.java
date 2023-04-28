@@ -116,6 +116,9 @@ public class Square implements View.OnTouchListener {
 
     }
 
+    public int getType(){
+        return type;
+    }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
