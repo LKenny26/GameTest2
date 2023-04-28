@@ -35,6 +35,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     public Square[][] squares;
     public Tile[] playerTiles = new Tile[7];
     public Tile[] computerTiles = new Tile[7];
+
     public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
     private int bottomTileSize = 150;
@@ -193,8 +194,6 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                 }
             }
         }
-        
-
     }
 
     @Override

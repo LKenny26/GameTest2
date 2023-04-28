@@ -30,8 +30,15 @@ public class Tile{
 
     //default constructor:
     public Tile(){}
+    public Tile(char a){
+        letter = a;
+        selected = false;
+        points = 0;
+        //initial settings of the board
+    }
 
     public Tile(Tile tile){
+        //tile = new Tile[15][15];
         letter = tile.getChar();
         selected = tile.getSelected();
         points = tile.getPoints();

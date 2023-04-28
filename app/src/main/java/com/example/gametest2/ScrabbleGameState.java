@@ -41,7 +41,10 @@ public class ScrabbleGameState extends GameState {
 
     int TileCounter = 0;
 
+    //private Tile[][] bd;
+
     String wordMade;
+    boolean bool = false;
 
     public static final int player1Id = 0;
     public static final int player2Id = 1;
@@ -54,9 +57,13 @@ public class ScrabbleGameState extends GameState {
         playerThreeScore = 0;
         playerFourScore = 0;
         playerID = 0;
+
+        boardTiles = new Tile[15][15];
         for( int i = 0; i < 15; i++){
             for(int j = 0; j< 15;j++){
-                boardTiles = new Tile[15][15];
+                boardTiles[i][j] = new Tile(' ');
+                boardTiles[i][j].setSelected(bool);
+                //bool may need to be true, i'm not sure yet -b
             }
         }
 
@@ -86,6 +93,15 @@ public class ScrabbleGameState extends GameState {
         playerFourScore = orig.playerFourScore;
         this.setPlayer1Tile();
         this.setPlayer2Tile();
+
+        boardTiles = new Tile[15][15];
+        for( int i = 0; i < 15; i++){
+            for(int j = 0; j< 15;j++){
+                boardTiles[i][j] = new Tile(orig.boardTiles[i][j]);
+                //boardTiles[i][j].setSelected(bool);
+                //bool may need to be true, i'm not sure yet -b
+            }
+        }
         /*
         dictionary = new File("words_alpha.txt");
         try {
