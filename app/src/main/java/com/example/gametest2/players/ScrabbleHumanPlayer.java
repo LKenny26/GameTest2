@@ -48,6 +48,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         ScrabbleGameState sgs = new ScrabbleGameState();
         SkipAction ska = new SkipAction(this);
+        //SpellCheckAction sca = new SpellCheckAction(this);
+        //we need an onject has a row collumn and a letter , get the letter and implementcomparable  compareTO ,
+       // Compare to method ,
+               // when tile is placed
+        //RemoveTilesAction rta = new RemoveTilesAction(this);
 
 
         if (button.getId() == R.id.playword) {
@@ -366,9 +371,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         spellcheck.setOnClickListener(this);
 
         bd = (Board)myActivity.findViewById(R.id.Board);
-        sb = (ScoreBoard)myActivity.findViewById(R.id.ScoreBoard);
         Logger.log("setting listeners", "onClick");
     }
+
 
     public String getName(){
         return name;
