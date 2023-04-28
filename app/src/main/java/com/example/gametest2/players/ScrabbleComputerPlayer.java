@@ -103,7 +103,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
     }
 
 
-}
+
         /*if(info instanceof NotYourTurnInfo) return;
         int x = (int)(10*Math.random());
         int y = (int)(10*Math.random());
