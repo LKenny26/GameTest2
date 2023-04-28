@@ -1,6 +1,9 @@
 package com.example.gametest2.players;
 
+
+import android.content.Context;
 import android.graphics.Point;
+import android.util.AttributeSet;
 import android.util.Log;
 
 import com.example.GameFramework.GameMainActivity;
@@ -28,6 +31,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
     public ScrabbleComputerPlayer(String name) {
 
         super(name);
+
         sgs = new ScrabbleGameState();
     }
 

@@ -52,6 +52,10 @@ public class Tile{
         confirmed = false;
         this.setLetters();
     }
+    //@Override
+    //public Tile(){
+
+    }
 
     public void setLetters(){
         int tileNumber;
