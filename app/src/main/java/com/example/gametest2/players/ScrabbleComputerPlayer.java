@@ -38,6 +38,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             Log.i("debug", "not my turn");
             return;
         }
+        sgs = (ScrabbleGameState)info;
         Log.i("debug", "computer is gonna take a turn");
         ArrayList<Tile> placeT = new ArrayList<Tile>();
         try {
