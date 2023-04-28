@@ -9,23 +9,21 @@ import java.util.Hashtable;
 
 public class PlayWordAction extends GameAction {
 
-    Hashtable <Character, Integer> hable = new Hashtable<Character, Integer>();
-    Tile t;
-    private int id;
+    //Hashtable <Character, Integer> hable = new Hashtable<Character, Integer>();
+    //Tile t;
+    //private int id;
+    private boolean spellCheck;
 
-    public PlayWordAction(GamePlayer player, int idx){
+    public PlayWordAction(GamePlayer player, boolean bool){
         super(player);
-        t = new Tile();
-        hable.put(t.getChar(), t.getPoints());
-        this.id = idx;
+        //t = new Tile();
+        //hable.put(t.getChar(), t.getPoints());
+        //this.id = idx;
+        spellCheck = bool;
 
     }
 
-    public PlayWordAction(ScrabbleHumanPlayer player) {
-        super(player);
-    }
-
-    public int getID(){
-        return id;
+    public boolean getSpellCheck(){
+        return spellCheck;
     }
 }

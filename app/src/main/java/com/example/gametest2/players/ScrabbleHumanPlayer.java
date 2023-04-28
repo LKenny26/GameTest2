@@ -35,8 +35,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     private Button skip = null;
     private Button spellcheck = null;
 
-   // String word;
-
     private Board bd;
     private ScoreBoard sb;
     //Tile t;
@@ -115,11 +113,48 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
             if (saver.contains(word.toLowerCase())) {
                 Logger.log("TAG", "valid word!");
+                for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                    for(int j = 0; j < Board.BOARD_SIZE; j++){
+                        if (!bd.boardTiles[i][j].getConfirmed() && !bd.boardTiles[i][j].getEmpty()) {
+                            bd.boardTiles[i][j].setConfirmed(true);
+                        }
+                    }
+                }
+                for(int i = 0; i < 7; i++) {
+                    if (bd.playerTiles[i].getEmpty()){
+                        bd.playerTiles[i] = new Tile(bd.playerTiles[i].getL(), bd.playerTiles[i].getT(), bd.playerTiles[i].getR(), bd.playerTiles[i].getB(), false);
+                    }
+                }
+                bd.invalidate();
+                game.sendAction(new PlayWordAction(this, true));
             } else {
                 Logger.log("TAG", "invalid word");
+                //remove tiles from the board and puts them back into player's tiles
+                for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                    for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                        //iterate through the rows and cols
+                        if (!bd.boardTiles[i][j].getConfirmed()) {
+                            //check if a tile is confirmed or not
+                            Tile temp = null;
+                            for (int k = 0; k < 7; k++) {
+                                //find the tile that is empty in a player's hand
+                                if (bd.playerTiles[k].getEmpty()) {
+                                    temp = bd.playerTiles[k];
+                                }
+                            }
+                            //if a tile that is empty is found swap it with an unconfirmed tile
+                            if (temp != null) {
+                                Tile.swap(bd.boardTiles[i][j], temp);
+                            }
+                        }
+                    }
+                }
+                //redraw
+                bd.invalidate();
+                game.sendAction(new PlayWordAction(this, false));
             }
-            //game.sendAction(pwa);sb
-            sb.invalidate();
+            //game.sendAction(pwa);
+            //bd.invalidate();
         } else if (button.getId() == R.id.shuffle) {
             //make random to shuffle tiles
             Random rand = new Random();
@@ -132,6 +167,28 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             bd.invalidate();
 
         } else if (button.getId() == R.id.skip) {
+            //remove tiles from the board and puts them back into player's tiles
+            for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                    //iterate through the rows and cols
+                    if (!bd.boardTiles[i][j].getConfirmed()) {
+                        //check if a tile is confirmed or not
+                        Tile temp = null;
+                        for (int k = 0; k < 7; k++) {
+                            //find the tile that is empty in a player's hand
+                            if (bd.playerTiles[k].getEmpty()) {
+                                temp = bd.playerTiles[k];
+                            }
+                        }
+                        //if a tile that is empty is found swap it with an unconfirmed tile
+                        if (temp != null) {
+                            Tile.swap(bd.boardTiles[i][j], temp);
+                        }
+                    }
+                }
+            }
+            //redraw
+            bd.invalidate();
             game.sendAction(ska);
 
             sb.invalidate(); //not necessary??
@@ -154,7 +211,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             int col = -1;
             int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
             String word = "";
-            //word = "";
             for (int i = 0; i < Board.BOARD_SIZE; i++) {
                 for (int j = 0; j < Board.BOARD_SIZE; j++) {
                     //System.out.println(i + ", " + j);
@@ -283,5 +339,4 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     public String getName(){
         return name;
     }
-    //public String getWord(){return word;}
 }

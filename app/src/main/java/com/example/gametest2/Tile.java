@@ -254,6 +254,9 @@ public class Tile{
     }
 
     public boolean getConfirmed() {return confirmed;}
+    public void setConfirmed(boolean bool) {
+        confirmed = bool;
+    }
     public boolean getSelected() {return selected;}
 
     public void setOriginalTile(Tile ogr){
