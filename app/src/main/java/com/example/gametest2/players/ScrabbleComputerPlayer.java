@@ -1,9 +1,7 @@
 package com.example.gametest2.players;
 
 import android.graphics.Point;
-
 import android.util.Log;
-import android.widget.Button;
 
 import com.example.GameFramework.GameMainActivity;
 import com.example.GameFramework.infoMessage.GameInfo;
@@ -16,13 +14,10 @@ import com.example.gametest2.Tile;
 import com.example.gametest2.actions.PlayWordAction;
 import com.example.gametest2.actions.ScrabbleComputerAction;
 import com.example.gametest2.actions.SkipAction;
-import com.example.gametest2.actions.SkipAction;
 import com.example.gametest2.views.Board;
 import com.example.gametest2.views.ScoreBoard;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ScrabbleComputerPlayer extends GameComputerPlayer {
     ScrabbleGameState sgs;
@@ -33,7 +28,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
     public ScrabbleComputerPlayer(String name) {
 
         super(name);
-        sgs = null;
+        sgs = new ScrabbleGameState();
     }
 
     @Override
@@ -52,14 +47,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
         }
 
         if (sgs.getPlayerID() == playerNum) {
-            Tile[] myTiles;
-            /*
-            if (playerNum == 0) {
-                myTiles = sgs.player1Tiles;
-            } else {
-                myTiles = sgs.player2Tiles;
-            }
-            */
+
 
             for (int i = 0; i < 15; i++) {
                 for (int j = 0; j < 15; j++) {
@@ -98,6 +86,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                         return;
 
                                     }
+                                    game.sendAction(new PlayWordAction(this,false, sgs.getPlayerTwoScore()));
                                 }
                             }
 
@@ -107,7 +96,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
                     }
                 }
-                game.sendAction(new SkipAction(this));
+                //game.sendAction(new SkipAction(this));
             }
 
         }
