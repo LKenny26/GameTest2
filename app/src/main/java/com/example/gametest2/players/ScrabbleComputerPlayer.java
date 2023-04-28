@@ -13,7 +13,7 @@ import com.example.gametest2.Tile;
 import com.example.gametest2.actions.PlayWordAction;
 import com.example.gametest2.actions.ScrabbleComputerAction;
 import com.example.gametest2.actions.SkipAction;
-import com.example.gametest2.actions.SkipAction;
+//import com.example.gametest2.actions.SkipAction;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -133,7 +133,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
          */
     public List<Character> getLettersOnBoard(Tile[][] t, int row, int col, Tile[] Ti){
         List<Character> letters = new ArrayList<>();
-        for(char[]row:board){
+        for(char[]row : board){
             for(char cell : row){
                 if(Character.isLetter(cell)){
                     letters.add(cell);
