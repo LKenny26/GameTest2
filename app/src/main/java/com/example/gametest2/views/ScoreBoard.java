@@ -1,5 +1,6 @@
 package com.example.gametest2.views;
 
+import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.players.*;
 import com.example.gametest2.MainActivity;
 import android.content.Context;
@@ -24,8 +25,10 @@ public class ScoreBoard extends SurfaceView {
 
     ScrabbleHumanPlayer shm;
     MainActivity ma = new MainActivity();
-
+    ScrabbleGameState sgs;
     private int threeQuartersX;
+
+    Board bd;
 
     public ScoreBoard(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,6 +39,8 @@ public class ScoreBoard extends SurfaceView {
         lines.setStrokeWidth(5);
         text.setColor(Color.WHITE);
         text.setTextSize(45);
+        bd = new Board(context, attrs);
+        sgs = new ScrabbleGameState();
     }
 
     //public void setName(String name){
@@ -63,8 +68,29 @@ public class ScoreBoard extends SurfaceView {
         canvas.drawLine(threeQuartersX, startY, threeQuartersX, endY+(6*50), lines);
 
         //player names:
-        canvas.drawText("YOU", (25)+startX, startY+85, text);
-        canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
+        //canvas.drawText("YOU", (25)+startX, startY+85, text);
+       // canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
+        if(sgs.getPlayerID() == 0){
+            canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
+            text.setColor(Color.YELLOW);
+            text.setStrokeWidth(6);
+            canvas.drawText("YOU", (25)+startX, startY+85, text);
+        }
+        else if(sgs.getPlayerID() == 1){
+            canvas.drawText("YOU", (25)+startX, startY+85, text);
+            text.setColor(Color.YELLOW);
+            text.setStrokeWidth(6);
+            canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
+        }
+        else{
+            System.out.println("ids not working correctly");
+        }
+    }
 
+    public int calcScore(){
+        if(sgs.getPlayerID() == 0){
+            //shm.
+        }
+        return 0;
     }
 }

@@ -17,6 +17,7 @@ import com.example.gametest2.ScrabbleLocalGame;
 import com.example.gametest2.Tile;
 import com.example.gametest2.actions.*;
 import com.example.gametest2.views.Board;
+import com.example.gametest2.views.ScoreBoard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +35,10 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     private Button skip = null;
     private Button spellcheck = null;
 
+   // String word;
+
     private Board bd;
+    private ScoreBoard sb;
     //Tile t;
     private MainActivity myA = new MainActivity();
 
@@ -114,8 +118,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             } else {
                 Logger.log("TAG", "invalid word");
             }
-            //game.sendAction(pwa);
-            //bd.invalidate();
+            //game.sendAction(pwa);sb
+            sb.invalidate();
         } else if (button.getId() == R.id.shuffle) {
             //make random to shuffle tiles
             Random rand = new Random();
@@ -129,7 +133,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
         } else if (button.getId() == R.id.skip) {
             game.sendAction(ska);
-            bd.invalidate(); //not necessary??
+
+            sb.invalidate(); //not necessary??
         } else if (button.getId() == R.id.spellcheck) {
             /*
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
@@ -149,6 +154,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             int col = -1;
             int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
             String word = "";
+            //word = "";
             for (int i = 0; i < Board.BOARD_SIZE; i++) {
                 for (int j = 0; j < Board.BOARD_SIZE; j++) {
                     //System.out.println(i + ", " + j);
@@ -277,4 +283,5 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     public String getName(){
         return name;
     }
+    //public String getWord(){return word;}
 }
