@@ -22,6 +22,8 @@ public class ScoreBoard extends SurfaceView {
     private int endX;
     private int startY;
     private int endY;
+    private int playerOneScore = 0;
+    private int playerTwoScore = 0;
 
     ScrabbleHumanPlayer shm;
     MainActivity ma = new MainActivity();
@@ -55,6 +57,7 @@ public class ScoreBoard extends SurfaceView {
         startY = 10;
         endY = 10;
         threeQuartersX = 800;
+        text.setColor(Color.WHITE);
         int i;
         canvas.drawText("Players", startX+10, startY+40, text);
         canvas.drawText("Scores", threeQuartersX+10, startY+40, text);
@@ -72,15 +75,19 @@ public class ScoreBoard extends SurfaceView {
        // canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
         if(sgs.getPlayerID() == 0){
             canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
+            canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
             text.setColor(Color.YELLOW);
             text.setStrokeWidth(6);
             canvas.drawText("YOU", (25)+startX, startY+85, text);
+            canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
         }
         else if(sgs.getPlayerID() == 1){
             canvas.drawText("YOU", (25)+startX, startY+85, text);
+            canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
             text.setColor(Color.YELLOW);
             text.setStrokeWidth(6);
             canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
+            canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
         }
         else{
             System.out.println("ids not working correctly");
@@ -92,5 +99,13 @@ public class ScoreBoard extends SurfaceView {
             //shm.
         }
         return 0;
+    }
+
+    public void setPlay1Score(int score) {
+        playerOneScore = playerOneScore + score;
+    }
+
+    public void setPlayerTwoScore(int score){
+        playerTwoScore = playerTwoScore + score;
     }
 }

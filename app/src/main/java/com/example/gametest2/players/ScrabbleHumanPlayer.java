@@ -14,6 +14,7 @@ import com.example.gametest2.MainActivity;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.ScrabbleLocalGame;
+import com.example.gametest2.Square;
 import com.example.gametest2.Tile;
 import com.example.gametest2.actions.*;
 import com.example.gametest2.views.Board;
@@ -44,42 +45,35 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void onClick(View button) {
-        //int x = button.getId();
-        //PlayWordAction pwa; //new PlayWordAction(this);
-        //t = new Tile();
 
         ScrabbleGameState sgs = new ScrabbleGameState();
-        //PlayWordAction pwa = new PlayWordAction(this);
-        //ShuffleAction sha = new ShuffleAction(this);
         SkipAction ska = new SkipAction(this);
-        //SpellCheckAction sca = new SpellCheckAction(this);
 
-
-        //RemoveTilesAction rta = new RemoveTilesAction(this);
 
         if (button.getId() == R.id.playword) {
-            //pwa = new PlayWordAction(this, sgs.getPlayerID());
-            //bd.getAR().clear();
-            //bd.getSB().setLength(0);
             System.out.println("Made it to play word");
             int row = -1;
             int col = -1;
             int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
+            int score = 0;
+            boolean doubleWord = false;
+            boolean tripleWord = false;
             String word = "";
+
             for (int i = 0; i < Board.BOARD_SIZE; i++) {
                 for (int j = 0; j < Board.BOARD_SIZE; j++) {
                     //System.out.println(i + ", " + j);
-                    if (bd.boardTiles[i][j].getConfirmed() == false && !bd.boardTiles[i][j].getEmpty()) {
+                    if (!bd.boardTiles[i][j].getConfirmed() && !bd.boardTiles[i][j].getEmpty()) {
                         //System.out.println(i + ", " + j + " is not confirmed aka just placed");
                         row = i;
                         col = j;
                         if (i > 0 && !bd.boardTiles[i - 1][j].getEmpty()) {
                             direction = 1;
-                        } else if (i < Board.BOARD_SIZE && !bd.boardTiles[i + 1][j].getEmpty()) {
+                        } else if (i < Board.BOARD_SIZE - 1 && !bd.boardTiles[i + 1][j].getEmpty()) {
                             direction = 2;
                         } else if (j > 0 && !bd.boardTiles[i][j - 1].getEmpty()) {
                             direction = 3;
-                        } else if (j < Board.BOARD_SIZE && !bd.boardTiles[i][j + 1].getEmpty()) {
+                        } else if (j < Board.BOARD_SIZE - 1 && !bd.boardTiles[i][j + 1].getEmpty()) {
                             direction = 4;
                         } else {
                             //return;
@@ -96,6 +90,21 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
                 while (!bd.boardTiles[row][col].getEmpty() || row > Board.BOARD_SIZE) {
                     word = word + bd.boardTiles[row][col].getChar();
+                    int tileScore = 0;
+                    tileScore = tileScore + bd.boardTiles[row][col].getPoints();
+                    if (bd.squares[row][col].getType() == Square.DL) {
+                        tileScore = tileScore * 2;
+                    }
+                    if (bd.squares[row][col].getType() == Square.TL) {
+                        tileScore = tileScore * 3;
+                    }
+                    if (bd.squares[row][col].getType() == Square.TW) {
+                        tripleWord = true;
+                    }
+                    if (bd.squares[row][col].getType() == Square.DW) {
+                        doubleWord = true;
+                    }
+                    score = score + tileScore;
                     row = row + 1;
                 }
 
@@ -106,6 +115,21 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
                 while (!bd.boardTiles[row][col].getEmpty() || col > Board.BOARD_SIZE){
                     word = word + bd.boardTiles[row][col].getChar();
+                    int tileScore = 0;
+                    tileScore = tileScore + bd.boardTiles[row][col].getPoints();
+                    if (bd.squares[row][col].getType() == Square.DL) {
+                        tileScore = tileScore * 2;
+                    }
+                    if (bd.squares[row][col].getType() == Square.TL) {
+                        tileScore = tileScore * 3;
+                    }
+                    if (bd.squares[row][col].getType() == Square.TW) {
+                        tripleWord = true;
+                    }
+                    if (bd.squares[row][col].getType() == Square.DW) {
+                        doubleWord = true;
+                    }
+                    score = score + tileScore;
                     col = col + 1;
                 }
             }
@@ -126,7 +150,16 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                     }
                 }
                 bd.invalidate();
-                game.sendAction(new PlayWordAction(this, true));
+                if (doubleWord) {
+                    score = score * 2;
+                }
+                if (tripleWord) {
+                    score = score * 3;
+                }
+                System.out.println("" + score);
+                sb.setPlay1Score(score);
+                sb.invalidate();
+                game.sendAction(new PlayWordAction(this, true, score));
             } else {
                 Logger.log("TAG", "invalid word");
                 //remove tiles from the board and puts them back into player's tiles
@@ -151,7 +184,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 }
                 //redraw
                 bd.invalidate();
-                game.sendAction(new PlayWordAction(this, false));
+                score = 0;
+                game.sendAction(new PlayWordAction(this, false, score));
             }
             //game.sendAction(pwa);
             //bd.invalidate();
@@ -190,8 +224,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             //redraw
             bd.invalidate();
             game.sendAction(ska);
-
-            sb.invalidate(); //not necessary??
+            sb.invalidate();
         } else if (button.getId() == R.id.spellcheck) {
             /*
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
@@ -333,6 +366,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         spellcheck.setOnClickListener(this);
 
         bd = (Board)myActivity.findViewById(R.id.Board);
+        sb = (ScoreBoard)myActivity.findViewById(R.id.ScoreBoard);
         Logger.log("setting listeners", "onClick");
     }
 

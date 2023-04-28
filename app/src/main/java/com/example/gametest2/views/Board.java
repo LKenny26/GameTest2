@@ -32,7 +32,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     protected ScrabbleGameState state;
     private static Board instance;
     public static final int BOARD_SIZE = 15;
-    private Square[][] squares;
+    public Square[][] squares;
     public Tile[] playerTiles = new Tile[7];
     public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;

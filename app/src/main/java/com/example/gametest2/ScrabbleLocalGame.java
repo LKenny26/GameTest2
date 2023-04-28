@@ -68,15 +68,18 @@ public class ScrabbleLocalGame extends LocalGame {
         sgs = (ScrabbleGameState) super.state;
         int players = super.players.length;
         System.out.println("goes into make move");
+
         if(action instanceof PlayWordAction) {
             System.out.println("goes into play word");
             if (sgs.getPlayerID() == 0) {
                 if(((PlayWordAction) action).getSpellCheck()){
+                    //sgs.setPlayerOneScore(((PlayWordAction) action).getScore());
                     sgs.setPlayerID(1);
                 }
                 //sgs.setPlayerOneScore(t.getPoints());
             } else if (sgs.getPlayerID() == 1) {
                 if(((PlayWordAction) action).getSpellCheck()) {
+                    //sgs.setPlayerTwoScore(((PlayWordAction) action).getScore());
                     sgs.setPlayerID(0);
                 }
                 //sgs.setPlayerTwoScore(t.getPoints());
