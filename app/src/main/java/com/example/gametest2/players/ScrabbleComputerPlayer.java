@@ -33,7 +33,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
-        //ArrayList<Tile> placeT = new ArrayList<Tile>();
+
         if (info instanceof NotYourTurnInfo) {
             Log.i("debug", "not my turn");
             return;
@@ -55,14 +55,14 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                         Tile place = null;
                         if (!(j + 1 > 14 || i + 1 > 14)) {
                             if (bd.boardTiles[i + 1][j].getChar() == ' ' && bd.boardTiles[i - 1][j].getChar() == ' ') {
-                                //place = getLettersOnBoard(bd.boardTiles[i][j], i + 1, j, myTiles);
+
                                 if (place != null) {
                                     placeT.add(place);
                                     tilePoints.add(new Point(i + 1, j));
                                     game.sendAction(new ScrabbleComputerAction(this, placeT, tilePoints));
                                     return;
                                 }
-                                //place = getLettersOnBoard(bd.boardTiles[i][j], i - 1, j, myTiles);
+
                                 if (place != null) {
                                     placeT.add(place);
                                     tilePoints.add(new Point(i - 1, j));
@@ -71,14 +71,13 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                 } else if (bd.boardTiles[i][j + 1].getChar() == ' ' && bd.boardTiles[i][j - 1].getChar() == ' ') {
 
 
-                                    //place = getLettersOnBoard(bd.boardTiles, i, j + 1, myTiles);
                                     if (place != null) {
                                         placeT.add(place);
                                         tilePoints.add(new Point(i, j - 1));
                                         game.sendAction(new ScrabbleComputerAction(this, placeT, tilePoints));
                                         return;
                                     }
-                                    //place = getLettersOnBoard(bd.boardTiles, i, j - 1, myTiles);
+
                                     if (place != null) {
                                         placeT.add(place);
                                         tilePoints.add(new Point(i, j - 1));
