@@ -55,7 +55,7 @@ public class Tile{
     //@Override
     //public Tile(){
 
-    }
+
 
     public void setLetters(){
         int tileNumber;
