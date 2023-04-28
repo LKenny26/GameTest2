@@ -46,6 +46,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                 //spell-check:
                 super.game.sendAction(new SkipAction(this));
             }
+           // game.sendAction(new PlayWordAction(this, sgs.getPlayerID()));
         }
     }
     public List<Character> getLettersOnBoard(char[][]board){
