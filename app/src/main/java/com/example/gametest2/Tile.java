@@ -28,10 +28,15 @@ public class Tile{
     Random rand = new Random();
     //int tileNumber = rand.nextInt(98);
 
-    public Tile(){
+    //default constructor:
+    public Tile(){}
+
+    public Tile(Tile tile){
+        letter = tile.getChar();
+        selected = tile.getSelected();
+        points = tile.getPoints();
+        //copy constructor
     }
-
-
     public Tile(int left, int top, int right, int bottom, boolean emp) {
         rect = new Rect(left, top, right, bottom);
 
