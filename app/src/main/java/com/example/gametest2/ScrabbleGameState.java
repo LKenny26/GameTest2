@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -25,6 +27,7 @@ public class ScrabbleGameState extends GameState {
     Set<String> spellCheckTable;
     File dictionary;
     Scanner scan;
+   // Hashtable<String, Integer> playerTiles = new Hashtable<String, Integer>();
      //TODO: These in theory should have tiles rather than the board class, this way we can have access to them
     public Tile[] player1Tiles = new Tile[7];
     public Tile[] player2Tiles = new Tile[7];

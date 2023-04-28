@@ -32,7 +32,6 @@ public class Tile{
     }
 
 
-
     public Tile(int left, int top, int right, int bottom, boolean emp) {
         rect = new Rect(left, top, right, bottom);
 

@@ -17,6 +17,7 @@ import com.example.gametest2.ScrabbleLocalGame;
 import com.example.gametest2.Tile;
 import com.example.gametest2.actions.*;
 import com.example.gametest2.views.Board;
+import com.example.gametest2.views.ScoreBoard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     private Button spellcheck = null;
 
     private Board bd;
+    private ScoreBoard sb;
     //Tile t;
     private MainActivity myA = new MainActivity();
 
@@ -68,17 +70,17 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             for (int i = 0; i < Board.BOARD_SIZE; i++) {
                 for (int j = 0; j < Board.BOARD_SIZE; j++) {
                     //System.out.println(i + ", " + j);
-                    if (!bd.boardTiles[i][j].getConfirmed() && !bd.boardTiles[i][j].getEmpty()) {
+                    if (bd.boardTiles[i][j].getConfirmed() == false && !bd.boardTiles[i][j].getEmpty()) {
                         //System.out.println(i + ", " + j + " is not confirmed aka just placed");
                         row = i;
                         col = j;
                         if (i > 0 && !bd.boardTiles[i - 1][j].getEmpty()) {
                             direction = 1;
-                        } else if (i < Board.BOARD_SIZE - 1 && !bd.boardTiles[i + 1][j].getEmpty()) {
+                        } else if (i < Board.BOARD_SIZE && !bd.boardTiles[i + 1][j].getEmpty()) {
                             direction = 2;
                         } else if (j > 0 && !bd.boardTiles[i][j - 1].getEmpty()) {
                             direction = 3;
-                        } else if (j < Board.BOARD_SIZE - 1 && !bd.boardTiles[i][j + 1].getEmpty()) {
+                        } else if (j < Board.BOARD_SIZE && !bd.boardTiles[i][j + 1].getEmpty()) {
                             direction = 4;
                         } else {
                             //return;
@@ -189,9 +191,23 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             //redraw
             bd.invalidate();
             game.sendAction(ska);
-        } else if (button.getId() == R.id.spellcheck) {
 
-            System.out.println("Made it to spell check");
+            sb.invalidate(); //not necessary??
+        } else if (button.getId() == R.id.spellcheck) {
+            /*
+            HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
+            System.out.println(bd.getAR());
+            System.out.println(saver);
+            System.out.println(bd.getSB());
+            if (((ScrabbleLocalGame) game).valid(bd.getSB().toString().toLowerCase())) {
+                System.out.println("it works");
+
+            } else {
+                System.out.println("it doesnt work");
+            }
+            bd.getAR().clear();
+            */
+            System.out.println("Made it to play word");
             int row = -1;
             int col = -1;
             int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
