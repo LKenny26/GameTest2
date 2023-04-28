@@ -8,6 +8,7 @@ import com.example.GameFramework.players.GameComputerPlayer;
 import com.example.GameFramework.utilities.Logger;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.actions.PlayWordAction;
+import com.example.gametest2.actions.SkipAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,8 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             for(int i = 1; i <= 3; i++) {
                 //place tiles
                 //spell-check:
+                super.game.sendAction(new SkipAction(this));
             }
-            game.sendAction(new PlayWordAction(this, sgs.getPlayerID()));
         }
     }
     public List<Character> getLettersOnBoard(char[][]board){

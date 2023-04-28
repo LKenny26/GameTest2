@@ -51,7 +51,8 @@ public class ScrabbleLocalGame extends LocalGame {
            // return gameOver;
             //need a checkScore of some sort here
         }
-        return gameOver;
+        return null;
+        //return gameOver;
 
     }
     public boolean valid(String string){
@@ -67,20 +68,26 @@ public class ScrabbleLocalGame extends LocalGame {
         sgs = (ScrabbleGameState) super.state;
         int players = super.players.length;
         System.out.println("goes into make move");
-        Tile t = new Tile();
-        if(action instanceof PlayWordAction /*&& canMove(((PlayWordAction) action).getID())*/) {
+        if(action instanceof PlayWordAction) {
+            System.out.println("goes into play word");
             if (sgs.getPlayerID() == 0) {
-                sgs.setPlayerID(1);
-                sgs.setPlayerOneScore(t.getPoints());
+                if(((PlayWordAction) action).getSpellCheck()){
+                    sgs.setPlayerID(1);
+                }
+                //sgs.setPlayerOneScore(t.getPoints());
             } else if (sgs.getPlayerID() == 1) {
-                sgs.setPlayerID(0);
-                sgs.setPlayerTwoScore(t.getPoints());
+                if(((PlayWordAction) action).getSpellCheck()) {
+                    sgs.setPlayerID(0);
+                }
+                //sgs.setPlayerTwoScore(t.getPoints());
             }
+            System.out.println(sgs.getPlayerID());
             return true;
 
         }
 
         else if(action instanceof SkipAction){
+            System.out.println("goes into skip action");
             if(sgs.getPlayerID() == 0){
                 sgs.setPlayerID(1);
             }

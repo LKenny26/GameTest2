@@ -68,17 +68,17 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             for (int i = 0; i < Board.BOARD_SIZE; i++) {
                 for (int j = 0; j < Board.BOARD_SIZE; j++) {
                     //System.out.println(i + ", " + j);
-                    if (bd.boardTiles[i][j].getConfirmed() == false && !bd.boardTiles[i][j].getEmpty()) {
+                    if (!bd.boardTiles[i][j].getConfirmed() && !bd.boardTiles[i][j].getEmpty()) {
                         //System.out.println(i + ", " + j + " is not confirmed aka just placed");
                         row = i;
                         col = j;
                         if (i > 0 && !bd.boardTiles[i - 1][j].getEmpty()) {
                             direction = 1;
-                        } else if (i < Board.BOARD_SIZE && !bd.boardTiles[i + 1][j].getEmpty()) {
+                        } else if (i < Board.BOARD_SIZE - 1 && !bd.boardTiles[i + 1][j].getEmpty()) {
                             direction = 2;
                         } else if (j > 0 && !bd.boardTiles[i][j - 1].getEmpty()) {
                             direction = 3;
-                        } else if (j < Board.BOARD_SIZE && !bd.boardTiles[i][j + 1].getEmpty()) {
+                        } else if (j < Board.BOARD_SIZE - 1 && !bd.boardTiles[i][j + 1].getEmpty()) {
                             direction = 4;
                         } else {
                             //return;
@@ -112,8 +112,45 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
             if (saver.contains(word.toLowerCase())) {
                 Logger.log("TAG", "valid word!");
+                for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                    for(int j = 0; j < Board.BOARD_SIZE; j++){
+                        if (!bd.boardTiles[i][j].getConfirmed() && !bd.boardTiles[i][j].getEmpty()) {
+                            bd.boardTiles[i][j].setConfirmed(true);
+                        }
+                    }
+                }
+                for(int i = 0; i < 7; i++) {
+                    if (bd.playerTiles[i].getEmpty()){
+                        bd.playerTiles[i] = new Tile(bd.playerTiles[i].getL(), bd.playerTiles[i].getT(), bd.playerTiles[i].getR(), bd.playerTiles[i].getB(), false);
+                    }
+                }
+                bd.invalidate();
+                game.sendAction(new PlayWordAction(this, true));
             } else {
                 Logger.log("TAG", "invalid word");
+                //remove tiles from the board and puts them back into player's tiles
+                for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                    for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                        //iterate through the rows and cols
+                        if (!bd.boardTiles[i][j].getConfirmed()) {
+                            //check if a tile is confirmed or not
+                            Tile temp = null;
+                            for (int k = 0; k < 7; k++) {
+                                //find the tile that is empty in a player's hand
+                                if (bd.playerTiles[k].getEmpty()) {
+                                    temp = bd.playerTiles[k];
+                                }
+                            }
+                            //if a tile that is empty is found swap it with an unconfirmed tile
+                            if (temp != null) {
+                                Tile.swap(bd.boardTiles[i][j], temp);
+                            }
+                        }
+                    }
+                }
+                //redraw
+                bd.invalidate();
+                game.sendAction(new PlayWordAction(this, false));
             }
             //game.sendAction(pwa);
             //bd.invalidate();
@@ -129,23 +166,32 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             bd.invalidate();
 
         } else if (button.getId() == R.id.skip) {
-            game.sendAction(ska);
-            bd.invalidate(); //not necessary??
-        } else if (button.getId() == R.id.spellcheck) {
-            /*
-            HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
-            System.out.println(bd.getAR());
-            System.out.println(saver);
-            System.out.println(bd.getSB());
-            if (((ScrabbleLocalGame) game).valid(bd.getSB().toString().toLowerCase())) {
-                System.out.println("it works");
-
-            } else {
-                System.out.println("it doesnt work");
+            //remove tiles from the board and puts them back into player's tiles
+            for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                    //iterate through the rows and cols
+                    if (!bd.boardTiles[i][j].getConfirmed()) {
+                        //check if a tile is confirmed or not
+                        Tile temp = null;
+                        for (int k = 0; k < 7; k++) {
+                            //find the tile that is empty in a player's hand
+                            if (bd.playerTiles[k].getEmpty()) {
+                                temp = bd.playerTiles[k];
+                            }
+                        }
+                        //if a tile that is empty is found swap it with an unconfirmed tile
+                        if (temp != null) {
+                            Tile.swap(bd.boardTiles[i][j], temp);
+                        }
+                    }
+                }
             }
-            bd.getAR().clear();
-            */
-            System.out.println("Made it to play word");
+            //redraw
+            bd.invalidate();
+            game.sendAction(ska);
+        } else if (button.getId() == R.id.spellcheck) {
+
+            System.out.println("Made it to spell check");
             int row = -1;
             int col = -1;
             int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error

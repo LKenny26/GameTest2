@@ -62,7 +62,7 @@ public class MainActivity extends GameMainActivity {
         defaultConfig.addPlayer("Human", 0); //add human
         defaultConfig.addPlayer("Computer", 1); //add computer
         //defaultConfig.addPlayer("Smart Computer", 2); //add smart computer
-        defaultConfig.setRemoteData("Remote Human Player", "", 0);
+        //defaultConfig.setRemoteData("Remote Human Player", "", 0);
 
         return defaultConfig;
     }
