@@ -32,12 +32,12 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
         else{
             //needs to place a tile
             Logger.log("computer player", "sending move");
-            for(int i = 1; i <= 3; i++) {
+            //for(int i = 1; i <= 3; i++) {
                 //place tiles
 
                 //spell-check:
                 super.game.sendAction(new SkipAction(this));
-            }
+            //}
         }
     }
 
