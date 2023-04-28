@@ -337,6 +337,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         Logger.log("setting listeners", "onClick");
     }
 
+
     public String getName(){
         return name;
     }
