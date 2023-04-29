@@ -393,6 +393,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void receiveInfo(GameInfo info) {
+        //dr libby helped here
         if(info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo){
             //bd.flash(Color.RED, 50);
             Logger.log(TAG, "wrong move");

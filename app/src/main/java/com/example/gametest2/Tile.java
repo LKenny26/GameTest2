@@ -31,13 +31,6 @@ public class Tile{
 
     //default constructor:
     public Tile(){}
-    public Tile(char a){
-        letter = a;
-        selected = false;
-        points = 0;
-        empty = true;
-        //initial settings of the board
-    }
 
     public Tile(Tile tile){
         //tile = new Tile[15][15];

@@ -14,6 +14,7 @@ public class ScrabbleLocalGame extends LocalGame {
     HashSet<String> hashet;
 
     public ScrabbleLocalGame(HashSet<String> hash){
+        //dr libby helped
         super();
         super.state = new ScrabbleGameState();
         hashet = hash;
@@ -27,6 +28,7 @@ public class ScrabbleLocalGame extends LocalGame {
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
+        //dr libby helped
         p.sendInfo(new ScrabbleGameState((ScrabbleGameState) state));
     }
 

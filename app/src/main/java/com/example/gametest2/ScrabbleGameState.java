@@ -59,10 +59,11 @@ public class ScrabbleGameState extends GameState {
         playerFourScore = 0;
         playerID = 0;
 
+        //dr libby helped
         boardTiles = new Tile[15][15];
         for( int i = 0; i < 15; i++){
             for(int j = 0; j< 15;j++){
-                boardTiles[i][j] = new Tile(' ');
+                boardTiles[i][j] = new Tile();
                 //boardTiles[i][j].setSelected(bool);
                 //bool may need to be true, i'm not sure yet -b
             }
@@ -95,6 +96,7 @@ public class ScrabbleGameState extends GameState {
         this.setPlayer1Tile();
         this.setPlayer2Tile();
 
+        //via advice of dr libby
         boardTiles = new Tile[15][15];
         for( int i = 0; i < 15; i++){
             for(int j = 0; j< 15;j++){
