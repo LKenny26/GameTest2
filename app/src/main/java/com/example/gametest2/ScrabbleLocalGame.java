@@ -72,6 +72,7 @@ public class ScrabbleLocalGame extends LocalGame {
         sgs = (ScrabbleGameState) super.state;
         int players = super.players.length;
 
+        //if the action is playword
         if(action instanceof PlayWordAction) {
             if (sgs.getPlayerID() == 0) {
                 //current player is 0

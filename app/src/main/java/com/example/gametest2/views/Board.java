@@ -1,13 +1,8 @@
 package com.example.gametest2.views;
 
-import com.example.GameFramework.actionMessage.GameAction;
-import com.example.gametest2.Letter;
-import com.example.gametest2.R;
-import com.example.gametest2.ScrabbleController;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.Square;
 import com.example.gametest2.Tile;
-import com.example.gametest2.actions.PlayWordAction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,13 +13,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Board extends SurfaceView implements View.OnTouchListener {
     // Set the dimensions of the board
@@ -234,7 +222,7 @@ public class Board extends SurfaceView implements View.OnTouchListener {
         }
 
         //draw the message
-        canvas.drawText(message, 0, BOARD_SIZE * squareSize + 3 * bottomTileSize / 2, text);
+        canvas.drawText(message, 0, BOARD_SIZE * squareSize + 4 * bottomTileSize / 3 , text);
     }
 
     @Override

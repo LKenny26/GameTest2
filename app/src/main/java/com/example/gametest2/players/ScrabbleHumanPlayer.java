@@ -95,13 +95,13 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
 
             if (direction == up || direction == down) {
-                while (!bd.boardTiles[row - 1][col].getEmpty() || row < 0) {
+                while (row > 0 && !bd.boardTiles[row - 1][col].getEmpty()) {
                     //finds the up most tile of the word
                     row = row - 1;
                 }
 
                 //goes from up to down to get the words and the points
-                while (!bd.boardTiles[row][col].getEmpty() || row > Board.BOARD_SIZE) {
+                while (row < Board.BOARD_SIZE - 1 && !bd.boardTiles[row][col].getEmpty()) {
                     if (firstTurn && bd.squares[row][col].getType() == Square.STAR){
                         center = true;
                     }
@@ -131,13 +131,13 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
 
             if (direction == right || direction == left) {
-                while(!bd.boardTiles[row][col -1].getEmpty() || col < 0){
+                while(col > 0 && !bd.boardTiles[row][col -1].getEmpty()){
                     //go to the most left point of the word
                     col = col - 1;
                 }
 
                 //goes left to right to get the score and the word
-                while (!bd.boardTiles[row][col].getEmpty() || col > Board.BOARD_SIZE){
+                while (col < Board.BOARD_SIZE && !bd.boardTiles[row][col].getEmpty()){
                     if (firstTurn && bd.squares[row][col].getType() == Square.STAR){
                         center = true;
                     }
@@ -196,6 +196,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             else {
                 firstTurn = false;
             }
+
             //check to see if the word is in the hashset and therefore a real word
             if (saver.contains(word.toLowerCase())) {
                 //this is a valid word
@@ -349,12 +350,12 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
 
             if (direction == up || direction == down) {
-                while (!bd.boardTiles[row - 1][col].getEmpty() || row < 0) {
+                while (!bd.boardTiles[row][col].getEmpty() && row > 0) {
                     //go all the way up of the word
                     row = row - 1;
                 }
 
-                while (!bd.boardTiles[row][col].getEmpty() || row > Board.BOARD_SIZE) {
+                while (!bd.boardTiles[row][col].getEmpty() && row < Board.BOARD_SIZE - 1) {
                     //go all the way down and set the word
                     word = word + bd.boardTiles[row][col].getChar();
                     row = row + 1;
@@ -363,11 +364,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
 
             if (direction == right || direction == left) {
-                while(!bd.boardTiles[row][col -1].getEmpty() || col < 0){
+                while(!bd.boardTiles[row][col].getEmpty() && col > 0){
                     //go all the way left until you cant
                     col = col - 1;
                 }
-                while (!bd.boardTiles[row][col].getEmpty() || col > Board.BOARD_SIZE){
+                while (!bd.boardTiles[row][col].getEmpty() && col < Board.BOARD_SIZE - 1){
                     //go all the way right until you can't to set the word
                     word = word + bd.boardTiles[row][col].getChar();
                     col = col + 1;

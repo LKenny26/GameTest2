@@ -25,24 +25,8 @@ public class Tile{
     int r;
     int t;
     int b;
-    private Tile og;
     Random rand = new Random();
-    //int tileNumber = rand.nextInt(98);
 
-    //default constructor:
-    public Tile(){}
-
-    public Tile(Tile tile){
-        //tile = new Tile[15][15];
-        letter = tile.getChar();
-        selected = tile.getSelected();
-        points = tile.getPoints();
-        l = tile.getL();
-        r = tile.getR();
-        t = tile.getT();
-        b = tile.getB();
-        //copy constructor
-    }
     public Tile(int left, int top, int right, int bottom, boolean emp) {
         rect = new Rect(left, top, right, bottom);
         pts = new Paint();
@@ -58,17 +42,13 @@ public class Tile{
         outline.setStrokeWidth(4);
         selected = false;
         let.setColor(Color.BLACK);
-        let.setTextSize(75);
+        let.setTextSize(3*(right-left)/4);
         pts.setColor(Color.BLACK);
-        pts.setTextSize(35);
+        pts.setTextSize((right-left)/4);
         empty = emp;
         confirmed = false;
         this.setLetters();
     }
-    //@Override
-    //public Tile(){
-
-
 
     public void setLetters(){
         int tileNumber;
@@ -177,16 +157,26 @@ public class Tile{
     }
 
     public void onDraw(Canvas canvas) {
+        //dont draw an empty tile
         if (empty) {
             return;
         }
+
+        //set the color to a nice pale yellow
         paint.setColor(Color.rgb(244, 248, 181));
         if (selected) {
+            //selected tiles get a bright yellow
             paint.setColor(Color.rgb(255, 255, 0));
         }
+
+        //draw the rect
         canvas.drawRect(rect, paint);
-        canvas.drawText(this.getLetter(), l + 10, b - (b - t) / 4, let);
-        canvas.drawText(Integer.toString(this.getPoints()), l+ 63, b - (b-t)/4, pts);
+
+        //draws the letter
+        canvas.drawText(this.getLetter(), l + (r-l) / 6, b - (b - t) / 4, let);
+        canvas.drawText(Integer.toString(this.getPoints()), l + 3 * (r-l) / 4, b - (b-t)/4, pts);
+
+        //draw the outline
         canvas.drawLine(l, t, l, b, outline);
         canvas.drawLine(l, t, r, t, outline);
         canvas.drawLine(r, t, r, b, outline);
@@ -268,18 +258,11 @@ public class Tile{
 
 
     }
-    public Tile getOgTile(){
-        return og;
-    }
-
     public boolean getConfirmed() {return confirmed;}
     public void setConfirmed(boolean bool) {
         confirmed = bool;
     }
     public boolean getSelected() {return selected;}
 
-    public void setOriginalTile(Tile ogr){
-        this.og = ogr;
-    }
 }
 

@@ -34,53 +34,53 @@ public class ScoreBoard extends SurfaceView {
         lines.setStyle(Paint.Style.STROKE);
         lines.setStrokeWidth(5);
         text.setColor(Color.WHITE);
-        text.setTextSize(45);
         playerID = 0;
+    }
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        //set the stuff for the drawing
+        startX = w/50;
+        endX = w - startX;
+        startY = h/50;
+        endY = h - startY;
+        threeQuartersX = 3*(endX - startX)/4;
+        text.setTextSize(w / 40);
     }
 
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
-        //set the stuff for draw
-        startX = 50;
-        endX= 1050;
-        startY = 10;
-        endY = 10;
-        threeQuartersX = 800;
+        int fifth = (endY - startY)/5;
+        int textSpace = (endY - startY)/8;
+
         text.setColor(Color.WHITE);
-        int i;
-        canvas.drawText("Players", startX+10, startY+40, text);
-        canvas.drawText("Scores", threeQuartersX+10, startY+40, text);
+        canvas.drawText("Players", startX+textSpace, startY+textSpace, text);
+        canvas.drawText("Scores", threeQuartersX+textSpace, startY+textSpace, text);
 
         //draw the box
-        for(i = 1; i <= 6; i++){
-            canvas.drawLine(startX, (i*50)+startY, endX, (i*50)+endY, lines);
+        for(int i = 0; i < 6; i++){
+            canvas.drawLine(startX, (i*fifth)+startY, endX, (i*fifth)+startY, lines);
         }
-        canvas.drawLine(startX, startY, startX, endY+(6*50), lines);
-        canvas.drawLine(endX, startY, endX, endY+(6*50), lines);
-        canvas.drawLine(threeQuartersX, startY, threeQuartersX, endY+(6*50), lines);
+        canvas.drawLine(startX, startY, startX, endY, lines);
+        canvas.drawLine(endX, startY, endX, endY, lines);
+        canvas.drawLine(threeQuartersX, startY, threeQuartersX, endY, lines);
 
 
         //highlight the player
-        if(playerID == 0){
-            canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
-            canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
+        if(playerID == 1){
             text.setColor(Color.YELLOW);
-            text.setStrokeWidth(8);
-            canvas.drawText("YOU", (25)+startX, startY+85, text);
-            canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
         }
-        else if(playerID == 1){
-            //highlight the computer
-            canvas.drawText("YOU", (25)+startX, startY+85, text);
-            canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
+        canvas.drawText("OPPONENT", (textSpace)+startX, startY + 2 * fifth + textSpace, text);
+        canvas.drawText(playerTwoScore + "", (threeQuartersX)+textSpace, startY + 2 * fifth + textSpace, text);
+        if(playerID == 0) {
             text.setColor(Color.YELLOW);
-            text.setStrokeWidth(8);
-            canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
-            canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
         }
-        else{
-            System.out.println("ids not working correctly");
+        else {
+            text.setColor(Color.WHITE);
         }
+        text.setStrokeWidth(8);
+        canvas.drawText("YOU", (textSpace)+startX, startY + fifth + textSpace, text);
+        canvas.drawText(playerOneScore + "", (threeQuartersX)+textSpace, startY + fifth + textSpace, text);
+
     }
 
     public void setPlay1Score(int score) {
