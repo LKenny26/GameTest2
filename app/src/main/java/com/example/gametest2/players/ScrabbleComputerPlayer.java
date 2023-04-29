@@ -17,11 +17,13 @@ import com.example.gametest2.views.ScoreBoard;
 import java.util.HashSet;
 
 public class ScrabbleComputerPlayer extends GameComputerPlayer {
-    ScrabbleGameState sgs;
-    Board bd;
-    ScoreBoard sb;
-    String message = "";
+    //instance variables
+    private ScrabbleGameState sgs;
+    private Board bd;
+    private ScoreBoard sb;
+    private String message = "";
 
+    //CTOR
     public ScrabbleComputerPlayer(String name) {
         super(name);
     }
@@ -29,40 +31,53 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         if(info instanceof ScrabbleGameState){
+            //make sure the info is a game state
             sgs = (ScrabbleGameState) info;
         }
         else {
             return;
         }
         if (sgs.getPlayerID() == playerNum) {
+            //make sure the ID is correct
+
+            //variables
             int score = 0;
             boolean doubleWord = false;
             boolean tripleWord = false;
             int col;
             int row;
             String word = "";
-            boolean realWord = false;
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
+
+            //sleep for the comp
             sleep(2);
             message = "Computer is playing...";
             bd.setMessage(message);
             sleep(2);
 
+            //loop through each tile the comp has and try to place it
+            //if it makes a word going to the right play the word
+            //otherwise skip turn
             for (int k = 0; k < 7; k++) {
                 for (int i = 0; i < Board.BOARD_SIZE; i++) {
                     for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                        //set the variables to default
                         row = i;
                         col = j;
                         word = "";
                         score = 0;
-                        realWord = false;
 
+                        //go through each space that has at least one tile to the right
                         if (col != Board.BOARD_SIZE - 1 && !bd.boardTiles[row][col + 1].getEmpty() && bd.boardTiles[row][col].getEmpty()) {
                             if (row > 0 && bd.boardTiles[row - 1][col].getEmpty()) {
                                 if (row < Board.BOARD_SIZE - 1 && bd.boardTiles[row + 1][col].getEmpty()) {
+                                    //start to make the word starting with the tile the comp has
+                                    //make sure there is nothing above or below it
                                     word = "" + bd.computerTiles[k].getChar();
                                     int tempCol = col + 1;
                                     int tempScore = bd.computerTiles[k].getPoints();
+
+                                    //check to see if the tile that would be placed is in a special square
                                     if (bd.squares[row][col].getType() == Square.DW) {
                                         doubleWord = true;
                                     }
@@ -78,8 +93,10 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                     score = score + tempScore;
 
                                     while (tempCol != Board.BOARD_SIZE && !bd.boardTiles[row][tempCol].getEmpty()) {
-
+                                        //go through all the way to the right to see if it is a word
                                         int tileScore = bd.boardTiles[row][tempCol].getPoints();
+
+                                        //check for any specialties
                                         if (bd.squares[row][tempCol].getType() == Square.DL) {
                                             tileScore = tileScore * 2;
                                         }
@@ -93,20 +110,25 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                             tripleWord = true;
                                         }
 
+                                        //set the score and the char
                                         score = score + tileScore;
                                         word = word + bd.boardTiles[row][tempCol].getChar();
                                         tempCol++;
                                     }
-                                    System.out.println(word);
+
+
+                                    //see if the word is a real word
                                     if (saver.contains(word.toLowerCase())) {
+                                        //swap the tiles
                                         Tile.swap(bd.boardTiles[row][col], bd.computerTiles[k]);
+
+                                        //get the correct score
                                         if (doubleWord) {
                                             score = score * 2;
                                         }
                                         if (tripleWord) {
                                             score = score * 3;
                                         }
-                                        realWord = true;
                                         sb.setPlayerTwoScore(score);
 
                                         //go through the board and set the unconfirmed tiles to confirmed
@@ -119,6 +141,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                                 }
                                             }
                                         }
+
                                         //go through to give comp new tiles
                                         int tilesLeft = 7;
                                         if (100 - bd.getTileCounter() < 7){
@@ -129,6 +152,8 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                                 bd.computerTiles[n] = new Tile(bd.computerTiles[n].getL(), bd.computerTiles[n].getT(), bd.computerTiles[n].getR(), bd.computerTiles[n].getB(), false);
                                             }
                                         }
+
+                                        //send the action
                                         message = "Computer played " + word + " Points: " + score;
                                         bd.setMessage(message);
                                         bd.addToTileCounter(word.length());
@@ -142,11 +167,11 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                     }
                 }
             }
-            if(!realWord) {
-                message = "Computer skipped turn";
-                bd.setMessage(message);
-                game.sendAction(new SkipAction(this));
-            }
+            //if no word then skip turn
+            message = "Computer skipped turn";
+            bd.setMessage(message);
+            game.sendAction(new SkipAction(this));
+
         }
     }
 
