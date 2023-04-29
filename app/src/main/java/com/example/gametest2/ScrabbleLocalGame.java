@@ -68,6 +68,7 @@ public class ScrabbleLocalGame extends LocalGame {
 
     @Override
     protected boolean makeMove(GameAction action) {
+        //dr libby helped
         sgs = (ScrabbleGameState) super.state;
         int players = super.players.length;
 
