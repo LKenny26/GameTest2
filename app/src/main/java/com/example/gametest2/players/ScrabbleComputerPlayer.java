@@ -44,6 +44,88 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
+        if(info instanceof ScrabbleGameState){
+            sgs = (ScrabbleGameState) info;
+        }
+        else {
+            return;
+        }
+        if (sgs.getPlayerID() != playerNum) {
+            return;
+        } else {
+            int score = 0;
+            boolean doubleWord = false;
+            boolean tripleWord = false;
+            int col;
+            int row;
+            String word = "";
+            //bd = sgs.getBoard();
+            HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
+            for (int k = 0; k < 7; k++) {
+                for (int i = 0; i < Board.BOARD_SIZE; i++) {
+                    for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                        row = i;
+                        col = j;
+                        System.out.println(row + ", " + col);
+                        if (col != Board.BOARD_SIZE - 1 && !bd.boardTiles[row][col + 1].getEmpty()) {
+                            word = "" + bd.computerTiles[k].getChar();
+                            int tempCol = col + 1;
+                            int tempScore = bd.computerTiles[k].getPoints();
+                            if (bd.squares[row][col].getType() == Square.DW) {
+                                doubleWord = true;
+                            }
+                            if (bd.squares[row][col].getType() == Square.TW) {
+                                tripleWord = true;
+                            }
+                            if (bd.squares[row][col].getType() == Square.DL) {
+                                tempScore = tempScore * 2;
+                            }
+                            if (bd.squares[row][col].getType() == Square.TL) {
+                                tempScore = tempScore * 2;
+                            }
+                            score = score + tempScore;
+
+                            while (tempCol != Board.BOARD_SIZE && !bd.boardTiles[row][tempCol].getEmpty()) {
+                                int tileScore = bd.boardTiles[row][tempCol].getPoints();
+                                if (bd.squares[row][tempCol].getType() == Square.DL) {
+                                    tileScore = tileScore * 2;
+                                }
+                                if (bd.squares[row][tempCol].getType() == Square.TL) {
+                                    tileScore = tileScore * 3;
+                                }
+                                if (bd.squares[row][tempCol].getType() == Square.DW) {
+                                    doubleWord = true;
+                                }
+                                if (bd.squares[row][tempCol].getType() == Square.TW) {
+                                    tripleWord = true;
+                                }
+
+                                score = score + tileScore;
+                                word = word + bd.boardTiles[row][tempCol].getChar();
+                                tempCol++;
+                            }
+                            if (saver.contains(word.toLowerCase())) {
+                                Tile.swap(bd.boardTiles[i][j], bd.computerTiles[k]);
+                                if (doubleWord) {
+                                    score = score * 2;
+                                }
+                                if (tripleWord) {
+                                    score = score * 3;
+                                }
+                                game.sendAction(new PlayWordAction(this, true, score));
+                            }
+
+                        }
+
+
+                    }
+                }
+            }
+            game.sendAction(new PlayWordAction(this, false, 0));
+        }
+    }
+
+        /*
         if (info instanceof NotYourTurnInfo) {
             return;
         }
@@ -123,9 +205,11 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
         }
 
+         */
 
 
-    }
+
+
 
 
 
