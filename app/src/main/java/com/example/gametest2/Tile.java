@@ -18,6 +18,7 @@ public class Tile{
     boolean empty;
     boolean confirmed;
     private Paint let;
+    private Paint pts;
     char letter;
     int points;
     int l;
@@ -51,7 +52,7 @@ public class Tile{
     }
     public Tile(int left, int top, int right, int bottom, boolean emp) {
         rect = new Rect(left, top, right, bottom);
-
+        pts = new Paint();
         paint = new Paint();
         let = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -65,6 +66,8 @@ public class Tile{
         selected = false;
         let.setColor(Color.BLACK);
         let.setTextSize(75);
+        pts.setColor(Color.BLACK);
+        pts.setTextSize(35);
         empty = emp;
         confirmed = false;
         this.setLetters();
@@ -189,7 +192,8 @@ public class Tile{
             paint.setColor(Color.rgb(255, 255, 0));
         }
         canvas.drawRect(rect, paint);
-        canvas.drawText(this.getLetter(), l + 20, b - (b - t) / 4, let);
+        canvas.drawText(this.getLetter(), l + 10, b - (b - t) / 4, let);
+        canvas.drawText(Integer.toString(this.getPoints()), l+ 63, b - (b-t)/4, pts);
         canvas.drawLine(l, t, l, b, outline);
         canvas.drawLine(l, t, r, t, outline);
         canvas.drawLine(r, t, r, b, outline);
@@ -238,6 +242,7 @@ public class Tile{
     public void setPoints(int p) {
         points = p;
     }
+
 
     public boolean getEmpty(){
         return empty;

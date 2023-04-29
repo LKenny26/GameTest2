@@ -36,7 +36,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     public Tile[] playerTiles = new Tile[7];
     public Tile[] computerTiles = new Tile[7];
 
-    public Tile[][] boardTiles;
+    public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
     private int bottomTileSize = 150;
 
@@ -64,13 +64,13 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         //b.setOnClickListener(sc);
     }
 
-    public void setGameState(ScrabbleGameState s){
-        this.state = s;
-    }
+    //public void setGameState(ScrabbleGameState s){
+      //  this.state = s;
+    //}
 
-    public ScrabbleGameState getState(){
-        return state;
-    }
+    //public ScrabbleGameState getState(){
+      //  return state;
+    //}
 
 
 
@@ -220,7 +220,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         // Draw the squares
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
-                boardTiles = state.boardTiles;
+                //boardTiles = state.boardTiles;
                 squares[row][col].draw(canvas); //squares
                 boardTiles[row][col].onDraw(canvas); //tiles on the board
             }
@@ -323,5 +323,5 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     }
    public void setState(ScrabbleGameState state){
         this.state = state;
-    }//state never gets used is this necessary
+    }
 }

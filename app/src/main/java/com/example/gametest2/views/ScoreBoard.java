@@ -1,5 +1,6 @@
 package com.example.gametest2.views;
 
+import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleGameState;
 import com.example.gametest2.players.*;
 import com.example.gametest2.MainActivity;
@@ -30,6 +31,8 @@ public class ScoreBoard extends SurfaceView {
     ScrabbleGameState sgs;
     private int threeQuartersX;
 
+    private int lightB;
+
     //Board bd;
 
     public ScoreBoard(Context context, AttributeSet attrs) {
@@ -43,6 +46,7 @@ public class ScoreBoard extends SurfaceView {
         text.setTextSize(45);
         //bd = new Board(context, attrs);
         sgs = new ScrabbleGameState();
+        //lightB = getResources().getColor(R.color.lightBlue);
         //Creating something new typically caused bugs pls be careful
     }
 
@@ -75,7 +79,9 @@ public class ScoreBoard extends SurfaceView {
             canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
             canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
             text.setColor(Color.YELLOW);
-            text.setStrokeWidth(6);
+            //if u guys dont want to to b yellow i added a light blue to the colors.xml file
+            //but i cant add it to here bc the method is "outdated" idk girlies
+            text.setStrokeWidth(8);
             canvas.drawText("YOU", (25)+startX, startY+85, text);
             canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
         }
@@ -84,7 +90,7 @@ public class ScoreBoard extends SurfaceView {
             canvas.drawText("YOU", (25)+startX, startY+85, text);
             canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
             text.setColor(Color.YELLOW);
-            text.setStrokeWidth(6);
+            text.setStrokeWidth(8);
             canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
             canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
         }
