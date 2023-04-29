@@ -34,6 +34,7 @@ public class Tile{
         letter = a;
         selected = false;
         points = 0;
+        empty = true;
         //initial settings of the board
     }
 
@@ -42,6 +43,10 @@ public class Tile{
         letter = tile.getChar();
         selected = tile.getSelected();
         points = tile.getPoints();
+        l = tile.getL();
+        r = tile.getR();
+        t = tile.getT();
+        b = tile.getB();
         //copy constructor
     }
     public Tile(int left, int top, int right, int bottom, boolean emp) {

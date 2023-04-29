@@ -36,7 +36,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     public Tile[] playerTiles = new Tile[7];
     public Tile[] computerTiles = new Tile[7];
 
-    public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
+    public Tile[][] boardTiles;
     private int squareSize;
     private int bottomTileSize = 150;
 
@@ -63,6 +63,16 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         }
         //b.setOnClickListener(sc);
     }
+
+    public void setGameState(ScrabbleGameState s){
+        this.state = s;
+    }
+
+    public ScrabbleGameState getState(){
+        return state;
+    }
+
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -166,7 +176,8 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                 int bottom = (row + 1) * squareSize;
                 squares[row][col] = new Square(left, top, right, bottom, squareType);
                 //create the tiles empty starts as true
-                boardTiles[row][col] = new Tile(left,top,right,bottom, true);
+                //boardTiles[row][col] = state.boardTiles[row][col];
+                boardTiles[row][col] = new Tile(left, top, right, bottom, true);
 
                 // Set the square's color based on its type
                 switch (squareType) {
@@ -200,9 +211,16 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        //for(int row = 0; row < BOARD_SIZE; row++){
+          //  for(int col = 0; col < BOARD_SIZE; row++){
+                //boardTiles = state.boardTiles[row][col];
+            //}
+        //}
+
         // Draw the squares
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
+                boardTiles = state.boardTiles;
                 squares[row][col].draw(canvas); //squares
                 boardTiles[row][col].onDraw(canvas); //tiles on the board
             }

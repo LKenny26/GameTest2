@@ -40,6 +40,11 @@ public class ScrabbleGameState extends GameState {
     int player4TileCount = 7;
 
     int TileCounter = 0;
+    int left;
+    int right;
+    int top;
+    int bottom;
+
 
     //private Tile[][] bd;
 
@@ -62,7 +67,7 @@ public class ScrabbleGameState extends GameState {
         for( int i = 0; i < 15; i++){
             for(int j = 0; j< 15;j++){
                 boardTiles[i][j] = new Tile(' ');
-                boardTiles[i][j].setSelected(bool);
+                //boardTiles[i][j].setSelected(bool);
                 //bool may need to be true, i'm not sure yet -b
             }
         }
