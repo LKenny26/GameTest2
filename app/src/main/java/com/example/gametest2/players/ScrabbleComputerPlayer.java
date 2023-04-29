@@ -72,72 +72,83 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                         realWord = false;
 
                         if (col != Board.BOARD_SIZE - 1 && !bd.boardTiles[row][col + 1].getEmpty() && bd.boardTiles[row][col].getEmpty()) {
-                            word = "" + bd.computerTiles[k].getChar();
-                            int tempCol = col + 1;
-                            int tempScore = bd.computerTiles[k].getPoints();
-                            if (bd.squares[row][col].getType() == Square.DW) {
-                                doubleWord = true;
-                            }
-                            if (bd.squares[row][col].getType() == Square.TW) {
-                                tripleWord = true;
-                            }
-                            if (bd.squares[row][col].getType() == Square.DL) {
-                                tempScore = tempScore * 2;
-                            }
-                            if (bd.squares[row][col].getType() == Square.TL) {
-                                tempScore = tempScore * 2;
-                            }
-                            score = score + tempScore;
-
-                            while (tempCol != Board.BOARD_SIZE && !bd.boardTiles[row][tempCol].getEmpty()) {
-
-                                int tileScore = bd.boardTiles[row][tempCol].getPoints();
-                                if (bd.squares[row][tempCol].getType() == Square.DL) {
-                                    tileScore = tileScore * 2;
-                                }
-                                if (bd.squares[row][tempCol].getType() == Square.TL) {
-                                    tileScore = tileScore * 3;
-                                }
-                                if (bd.squares[row][tempCol].getType() == Square.DW) {
-                                    doubleWord = true;
-                                }
-                                if (bd.squares[row][tempCol].getType() == Square.TW) {
-                                    tripleWord = true;
-                                }
-
-                                score = score + tileScore;
-                                word = word + bd.boardTiles[row][tempCol].getChar();
-                                tempCol++;
-                            }
-                            System.out.println(word);
-                            if (saver.contains(word.toLowerCase())) {
-                                Tile.swap(bd.boardTiles[row][col], bd.computerTiles[k]);
-                                if (doubleWord) {
-                                    score = score * 2;
-                                }
-                                if (tripleWord) {
-                                    score = score * 3;
-                                }
-                                realWord = true;
-                                sb.setPlayerTwoScore(score);
-                                game.sendAction(new PlayWordAction(this, true, score));
-                                for(int n = 0; n < 7; n++) {
-                                    if (bd.computerTiles[n].getEmpty()){
-                                        bd.computerTiles[n] = new Tile(bd.computerTiles[n].getL(), bd.computerTiles[n].getT(), bd.computerTiles[n].getR(), bd.computerTiles[n].getB(), false);
+                            if (row > 0 && bd.boardTiles[row - 1][col].getEmpty()) {
+                                if (row < Board.BOARD_SIZE - 1 && bd.boardTiles[row + 1][col].getEmpty()) {
+                                    word = "" + bd.computerTiles[k].getChar();
+                                    int tempCol = col + 1;
+                                    int tempScore = bd.computerTiles[k].getPoints();
+                                    if (bd.squares[row][col].getType() == Square.DW) {
+                                        doubleWord = true;
                                     }
+                                    if (bd.squares[row][col].getType() == Square.TW) {
+                                        tripleWord = true;
+                                    }
+                                    if (bd.squares[row][col].getType() == Square.DL) {
+                                        tempScore = tempScore * 2;
+                                    }
+                                    if (bd.squares[row][col].getType() == Square.TL) {
+                                        tempScore = tempScore * 2;
+                                    }
+                                    score = score + tempScore;
+
+                                    while (tempCol != Board.BOARD_SIZE && !bd.boardTiles[row][tempCol].getEmpty()) {
+
+                                        int tileScore = bd.boardTiles[row][tempCol].getPoints();
+                                        if (bd.squares[row][tempCol].getType() == Square.DL) {
+                                            tileScore = tileScore * 2;
+                                        }
+                                        if (bd.squares[row][tempCol].getType() == Square.TL) {
+                                            tileScore = tileScore * 3;
+                                        }
+                                        if (bd.squares[row][tempCol].getType() == Square.DW) {
+                                            doubleWord = true;
+                                        }
+                                        if (bd.squares[row][tempCol].getType() == Square.TW) {
+                                            tripleWord = true;
+                                        }
+
+                                        score = score + tileScore;
+                                        word = word + bd.boardTiles[row][tempCol].getChar();
+                                        tempCol++;
+                                    }
+                                    System.out.println(word);
+                                    if (saver.contains(word.toLowerCase())) {
+                                        Tile.swap(bd.boardTiles[row][col], bd.computerTiles[k]);
+                                        if (doubleWord) {
+                                            score = score * 2;
+                                        }
+                                        if (tripleWord) {
+                                            score = score * 3;
+                                        }
+                                        realWord = true;
+                                        sb.setPlayerTwoScore(score);
+                                        game.sendAction(new PlayWordAction(this, true, score));
+                                        //go through the board and set the unconfirmed tiles to confirmed
+                                        for (int m = 0; m < Board.BOARD_SIZE; m++) {
+                                            for (int o = 0; o < Board.BOARD_SIZE; o++) {
+                                                if (!bd.boardTiles[m][o].getConfirmed() && !bd.boardTiles[m][o].getEmpty()) {
+                                                    bd.boardTiles[m][o].setConfirmed(true);
+                                                }
+                                            }
+                                        }
+                                        //go through to give comp new tiles
+                                        for (int n = 0; n < 7; n++) {
+                                            if (bd.computerTiles[n].getEmpty()) {
+                                                bd.computerTiles[n] = new Tile(bd.computerTiles[n].getL(), bd.computerTiles[n].getT(), bd.computerTiles[n].getR(), bd.computerTiles[n].getB(), false);
+                                            }
+                                        }
+                                        return;
+                                    }
+
                                 }
-                                return;
                             }
-
                         }
-
-
                     }
                 }
             }
             if(!realWord) {
                 score = 0;
-                game.sendAction(new PlayWordAction(this, realWord, score));
+                game.sendAction(new SkipAction(this));
             }
         }
     }
