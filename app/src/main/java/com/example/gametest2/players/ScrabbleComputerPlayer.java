@@ -22,6 +22,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
     private Board bd;
     private ScoreBoard sb;
     private String message = "";
+    private boolean lastActionSkip = false;
 
     //CTOR
     public ScrabbleComputerPlayer(String name) {
@@ -39,6 +40,9 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
         }
         if (sgs.getPlayerID() == playerNum) {
             //make sure the ID is correct
+
+            sb.setPlayerID(1);
+            sb.invalidate();
 
             //variables
             int score = 0;
@@ -154,6 +158,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                         }
 
                                         //send the action
+                                        lastActionSkip = false;
                                         message = "Computer played " + word + " Points: " + score;
                                         bd.setMessage(message);
                                         bd.addToTileCounter(word.length());
@@ -169,9 +174,13 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             }
             //if no word then skip turn
             message = "Computer skipped turn";
+            boolean skippedTwice = false;
+            if(lastActionSkip) {
+                skippedTwice = true;
+            }
+            lastActionSkip = true;
             bd.setMessage(message);
-            game.sendAction(new SkipAction(this));
-
+            game.sendAction(new SkipAction(this, skippedTwice));
         }
     }
 

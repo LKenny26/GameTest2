@@ -16,8 +16,6 @@ import com.example.GameFramework.players.GameHumanPlayer;
 public class ScoreBoard extends SurfaceView {
 
     Paint lines = new Paint();
-
-    //ScrabbleHumanPlayer sgp;
     Paint text = new Paint();
     private int startX;
     private int endX;
@@ -25,35 +23,19 @@ public class ScoreBoard extends SurfaceView {
     private int endY;
     private int playerOneScore = 0;
     private int playerTwoScore = 0;
-
-    ScrabbleHumanPlayer shm;
-    MainActivity ma = new MainActivity();
-    ScrabbleGameState sgs;
+    private int playerID;
     private int threeQuartersX;
-
-    private int lightB;
-
-    //Board bd;
 
     public ScoreBoard(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
-        //lines = new Paint();
         lines.setColor(Color.WHITE);
         lines.setStyle(Paint.Style.STROKE);
         lines.setStrokeWidth(5);
         text.setColor(Color.WHITE);
         text.setTextSize(45);
-        //bd = new Board(context, attrs);
-        sgs = new ScrabbleGameState();
-        //lightB = getResources().getColor(R.color.lightBlue);
-        //Creating something new typically caused bugs pls be careful
+        playerID = 0;
     }
-
-    //public void setName(String name){
-      //  shm = new ScrabbleHumanPlayer(name);
-
-    //}
 
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
@@ -67,26 +49,21 @@ public class ScoreBoard extends SurfaceView {
         canvas.drawText("Players", startX+10, startY+40, text);
         canvas.drawText("Scores", threeQuartersX+10, startY+40, text);
         for(i = 1; i <= 6; i++){
-            //canvas.drawLine(left , top + (i*10), right, bottom - (i*10), lines);
-        canvas.drawLine(startX, (i*50)+startY, endX, (i*50)+endY, lines);
-
+            canvas.drawLine(startX, (i*50)+startY, endX, (i*50)+endY, lines);
         }
         canvas.drawLine(startX, startY, startX, endY+(6*50), lines);
         canvas.drawLine(endX, startY, endX, endY+(6*50), lines);
         canvas.drawLine(threeQuartersX, startY, threeQuartersX, endY+(6*50), lines);
 
-        if(sgs.getPlayerID() == 0){
+        if(playerID == 0){
             canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
             canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
             text.setColor(Color.YELLOW);
-            //if u guys dont want to to b yellow i added a light blue to the colors.xml file
-            //but i cant add it to here bc the method is "outdated" idk girlies
             text.setStrokeWidth(8);
             canvas.drawText("YOU", (25)+startX, startY+85, text);
             canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
         }
-        else if(sgs.getPlayerID() == 1){
-            //currently will never be one cause of the code
+        else if(playerID == 1){
             canvas.drawText("YOU", (25)+startX, startY+85, text);
             canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
             text.setColor(Color.YELLOW);
@@ -105,5 +82,9 @@ public class ScoreBoard extends SurfaceView {
 
     public void setPlayerTwoScore(int score){
         playerTwoScore = playerTwoScore + score;
+    }
+
+    public void setPlayerID(int id){
+        playerID = id;
     }
 }

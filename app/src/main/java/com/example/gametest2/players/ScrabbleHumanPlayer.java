@@ -37,6 +37,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     public static final int left = 4;
     private boolean firstTurn = true;
     private boolean center = false;
+    private boolean lastActionSkip = false;
     private String message = "";
 
     //buttons
@@ -54,13 +55,12 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void onClick(View button) {
-        SkipAction ska = new SkipAction(this);
         if(sgs.getPlayerID() != this.playerNum) {
             //TODO: make sure that a player cannot swap pieces if comp is playing (the onTouch in board prob)
             return;
         }
-
         if (button.getId() == R.id.playword) {
+            lastActionSkip = false;
             int row = -1;
             int col = -1;
             int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
@@ -309,10 +309,14 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                     }
                 }
             }
+            boolean skippedTwice = false;
+            if(lastActionSkip) {
+                skippedTwice = true;
+            }
             //redraw
             bd.setMessage(message);
             bd.invalidate();
-            game.sendAction(ska);
+            game.sendAction(new SkipAction(this, skippedTwice));
         } else if (button.getId() == R.id.spellcheck) {
             int row = -1;
             int col = -1;
@@ -425,6 +429,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             bd.invalidate();
             sgs = (ScrabbleGameState) info;
             Logger.log(TAG, "receiving");
+
+            if(sgs.getPlayerID() == playerNum){
+                sb.setPlayerID(0);
+                sb.invalidate();
+            }
         }
     }
 

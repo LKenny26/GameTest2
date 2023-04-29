@@ -12,6 +12,8 @@ import java.util.HashSet;
 public class ScrabbleLocalGame extends LocalGame {
     ScrabbleGameState sgs;
     HashSet<String> hashet;
+    private boolean playerOneSkippedTwice = false;
+    private boolean playerTwoSkippedTwice = false;
 
     public ScrabbleLocalGame(HashSet<String> hash){
         //dr libby helped
@@ -44,7 +46,7 @@ public class ScrabbleLocalGame extends LocalGame {
     @Override
     protected String checkIfGameOver() {
         String gameOver;
-        if(sgs.getTileCounter() == 100){
+        if(sgs.getTileCounter() == 100 || (playerOneSkippedTwice && playerTwoSkippedTwice)){
             if(sgs.getPlayerOneScore() > sgs.getPlayerTwoScore()) {
                 gameOver = "Game is over, Player One Wins!";
             }
@@ -95,6 +97,7 @@ public class ScrabbleLocalGame extends LocalGame {
 
             //changes the player id based on who is the current player and how many there are
             if(sgs.getPlayerID() == 0){
+                playerOneSkippedTwice = ((SkipAction) action).getSkippedTwice();
                 sgs.setPlayerID(1);
             }
             else if (sgs.getPlayerID() == 1) {
@@ -102,6 +105,7 @@ public class ScrabbleLocalGame extends LocalGame {
                     sgs.setPlayerID(2);
                 }
                 else {
+                    playerTwoSkippedTwice = ((SkipAction) action).getSkippedTwice();
                     sgs.setPlayerID(0);
                 }
             }
