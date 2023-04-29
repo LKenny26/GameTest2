@@ -191,7 +191,7 @@ public class ScrabbleSmartComputerPlayer extends GameComputerPlayer {
 
         }
     }
-    public int SpacesAcross(int row, int col) {
+    public int SpacesAcross(int row, int col) {//find what letters are in the same horizontal
         int count = 0;
         while (col+count+1 < 15 && row-1 > 0 && row+1 < 15 && bd.boardTiles[row][col+count+1].getChar() == ' ' && bd.boardTiles[row+1][col+count+1].getChar() == ' ' && bd.boardTiles[row-1][col+count+1].getChar() == ' ') {
             count++;
@@ -202,7 +202,7 @@ public class ScrabbleSmartComputerPlayer extends GameComputerPlayer {
         }
         return count;
     }
-    public int SpacesBelow(int row, int col) {
+    public int SpacesBelow(int row, int col) {//find what letters can go below
         int count = 0;
         while (row+count+1 < 15 && col+1 < 15 && col-1 > 0 && bd.boardTiles[row+count+1][col].getChar() == ' ' && bd.boardTiles[row+count+1][col+1].getChar() == ' ' && bd.boardTiles[row+count+1][col-1].getChar() == ' ') {
             count++;
