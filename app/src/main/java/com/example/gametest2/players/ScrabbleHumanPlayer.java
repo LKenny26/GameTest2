@@ -55,6 +55,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     @Override
     public void onClick(View button) {
+        //TODO: bug that tiles that make multiple words can't be checked
+        //this will not be fixed since the code would have to check each checked tile in every direction
         if(sgs.getPlayerID() != this.playerNum) {
             return;
         }
