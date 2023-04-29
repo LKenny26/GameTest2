@@ -320,7 +320,7 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
      * method.
      */
     public boolean supportsGui() {
-        return false;
+        return true;
     }
 
     /**

@@ -45,16 +45,18 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
     private Board bd;
     private ScoreBoard sb;
-    //Tile t;
-    private MainActivity myA = new MainActivity();
+    private ScrabbleGameState sgs;
 
     public ScrabbleHumanPlayer(String name) {super(name); }
 
     @Override
     public void onClick(View button) {
-
-        ScrabbleGameState sgs = new ScrabbleGameState();
         SkipAction ska = new SkipAction(this);
+        sgs.setBoard(bd);
+        if(sgs.getPlayerID() != this.playerNum) {
+            //TODO: make sure that a player cannot swap pieces (the onTouch in board prob)
+            return;
+        }
 
         if (button.getId() == R.id.playword) {
             System.out.println("Made it to play word");
@@ -347,8 +349,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
             //redraw
             bd.invalidate();
-            sgs.setPlayerID(1);
-
         }
 
     }
@@ -370,6 +370,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         else {
             bd.setState((ScrabbleGameState) info);
             bd.invalidate();
+            sgs = (ScrabbleGameState) info;
             Logger.log(TAG, "receiving");
         }
     }

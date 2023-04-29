@@ -392,6 +392,7 @@ public abstract class GameMainActivity extends Activity implements
         // otherwise set the GUI to be a "dummy" one with a "no GUI" message
         if (guiPlayer != null) {
             guiPlayer.gameSetAsGui(this);
+            players[1].gameSetAsGui(this);
         }
         else {
             // set the layout to be one with a "no GUI" message

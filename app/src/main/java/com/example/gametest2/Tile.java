@@ -278,20 +278,5 @@ public class Tile{
     public void setOriginalTile(Tile ogr){
         this.og = ogr;
     }
-
-    /*
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
-
-        if (x < r && x > l && y > t && y < b) {
-            setSelected(true);
-        }
-        v.invalidate();
-        return true;
-    }
-
-     */
 }
 

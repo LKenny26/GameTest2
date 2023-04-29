@@ -30,7 +30,7 @@ public class ScoreBoard extends SurfaceView {
     ScrabbleGameState sgs;
     private int threeQuartersX;
 
-    Board bd;
+    //Board bd;
 
     public ScoreBoard(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -41,8 +41,9 @@ public class ScoreBoard extends SurfaceView {
         lines.setStrokeWidth(5);
         text.setColor(Color.WHITE);
         text.setTextSize(45);
-        bd = new Board(context, attrs);
+        //bd = new Board(context, attrs);
         sgs = new ScrabbleGameState();
+        //Creating something new typically caused bugs pls be careful
     }
 
     //public void setName(String name){
@@ -70,9 +71,6 @@ public class ScoreBoard extends SurfaceView {
         canvas.drawLine(endX, startY, endX, endY+(6*50), lines);
         canvas.drawLine(threeQuartersX, startY, threeQuartersX, endY+(6*50), lines);
 
-        //player names:
-        //canvas.drawText("YOU", (25)+startX, startY+85, text);
-       // canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
         if(sgs.getPlayerID() == 0){
             canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
             canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
@@ -82,6 +80,7 @@ public class ScoreBoard extends SurfaceView {
             canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
         }
         else if(sgs.getPlayerID() == 1){
+            //currently will never be one cause of the code
             canvas.drawText("YOU", (25)+startX, startY+85, text);
             canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
             text.setColor(Color.YELLOW);
@@ -92,13 +91,6 @@ public class ScoreBoard extends SurfaceView {
         else{
             System.out.println("ids not working correctly");
         }
-    }
-
-    public int calcScore(){
-        if(sgs.getPlayerID() == 0){
-            //shm.
-        }
-        return 0;
     }
 
     public void setPlay1Score(int score) {

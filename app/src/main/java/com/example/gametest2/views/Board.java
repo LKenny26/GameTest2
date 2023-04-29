@@ -297,43 +297,13 @@ public class Board extends SurfaceView implements View.OnTouchListener{
             this.playerTiles[i] = playerTiles[i];
         }
     }
-    /*public static void organizeSB(StringBuilder sb) {
-        // Split the StringBuilder into an array of characters
-        char[] chars = sb.toString().toCharArray();
-
-        // Create an array of integer pairs to hold the [row][col] values for each character
-        int[][] positions = new int[chars.length][2];
-
-        // Fill in the positions array with the [row][col] values for each character
-        for (int i = 0; i < chars.length; i++) {
-            positions[i][0] = chars[i] / BOARD_SIZE; // row value
-            positions[i][1] = chars[i] % BOARD_SIZE; // col value
-        }
-
-        // Sort the positions array by row value, then by column value
-        Arrays.sort(positions, new Comparator<int[]>() {
-            public int compare(int[] a, int[] b) {
-                if (a[0] == b[0]) {
-                    return Integer.compare(a[1], b[1]);
-                }
-                return Integer.compare(a[0], b[0]);
-            }
-        });*/
-
-        // Rebuild the StringBuilder in the sorted order
 
 
 
     public Tile[] getPlayerTiles(){
         return playerTiles;
     }
-
-    //public void shuffle(Tile[] playerTiles) {
-      //  Collections.shuffle(Arrays.asList(getPlayerTiles()));
-    //}
-
    public void setState(ScrabbleGameState state){
         this.state = state;
     }//state never gets used is this necessary
-    //needed in human player for recieveInfo
 }

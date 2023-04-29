@@ -6,13 +6,18 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import com.example.GameFramework.Game;
 import com.example.GameFramework.GameMainActivity;
+import com.example.GameFramework.LocalGame;
 import com.example.GameFramework.infoMessage.GameInfo;
 import com.example.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.GameFramework.players.GameComputerPlayer;
 import com.example.GameFramework.utilities.Logger;
+import com.example.gametest2.MainActivity;
 import com.example.gametest2.R;
 import com.example.gametest2.ScrabbleGameState;
+import com.example.gametest2.ScrabbleLocalGame;
+import com.example.gametest2.Square;
 import com.example.gametest2.Tile;
 import com.example.gametest2.actions.PlayWordAction;
 import com.example.gametest2.actions.ScrabbleComputerAction;
@@ -21,6 +26,8 @@ import com.example.gametest2.views.Board;
 import com.example.gametest2.views.ScoreBoard;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class ScrabbleComputerPlayer extends GameComputerPlayer {
     ScrabbleGameState sgs;
@@ -32,16 +39,27 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
 
         super(name);
 
-        sgs = new ScrabbleGameState();
+        //sgs = new ScrabbleGameState();
     }
 
     @Override
     protected void receiveInfo(GameInfo info) {
-
         if (info instanceof NotYourTurnInfo) {
-            Log.i("debug", "not my turn");
             return;
         }
+
+        Log.i("Comp", "my turn");
+        if (info instanceof ScrabbleGameState) {
+            //bd = ((ScrabbleGameState)super.game.getGameState()).getBoard();
+            if (bd == null) {
+                System.out.println("uh oh");
+            }
+            else {
+                System.out.println("yay");
+            }
+        }
+
+
         sgs = (ScrabbleGameState)info;
         Log.i("debug", "computer is gonna take a turn");
         ArrayList<Tile> placeT = new ArrayList<Tile>();
@@ -151,18 +169,16 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             }
         }
         return letters;
-    }
+
      */
 
-
+    public String getName(){
+        return name;
+    }
 
     @Override
     public void setAsGui(GameMainActivity activity) {
-        myActivity = activity;
-
-        bd = (Board) myActivity.findViewById(R.id.Board);
-        sb = (ScoreBoard) myActivity.findViewById(R.id.ScoreBoard);
-        Logger.log("setting listeners", "onClick");
+        bd = activity.findViewById(R.id.Board);
     }
 }
 
