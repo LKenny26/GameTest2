@@ -18,17 +18,13 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class ScrabbleGameState extends GameState {
+    public Board bd;
     //instance variables
     private int playerID;
     private int playerOneScore;
     private int playerTwoScore;
     private int playerThreeScore;
     private int playerFourScore;
-    Set<String> spellCheckTable;
-    File dictionary;
-    Scanner scan;
-   // Hashtable<String, Integer> playerTiles = new Hashtable<String, Integer>();
-     //TODO: These in theory should have tiles rather than the board class, this way we can have access to them
     public Tile[] player1Tiles = new Tile[7];
     public Tile[] player2Tiles = new Tile[7];
     public Tile[] player3Tiles;
@@ -107,23 +103,7 @@ public class ScrabbleGameState extends GameState {
                 //bool may need to be true, i'm not sure yet -b
             }
         }
-        /*
-        dictionary = new File("words_alpha.txt");
-        try {
-            scan = new Scanner(dictionary);
-        }
-        catch (FileNotFoundException fnfe){
-            throw new RuntimeException(fnfe);
-        }
-
-        while (scan.hasNextLine()){
-            String word = scan.nextLine();
-
-            if(word.length() > 1 && word.length() < 16) {
-                spellCheckTable.add(word);
-            }
-        }
-        */
+        this.bd = orig.bd;
     }
 
     public void setPlayer1Tile() {
@@ -141,15 +121,6 @@ public class ScrabbleGameState extends GameState {
             player2Tiles[i] = tile;
         }
     }
-
-    //public void shuffle(Tile[] playerTiles) {
-      //  playerTiles = player1Tiles;
-        //Collections.shuffle(Arrays.asList(playerTiles));
-    //}
-
-
-    //the set functions need to be in a set method, and also need to have a getter
-
     public int getPlayerID(){return playerID;}
 
     public int getPlayerOneScore(){return playerOneScore;}
@@ -186,4 +157,11 @@ public class ScrabbleGameState extends GameState {
         return player4TileCount;
     }
 
+    public void setBoard(Board board) {
+        bd = board;
+    }
+
+    public Board getBoard(){
+        return bd;
+    }
 }
