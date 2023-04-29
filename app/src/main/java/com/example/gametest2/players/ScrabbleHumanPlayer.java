@@ -56,7 +56,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     @Override
     public void onClick(View button) {
         if(sgs.getPlayerID() != this.playerNum) {
-            //TODO: make sure that a player cannot swap pieces if comp is playing (the onTouch in board prob)
             return;
         }
         if (button.getId() == R.id.playword) {
@@ -434,6 +433,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
             if(sgs.getPlayerID() == playerNum){
                 sb.setPlayerID(0);
+                bd.setPlayerID(0);
                 sb.invalidate();
             }
         }

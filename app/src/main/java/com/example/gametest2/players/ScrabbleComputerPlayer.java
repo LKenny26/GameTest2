@@ -42,6 +42,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             //make sure the ID is correct
 
             sb.setPlayerID(1);
+            bd.setPlayerID(1);
             sb.invalidate();
 
             //variables

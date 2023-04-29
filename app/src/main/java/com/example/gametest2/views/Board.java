@@ -40,6 +40,7 @@ public class Board extends SurfaceView implements View.OnTouchListener {
     private int squareSize;
     private int bottomTileSize = 150;
     private Paint text;
+    private int playerID = 0;
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -238,6 +239,10 @@ public class Board extends SurfaceView implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if(playerID != 0){
+            return true;
+        }
+
         //get the coords of the touch
         float x = event.getX();
         float y = event.getY();
@@ -290,4 +295,8 @@ public class Board extends SurfaceView implements View.OnTouchListener {
     }
 
     public int getTileCounter(){return tileCounter;}
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
+    }
 }
