@@ -60,7 +60,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             return;
         }
         if (button.getId() == R.id.playword) {
-            lastActionSkip = false;
             int row = -1;
             int col = -1;
             int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
@@ -231,6 +230,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                     score = score * 3;
                 }
 
+                lastActionSkip = false;
                 bd.addToTileCounter(word.length());
                 message = "Valid move! Word Played: " + word + " Points: " + score;
                 bd.setMessage(message);
@@ -313,6 +313,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             if(lastActionSkip) {
                 skippedTwice = true;
             }
+            lastActionSkip = true;
+
             //redraw
             bd.setMessage(message);
             bd.invalidate();

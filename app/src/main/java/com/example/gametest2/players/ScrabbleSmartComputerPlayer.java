@@ -187,7 +187,7 @@ public class ScrabbleSmartComputerPlayer extends GameComputerPlayer {
             //if no word then skip turn
             message = "Computer skipped turn";
             bd.setMessage(message);
-            game.sendAction(new SkipAction(this));
+            game.sendAction(new SkipAction(this, false));
 
         }
     }
