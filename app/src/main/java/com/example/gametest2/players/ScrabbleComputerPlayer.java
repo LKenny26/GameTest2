@@ -59,15 +59,19 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             int col;
             int row;
             String word = "";
-            //bd = sgs.getBoard();
+            boolean realWord = false;
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
+
             for (int k = 0; k < 7; k++) {
                 for (int i = 0; i < Board.BOARD_SIZE; i++) {
                     for (int j = 0; j < Board.BOARD_SIZE; j++) {
                         row = i;
                         col = j;
-                        System.out.println(row + ", " + col);
-                        if (col != Board.BOARD_SIZE - 1 && !bd.boardTiles[row][col + 1].getEmpty()) {
+                        word = "";
+                        score = 0;
+                        realWord = false;
+
+                        if (col != Board.BOARD_SIZE - 1 && !bd.boardTiles[row][col + 1].getEmpty() && bd.boardTiles[row][col].getEmpty()) {
                             word = "" + bd.computerTiles[k].getChar();
                             int tempCol = col + 1;
                             int tempScore = bd.computerTiles[k].getPoints();
@@ -86,6 +90,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                             score = score + tempScore;
 
                             while (tempCol != Board.BOARD_SIZE && !bd.boardTiles[row][tempCol].getEmpty()) {
+
                                 int tileScore = bd.boardTiles[row][tempCol].getPoints();
                                 if (bd.squares[row][tempCol].getType() == Square.DL) {
                                     tileScore = tileScore * 2;
@@ -104,15 +109,24 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                 word = word + bd.boardTiles[row][tempCol].getChar();
                                 tempCol++;
                             }
+                            System.out.println(word);
                             if (saver.contains(word.toLowerCase())) {
-                                Tile.swap(bd.boardTiles[i][j], bd.computerTiles[k]);
+                                Tile.swap(bd.boardTiles[row][col], bd.computerTiles[k]);
                                 if (doubleWord) {
                                     score = score * 2;
                                 }
                                 if (tripleWord) {
                                     score = score * 3;
                                 }
+                                realWord = true;
+                                sb.setPlayerTwoScore(score);
                                 game.sendAction(new PlayWordAction(this, true, score));
+                                for(int n = 0; n < 7; n++) {
+                                    if (bd.computerTiles[n].getEmpty()){
+                                        bd.computerTiles[n] = new Tile(bd.computerTiles[n].getL(), bd.computerTiles[n].getT(), bd.computerTiles[n].getR(), bd.computerTiles[n].getB(), false);
+                                    }
+                                }
+                                return;
                             }
 
                         }
@@ -121,7 +135,10 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                     }
                 }
             }
-            game.sendAction(new PlayWordAction(this, false, 0));
+            if(!realWord) {
+                score = 0;
+                game.sendAction(new PlayWordAction(this, realWord, score));
+            }
         }
     }
 
@@ -263,6 +280,7 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
     @Override
     public void setAsGui(GameMainActivity activity) {
         bd = activity.findViewById(R.id.Board);
+        sb = activity.findViewById(R.id.ScoreBoard);
     }
 }
 
