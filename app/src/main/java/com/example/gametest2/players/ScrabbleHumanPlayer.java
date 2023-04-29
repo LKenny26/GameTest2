@@ -35,6 +35,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
     public static final int down = 2;
     public static final int right = 3;
     public static final int left = 4;
+    private boolean firstTurn = true;
+    private boolean center = false;
+    private String message = "";
 
     //buttons
     private Button playword = null;
@@ -59,7 +62,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
         }
 
         if (button.getId() == R.id.playword) {
-            System.out.println("Made it to play word");
             int row = -1;
             int col = -1;
             int direction = -1; //1 up, 2 down, 3 left, 4 right, -1 error
@@ -101,6 +103,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
                 //goes from up to down to get the words and the points
                 while (!bd.boardTiles[row][col].getEmpty() || row > Board.BOARD_SIZE) {
+                    if (firstTurn && bd.squares[row][col].getType() == Square.STAR){
+                        center = true;
+                    }
                     word = word + bd.boardTiles[row][col].getChar();
                     int tileScore = 0;
                     tileScore = tileScore + bd.boardTiles[row][col].getPoints();
@@ -134,6 +139,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
                 //goes left to right to get the score and the word
                 while (!bd.boardTiles[row][col].getEmpty() || col > Board.BOARD_SIZE){
+                    if (firstTurn && bd.squares[row][col].getType() == Square.STAR){
+                        center = true;
+                    }
                     word = word + bd.boardTiles[row][col].getChar();
                     int tileScore = 0;
                     tileScore = tileScore + bd.boardTiles[row][col].getPoints();
@@ -160,7 +168,31 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
 
             //get the hashset
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
-
+            if(firstTurn && !center){
+                message = "Error first word has to be placed in the center!";
+                for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                    for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                        //iterate through the rows and cols
+                        if (!bd.boardTiles[i][j].getConfirmed()) {
+                            //check if a tile is confirmed or not
+                            Tile temp = null;
+                            for (int k = 0; k < 7; k++) {
+                                //find the tile that is empty in a player's hand
+                                if (bd.playerTiles[k].getEmpty()) {
+                                    temp = bd.playerTiles[k];
+                                }
+                            }
+                            //if a tile that is empty is found swap it with an unconfirmed tile
+                            if (temp != null) {
+                                Tile.swap(bd.boardTiles[i][j], temp);
+                            }
+                        }
+                    }
+                }
+                bd.invalidate();
+                game.sendAction(new PlayWordAction(this, false, 0));
+                return;
+            }
             //check to see if the word is in the hashset and therefore a real word
             if (saver.contains(word.toLowerCase())) {
                 //this is a valid word
@@ -193,6 +225,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                     score = score * 3;
                 }
 
+                message = "Valid move! Word Played: " + word + " Points: " + score;
                 //set the score for the scoreboard
                 sb.setPlay1Score(score);
                 //redraw the board
