@@ -26,11 +26,11 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Board extends SurfaceView implements View.OnTouchListener{
+public class Board extends SurfaceView implements View.OnTouchListener {
     // Set the dimensions of the board
-
+    private String message;
+    private int tileCounter;
     protected ScrabbleGameState state;
-    private static Board instance;
     public static final int BOARD_SIZE = 15;
     public Square[][] squares;
     public Tile[] playerTiles = new Tile[7];
@@ -39,56 +39,42 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     public Tile[][] boardTiles = new Tile[BOARD_SIZE][BOARD_SIZE];
     private int squareSize;
     private int bottomTileSize = 150;
+    private Paint text;
 
-    Button b;
-    ScrabbleController sc;
-    ArrayList<Letter> letters;
-    Letter let;
-    private StringBuilder sb;
-    String concatenatedString;
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
-        instance = null;
         setWillNotDraw(false);
         squares = new Square[BOARD_SIZE][BOARD_SIZE];
-        letters = new ArrayList<>();
+        message = "";
+        text = new Paint();
+        text.setColor(Color.WHITE);
+        tileCounter = 14;
 
-        sb =  new StringBuilder();
-        //make the board an ontouchlistener
+        //make the board an onTouchListener
         this.setOnTouchListener(this);
-        sc = new ScrabbleController(this);
-        b = findViewById(R.id.removeTiles);
-        for(int i = 0; i < 7; i++){
-            computerTiles[i] = new Tile(0,0,0,0, false);
+
+        //make the computer's tiles
+        for (int i = 0; i < 7; i++) {
+            computerTiles[i] = new Tile(0, 0, 0, 0, false);
         }
-        //b.setOnClickListener(sc);
     }
-
-    //public void setGameState(ScrabbleGameState s){
-      //  this.state = s;
-    //}
-
-    //public ScrabbleGameState getState(){
-      //  return state;
-    //}
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         //make the size of the bottom row tiles
-        bottomTileSize = w/7;
+        bottomTileSize = w / 7;
         squareSize = Math.min(w, h) / BOARD_SIZE;
-        //make the tiles
 
-        for(int i = 0; i < 7; i++) {
+        //text size
+        text.setTextSize(w/25);
+
+        //make the tiles
+        for (int i = 0; i < 7; i++) {
             playerTiles[i] = new Tile(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize, false);
             playerTiles[i].setCoords(bottomTileSize * i, BOARD_SIZE * squareSize, bottomTileSize + bottomTileSize * i, BOARD_SIZE * squareSize + bottomTileSize);
         }
-
-
 
 
         // Define special squares
@@ -197,7 +183,7 @@ public class Board extends SurfaceView implements View.OnTouchListener{
                         squares[row][col].setColor(Color.rgb(166, 245, 187)); // Green
                         break;
                     case Square.STAR:
-                        squares[row][col].setColor(Color.rgb(244,167,187)); //Pink
+                        squares[row][col].setColor(Color.rgb(244, 167, 187)); //Pink
                         break;
                     default:
                         squares[row][col].setColor(Color.rgb(255, 255, 255)); // White
@@ -210,12 +196,6 @@ public class Board extends SurfaceView implements View.OnTouchListener{
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        //for(int row = 0; row < BOARD_SIZE; row++){
-          //  for(int col = 0; col < BOARD_SIZE; row++){
-                //boardTiles = state.boardTiles[row][col];
-            //}
-        //}
 
         // Draw the squares
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -248,24 +228,24 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         }
 
         //draw the player's tiles
-        for(int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             playerTiles[i].onDraw(canvas);
         }
 
+        //draw the message
+        canvas.drawText(message, 0, BOARD_SIZE * squareSize + 3 * bottomTileSize / 2, text);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
-
         //get the coords of the touch
         float x = event.getX();
         float y = event.getY();
 
         //check if a bottom tile was clicked and set it to be the selected tile
-        for(int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             if (x < playerTiles[i].getR() && x > playerTiles[i].getL() && y > playerTiles[i].getT() && y < playerTiles[i].getB()) {
-                for(int j = 0; j < 7;j++) {
+                for (int j = 0; j < 7; j++) {
                     playerTiles[j].setSelected(false);
                 }
                 playerTiles[i].setSelected(true);
@@ -274,19 +254,12 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         }
 
         //check if the board was clicked on and  if the tile needs to be swapped with selected. If none selected then no swap
-        for(int row = 0; row < BOARD_SIZE; row++){
-            for(int col = 0; col < BOARD_SIZE; col++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 if (x < boardTiles[row][col].getR() && x > boardTiles[row][col].getL() && y > boardTiles[row][col].getT() && y < boardTiles[row][col].getB()) {
-                    for (int i = 0; i < 7; i++){
+                    for (int i = 0; i < 7; i++) {
                         if (playerTiles[i].isSelected() && boardTiles[row][col].getEmpty()) {
                             Tile.swap(boardTiles[row][col], playerTiles[i]);
-                            let = new Letter(row,col, playerTiles[i].getChar());
-                            letters.add(let);
-
-
-
-
-
                         }
                     }
                     break;
@@ -298,30 +271,23 @@ public class Board extends SurfaceView implements View.OnTouchListener{
         this.invalidate();
         return true;
     }
-    public ArrayList<Letter> getAR(){
-        return letters;
-    }
-    public StringBuilder getSB(){
-        Collections.sort(letters);
-        for (Letter l : letters) {
-            sb.append(l.getLetter());
-        }
-        return sb;
+
+    public void setMessage(String m){
+        message = m;
+        this.invalidate();
     }
 
-
-    public void setPlayerTiles(Tile[] playerTiles) {
-        for (int i = 0; i < 7; i++){
-            this.playerTiles[i] = playerTiles[i];
-        }
+    public String getMessage(){
+        return message;
     }
 
-
-
-    public Tile[] getPlayerTiles(){
-        return playerTiles;
-    }
-   public void setState(ScrabbleGameState state){
+    public void setState(ScrabbleGameState state) {
         this.state = state;
     }
+
+    public void addToTileCounter(int add) {
+        tileCounter = tileCounter + add;
+    }
+
+    public int getTileCounter(){return tileCounter;}
 }

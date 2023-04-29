@@ -11,14 +11,13 @@ public class PlayWordAction extends GameAction {
 
     private int score;
     private boolean spellCheck;
+    private int length;
 
-    public PlayWordAction(GamePlayer player, boolean bool, int currScore){
+    public PlayWordAction(GamePlayer player, boolean bool, int currScore, int l){
         super(player);
-        //t = new Tile();
-        //hable.put(t.getChar(), t.getPoints());
-        //this.id = idx;
         spellCheck = bool;
         score = currScore;
+        length = l;
     }
 
     public boolean getSpellCheck(){
@@ -28,4 +27,5 @@ public class PlayWordAction extends GameAction {
     public int getScore() {
         return score;
     }
+    public int getLength() {return length;}
 }

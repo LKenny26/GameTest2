@@ -21,6 +21,7 @@ public class ScrabbleLocalGame extends LocalGame {
     }
 
     public ScrabbleLocalGame(ScrabbleGameState scrstate, HashSet<String> hash){
+        //dr. libby helped
         super();
         super.state= new ScrabbleGameState(scrstate);
         hashet = hash;
@@ -28,7 +29,6 @@ public class ScrabbleLocalGame extends LocalGame {
 
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        //dr libby helped
         p.sendInfo(new ScrabbleGameState((ScrabbleGameState) state));
     }
 
@@ -43,20 +43,21 @@ public class ScrabbleLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
-        //TODO: something is wrong null should be pushed if game is not over
         String gameOver;
-        gameOver = "game not over";
-        if(sgs.TileCounter == 100){
-            gameOver = "game is over, identifying winner...";
-           // return gameOver;
-            //need a checkScore of some sort here
-        }
-        return null;
-        //return gameOver;
+        if(sgs.getTileCounter() == 100){
+            if(sgs.getPlayerOneScore() > sgs.getPlayerTwoScore()) {
+                gameOver = "Game is over, Player One Wins!";
+            }
+            else {
+                gameOver = "Game is over, Computer Wins";
+            }
 
-    }
-    public boolean valid(String string){
-        return hashet.contains(string);
+            return gameOver;
+        }
+        else {
+            return null;
+        }
+
     }
     public HashSet<String> getHash(){
         return hashet;
@@ -84,6 +85,7 @@ public class ScrabbleLocalGame extends LocalGame {
                     sgs.setPlayerID(0);
                 }
             }
+            sgs.addToTileCounter(((PlayWordAction) action).getLength());
             return true;
 
         }
