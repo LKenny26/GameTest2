@@ -1,6 +1,7 @@
 package com.example.gametest2;
 
 public class Letter implements Comparable<Letter> {
+    //dr libby gave the idea of this class
     private int row;
     private int col;
     private char letter;
@@ -24,7 +25,7 @@ public class Letter implements Comparable<Letter> {
     }
 
     @Override
-    public int compareTo(Letter other) {
+    public int compareTo(Letter other) {//compares the letters in same row/col
 
         if (this.row == other.row) {
             return Integer.compare(this.col, other.col);

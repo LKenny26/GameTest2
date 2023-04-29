@@ -68,7 +68,7 @@ public class MainActivity extends GameMainActivity {
 
     //@Override
     public LocalGame createLocalGame(GameState gs) {
-        //dr libby helped here
+        //dr libby and veghdal helped here
 
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.words_alpha)));
