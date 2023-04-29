@@ -27,6 +27,7 @@ public class ScoreBoard extends SurfaceView {
     private int threeQuartersX;
 
     public ScoreBoard(Context context, AttributeSet attrs) {
+        //CTOR
         super(context, attrs);
         setWillNotDraw(false);
         lines.setColor(Color.WHITE);
@@ -39,6 +40,7 @@ public class ScoreBoard extends SurfaceView {
 
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
+        //set the stuff for draw
         startX = 50;
         endX= 1050;
         startY = 10;
@@ -48,6 +50,8 @@ public class ScoreBoard extends SurfaceView {
         int i;
         canvas.drawText("Players", startX+10, startY+40, text);
         canvas.drawText("Scores", threeQuartersX+10, startY+40, text);
+
+        //draw the box
         for(i = 1; i <= 6; i++){
             canvas.drawLine(startX, (i*50)+startY, endX, (i*50)+endY, lines);
         }
@@ -55,6 +59,8 @@ public class ScoreBoard extends SurfaceView {
         canvas.drawLine(endX, startY, endX, endY+(6*50), lines);
         canvas.drawLine(threeQuartersX, startY, threeQuartersX, endY+(6*50), lines);
 
+
+        //highlight the player
         if(playerID == 0){
             canvas.drawText("OPPONENT", (25)+startX, startY+138, text);
             canvas.drawText(playerTwoScore + "", (800)+startX, startY + 138, text);
@@ -64,6 +70,7 @@ public class ScoreBoard extends SurfaceView {
             canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
         }
         else if(playerID == 1){
+            //highlight the computer
             canvas.drawText("YOU", (25)+startX, startY+85, text);
             canvas.drawText(playerOneScore + "", (800)+startX, startY+85, text);
             text.setColor(Color.YELLOW);
