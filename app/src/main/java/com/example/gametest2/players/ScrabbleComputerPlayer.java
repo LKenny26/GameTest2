@@ -52,7 +52,6 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
             int col;
             int row;
             String word = "";
-            boolean realWord = false;
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
 
             //sleep for the comp
@@ -135,7 +134,6 @@ public class ScrabbleComputerPlayer extends GameComputerPlayer {
                                         if (tripleWord) {
                                             score = score * 3;
                                         }
-                                        realWord = true;
                                         sb.setPlayerTwoScore(score);
 
                                         //go through the board and set the unconfirmed tiles to confirmed

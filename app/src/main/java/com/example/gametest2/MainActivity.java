@@ -47,15 +47,13 @@ public class MainActivity extends GameMainActivity {
             }
         });//computer
 
-        /*
+
         playerTypes.add(new GamePlayerType("Smart Computer Player") {
             @Override
             public GamePlayer createPlayer(String name) {
                 return new ScrabbleSmartComputerPlayer(name);
             }
         });
-
-         */
 
         //make the default config
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Scrabble", PORT_NUMBER);
