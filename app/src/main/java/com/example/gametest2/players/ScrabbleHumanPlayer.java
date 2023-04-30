@@ -411,33 +411,36 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             //go through the board array
             for (int i = 0; i < Board.BOARD_SIZE; i++) {
                 for (int j = 0; j < Board.BOARD_SIZE; j++) {
-                    //check the tiles around it to see where the word goes
                     if (!bd.boardTiles[i][j].getConfirmed() && !bd.boardTiles[i][j].getEmpty()) {
-                        //get the row and the col of the tile found
+                        //set the row and col of the tile found
                         row = i;
                         col = j;
+
+                        //check each of the directions to see which way the word goes
                         if (i > 0 && !bd.boardTiles[i - 1][j].getEmpty()) {
+                            //up
                             direction = up;
                         } else if (i < Board.BOARD_SIZE - 1 && !bd.boardTiles[i + 1][j].getEmpty()) {
                             direction = down;
                         } else if (j > 0 && !bd.boardTiles[i][j - 1].getEmpty()) {
-                            direction = right;
-                        } else if (j < Board.BOARD_SIZE - 1 && !bd.boardTiles[i][j + 1].getEmpty()) {
                             direction = left;
+                        } else if (j < Board.BOARD_SIZE - 1 && !bd.boardTiles[i][j + 1].getEmpty()) {
+                            direction = right;
                         }
+                        //break after a direction is found
                         break;
                     }
                 }
             }
 
             if (direction == up || direction == down) {
-                while (row > 0 && !bd.boardTiles[row][col].getEmpty()) {
-                    //go all the way up of the word
+                while (row > 0 && !bd.boardTiles[row - 1][col].getEmpty()) {
+                    //finds the up most tile of the word
                     row = row - 1;
                 }
 
+                //goes from up to down to get the words and the points
                 while (row < Board.BOARD_SIZE && !bd.boardTiles[row][col].getEmpty()) {
-                    //go all the way down and set the word
                     word = word + bd.boardTiles[row][col].getChar();
                     row = row + 1;
                 }
@@ -445,12 +448,14 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
 
             if (direction == right || direction == left) {
-                while(col > 0 && !bd.boardTiles[row][col].getEmpty()){
-                    //go all the way left until you cant
+                while(col > 0 && !bd.boardTiles[row][col -1].getEmpty()){
+                    //go to the most left point of the word
                     col = col - 1;
+
                 }
+
+                //goes left to right to get the score and the word
                 while (col < Board.BOARD_SIZE && !bd.boardTiles[row][col].getEmpty()){
-                    //go all the way right until you can't to set the word
                     word = word + bd.boardTiles[row][col].getChar();
                     col = col + 1;
                 }
@@ -459,11 +464,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             HashSet<String> saver = ((ScrabbleLocalGame) game).getHash();
             if (saver.contains(word.toLowerCase())) {
                 Logger.log("TAG", "valid word!");
-                message = "This is a valid word!";
+                message = word + " is a valid word!";
                 bd.setMessage(message);
             } else {
                 Logger.log("TAG", "invalid word");
-                message = "This is not a valid word.";
+                message = word + " is not a valid word.";
                 bd.setMessage(message);
             }
         }
