@@ -93,12 +93,16 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                     }
                 }
             }
+            int startCol = -1;
+            int startRow = -1;
 
             if (direction == up || direction == down) {
                 while (row > 0 && !bd.boardTiles[row - 1][col].getEmpty()) {
                     //finds the up most tile of the word
                     row = row - 1;
                 }
+                startCol = col;
+                startRow = row;
 
                 //goes from up to down to get the words and the points
                 while (row < Board.BOARD_SIZE - 1 && !bd.boardTiles[row][col].getEmpty()) {
@@ -134,7 +138,10 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 while(col > 0 && !bd.boardTiles[row][col -1].getEmpty()){
                     //go to the most left point of the word
                     col = col - 1;
+
                 }
+                startCol = col;
+                startRow = row;
 
                 //goes left to right to get the score and the word
                 while (col < Board.BOARD_SIZE && !bd.boardTiles[row][col].getEmpty()){
@@ -203,15 +210,41 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 Logger.log("TAG", "valid word!");
                 int newTiles = 0;
 
-                //go through the board and set the unconfirmed tiles to confirmed
+                //go to the left of the word that the player played and confirm it
+                if (direction == right || direction == left) {
+                    while(startCol != -1 && startCol < Board.BOARD_SIZE && !bd.boardTiles[startRow][startCol].getEmpty()) {
+                        bd.boardTiles[startRow][startCol].setConfirmed(true);
+                        startCol++;
+                    }
+                }
+
+                //if the word is vertical go down until the whole word is confirmed
+                if(direction == up || direction == down){
+                    while(startRow != -1 && startRow < Board.BOARD_SIZE && !bd.boardTiles[startRow][startCol].getEmpty()){
+                        bd.boardTiles[startRow][startCol].setConfirmed(true);
+                        startRow++;
+                    }
+                }
+
+                //take away the unconfirmed tiles
                 for(int i = 0; i < Board.BOARD_SIZE; i++) {
                     for(int j = 0; j < Board.BOARD_SIZE; j++){
-                        if (!bd.boardTiles[i][j].getConfirmed() && !bd.boardTiles[i][j].getEmpty()) {
-                            bd.boardTiles[i][j].setConfirmed(true);
-                            newTiles++;
+                        if (!bd.boardTiles[i][j].getConfirmed()) {
+                            Tile temp = null;
+                            for (int k = 0; k < 7; k++) {
+                                //find the tile that is empty in a player's hand
+                                if (bd.playerTiles[k].getEmpty()) {
+                                    temp = bd.playerTiles[k];
+                                }
+                            }
+                            //if a tile that is empty is found swap it with an unconfirmed tile
+                            if (temp != null) {
+                                Tile.swap(bd.boardTiles[i][j], temp);
+                            }
                         }
                     }
                 }
+
 
                 //go through the players tiles to give them new tiles
                 int tilesLeft = 7;
