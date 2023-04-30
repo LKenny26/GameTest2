@@ -247,15 +247,23 @@ public class Board extends SurfaceView implements View.OnTouchListener {
         }
 
         //check if the board was clicked on and  if the tile needs to be swapped with selected. If none selected then no swap
+        boolean selected = false;
+        int r = -1;
+        int c = -1;
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 if (x < boardTiles[row][col].getR() && x > boardTiles[row][col].getL() && y > boardTiles[row][col].getT() && y < boardTiles[row][col].getB()) {
+                    r = row;
+                    c = col;
                     for (int i = 0; i < 7; i++) {
                         if (playerTiles[i].isSelected() && boardTiles[row][col].getEmpty()) {
                             Tile.swap(boardTiles[row][col], playerTiles[i]);
+                            break;
+                        }
+                        if(playerTiles[i].getSelected()){
+                            selected = true;
                         }
                     }
-                    break;
                 }
             }
         }

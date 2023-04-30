@@ -105,7 +105,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 startRow = row;
 
                 //goes from up to down to get the words and the points
-                while (row < Board.BOARD_SIZE - 1 && !bd.boardTiles[row][col].getEmpty()) {
+                while (row < Board.BOARD_SIZE && !bd.boardTiles[row][col].getEmpty()) {
                     if (firstTurn && bd.squares[row][col].getType() == Square.STAR){
                         center = true;
                     }
