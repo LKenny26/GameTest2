@@ -383,12 +383,12 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
 
             if (direction == up || direction == down) {
-                while (!bd.boardTiles[row][col].getEmpty() && row > 0) {
+                while (row > 0 && !bd.boardTiles[row][col].getEmpty()) {
                     //go all the way up of the word
                     row = row - 1;
                 }
 
-                while (!bd.boardTiles[row][col].getEmpty() && row < Board.BOARD_SIZE - 1) {
+                while (row < Board.BOARD_SIZE && !bd.boardTiles[row][col].getEmpty()) {
                     //go all the way down and set the word
                     word = word + bd.boardTiles[row][col].getChar();
                     row = row + 1;
@@ -397,11 +397,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
             }
 
             if (direction == right || direction == left) {
-                while(!bd.boardTiles[row][col].getEmpty() && col > 0){
+                while(col > 0 && !bd.boardTiles[row][col].getEmpty()){
                     //go all the way left until you cant
                     col = col - 1;
                 }
-                while (!bd.boardTiles[row][col].getEmpty() && col < Board.BOARD_SIZE - 1){
+                while (col < Board.BOARD_SIZE && !bd.boardTiles[row][col].getEmpty()){
                     //go all the way right until you can't to set the word
                     word = word + bd.boardTiles[row][col].getChar();
                     col = col + 1;
