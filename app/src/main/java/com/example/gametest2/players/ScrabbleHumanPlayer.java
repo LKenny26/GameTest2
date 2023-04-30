@@ -200,83 +200,131 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements View.OnClick
                 game.sendAction(new PlayWordAction(this, false, 0, 0));
                 return;
             }
-            else {
-                firstTurn = false;
-            }
 
             //check to see if the word is in the hashset and therefore a real word
             if (saver.contains(word.toLowerCase())) {
                 //this is a valid word
                 Logger.log("TAG", "valid word!");
                 int newTiles = 0;
+                int confirmCol = startCol;
+                int confirmRow = startRow;
+                boolean confirmedCross = false;
 
-                //go to the left of the word that the player played and confirm it
+                //check for one already confirmed letter in a horizontal word
                 if (direction == right || direction == left) {
-                    while(startCol != -1 && startCol < Board.BOARD_SIZE && !bd.boardTiles[startRow][startCol].getEmpty()) {
-                        bd.boardTiles[startRow][startCol].setConfirmed(true);
-                        startCol++;
+                    while(confirmCol != -1 && confirmCol < Board.BOARD_SIZE && !bd.boardTiles[confirmRow][confirmCol].getEmpty()) {
+                        if(bd.boardTiles[confirmRow][confirmCol].getConfirmed()){
+                            confirmedCross = true;
+                        }
+                        confirmCol++;
                     }
                 }
 
-                //if the word is vertical go down until the whole word is confirmed
+                //check for one already confirmed letter in a vert word
                 if(direction == up || direction == down){
-                    while(startRow != -1 && startRow < Board.BOARD_SIZE && !bd.boardTiles[startRow][startCol].getEmpty()){
-                        bd.boardTiles[startRow][startCol].setConfirmed(true);
-                        startRow++;
+                    while(confirmRow != -1 && confirmRow < Board.BOARD_SIZE && !bd.boardTiles[confirmRow][confirmCol].getEmpty()){
+                        if(bd.boardTiles[confirmRow][confirmCol].getConfirmed()){
+                            confirmedCross = true;
+                        }
+                        confirmRow++;
                     }
                 }
 
-                //take away the unconfirmed tiles
-                for(int i = 0; i < Board.BOARD_SIZE; i++) {
-                    for(int j = 0; j < Board.BOARD_SIZE; j++){
-                        if (!bd.boardTiles[i][j].getConfirmed()) {
-                            Tile temp = null;
-                            for (int k = 0; k < 7; k++) {
-                                //find the tile that is empty in a player's hand
-                                if (bd.playerTiles[k].getEmpty()) {
-                                    temp = bd.playerTiles[k];
+                if(firstTurn || confirmedCross) {
+                    //go to the left of the word that the player played and confirm it
+                    if (direction == right || direction == left) {
+                        while(startCol != -1 && startCol < Board.BOARD_SIZE && !bd.boardTiles[startRow][startCol].getEmpty()) {
+                            bd.boardTiles[startRow][startCol].setConfirmed(true);
+                            startCol++;
+                        }
+                    }
+
+                    //if the word is vertical go down until the whole word is confirmed
+                    if(direction == up || direction == down){
+                        while(startRow != -1 && startRow < Board.BOARD_SIZE && !bd.boardTiles[startRow][startCol].getEmpty()){
+                            bd.boardTiles[startRow][startCol].setConfirmed(true);
+                            startRow++;
+                        }
+                    }
+
+                    //take away the unconfirmed tiles
+                    for (int i = 0; i < Board.BOARD_SIZE; i++) {
+                        for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                            if (!bd.boardTiles[i][j].getConfirmed()) {
+                                Tile temp = null;
+                                for (int k = 0; k < 7; k++) {
+                                    //find the tile that is empty in a player's hand
+                                    if (bd.playerTiles[k].getEmpty()) {
+                                        temp = bd.playerTiles[k];
+                                    }
                                 }
-                            }
-                            //if a tile that is empty is found swap it with an unconfirmed tile
-                            if (temp != null) {
-                                Tile.swap(bd.boardTiles[i][j], temp);
+                                //if a tile that is empty is found swap it with an unconfirmed tile
+                                if (temp != null) {
+                                    Tile.swap(bd.boardTiles[i][j], temp);
+                                }
                             }
                         }
                     }
-                }
 
 
-                //go through the players tiles to give them new tiles
-                int tilesLeft = 7;
-                if (100 - bd.getTileCounter() < 7){
-                    tilesLeft = tilesLeft - (100 - bd.getTileCounter());
-                }
-                for(int i = 0; i < tilesLeft; i++) {
-                    if (bd.playerTiles[i].getEmpty()){
-                        bd.playerTiles[i] = new Tile(bd.playerTiles[i].getL(), bd.playerTiles[i].getT(), bd.playerTiles[i].getR(), bd.playerTiles[i].getB(), false);
+                    //go through the players tiles to give them new tiles
+                    int tilesLeft = 7;
+                    if (100 - bd.getTileCounter() < 7) {
+                        tilesLeft = tilesLeft - (100 - bd.getTileCounter());
                     }
-                }
+                    for (int i = 0; i < tilesLeft; i++) {
+                        if (bd.playerTiles[i].getEmpty()) {
+                            bd.playerTiles[i] = new Tile(bd.playerTiles[i].getL(), bd.playerTiles[i].getT(), bd.playerTiles[i].getR(), bd.playerTiles[i].getB(), false);
+                        }
+                    }
 
-                //checks to see if the word specialties are played upon
-                if (doubleWord) {
-                    score = score * 2;
+                    //checks to see if the word specialties are played upon
+                    if (doubleWord) {
+                        score = score * 2;
+                    }
+                    if (tripleWord) {
+                        score = score * 3;
+                    }
+                    firstTurn = false;
+                    lastActionSkip = false;
+                    bd.addToTileCounter(word.length());
+                    message = "Valid move! Word Played: " + word + " Points: " + score;
+                    bd.setMessage(message);
+                    //set the score for the scoreboard
+                    sb.setPlay1Score(score);
+                    //redraw the board
+                    bd.invalidate();
+                    //redraw the scoreboard
+                    sb.invalidate();
+                    //send the action
+                    game.sendAction(new PlayWordAction(this, true, score, newTiles));
                 }
-                if (tripleWord) {
-                    score = score * 3;
+                else {
+                    message = "Error: The word does not cross an already placed tile";
+                    for(int i = 0; i < Board.BOARD_SIZE; i++) {
+                        for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                            //iterate through the rows and cols
+                            if (!bd.boardTiles[i][j].getConfirmed()) {
+                                //check if a tile is confirmed or not
+                                Tile temp = null;
+                                for (int k = 0; k < 7; k++) {
+                                    //find the tile that is empty in a player's hand
+                                    if (bd.playerTiles[k].getEmpty()) {
+                                        temp = bd.playerTiles[k];
+                                    }
+                                }
+                                //if a tile that is empty is found swap it with an unconfirmed tile
+                                if (temp != null) {
+                                    Tile.swap(bd.boardTiles[i][j], temp);
+                                }
+                            }
+                        }
+                    }
+                    //redraw
+                    bd.setMessage(message);
+                    bd.invalidate();
+                    game.sendAction(new PlayWordAction(this, false, 0, 0));
                 }
-
-                lastActionSkip = false;
-                bd.addToTileCounter(word.length());
-                message = "Valid move! Word Played: " + word + " Points: " + score;
-                bd.setMessage(message);
-                //set the score for the scoreboard
-                sb.setPlay1Score(score);
-                //redraw the board
-                bd.invalidate();
-                //redraw the scoreboard
-                sb.invalidate();
-                //send the action
-                game.sendAction(new PlayWordAction(this, true, score, newTiles));
             } else {
                 //word does not exist or is invalid
                 Logger.log("TAG", "invalid word");
