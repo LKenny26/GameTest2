@@ -230,21 +230,26 @@ public class Board extends SurfaceView implements View.OnTouchListener {
         if(playerID != 0){
             return true;
         }
-
+        if (event.getAction() != MotionEvent.ACTION_UP) {
+            //check if a bottom tile was clicked and set it to be the selected tile
+            float x = event.getX();
+            float y = event.getY();
+            for (int i = 0; i < 7; i++) {
+                if (x < playerTiles[i].getR() && x > playerTiles[i].getL() && y > playerTiles[i].getT() && y < playerTiles[i].getB()) {
+                    for (int j = 0; j < 7; j++) {
+                        playerTiles[j].setSelected(false);
+                    }
+                    playerTiles[i].setSelected(true);
+                    break;
+                }
+            }
+            return true;
+        }
         //get the coords of the touch
         float x = event.getX();
         float y = event.getY();
 
-        //check if a bottom tile was clicked and set it to be the selected tile
-        for (int i = 0; i < 7; i++) {
-            if (x < playerTiles[i].getR() && x > playerTiles[i].getL() && y > playerTiles[i].getT() && y < playerTiles[i].getB()) {
-                for (int j = 0; j < 7; j++) {
-                    playerTiles[j].setSelected(false);
-                }
-                playerTiles[i].setSelected(true);
-                break;
-            }
-        }
+
 
         //check if the board was clicked on and  if the tile needs to be swapped with selected. If none selected then no swap
         boolean selected = false;
